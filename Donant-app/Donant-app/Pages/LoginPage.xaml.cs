@@ -18,27 +18,27 @@ public partial class LoginPage : ContentPage
     private async void OnLoginTapped(object sender, EventArgs e)
     {
         // lógica de autenticación
-        await Shell.Current.GoToAsync("//MainPage");
+        await Shell.Current.GoToAsync("//HomePage");
     }
 
     private async void OnForgotPassword(object sender, EventArgs e)
     {
-        await DisplayAlert("Recuperar contraseña", "Se enviará un enlace a tu correo.", "OK");
+        await DisplayAlertAsync("Recuperar contraseña", "Se enviará un enlace a tu correo.", "OK");
     }
 
     private async void OnGoogleLogin(object sender, EventArgs e)
     {
-        await DisplayAlert("Google", "Login con Google no implementado aún.", "OK");
+        await DisplayAlertAsync("Google", "Login con Google no implementado aún.", "OK");
     }
 
     private async void OnCedulaLogin(object sender, EventArgs e)
     {
-        await DisplayAlert("Cédula", "Login con cédula no implementado aún.", "OK");
+        await DisplayAlertAsync("Cédula", "Login con cédula no implementado aún.", "OK");
     }
 
     private async void OnRegisterTapped(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(NewDonorPage));
+        await Shell.Current.GoToAsync(nameof(HomePage));
     }
 
 
