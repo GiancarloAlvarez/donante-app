@@ -12,28 +12,28 @@ public partial class LoginPage : ContentPage
     {
         _passwordVisible = !_passwordVisible;
         PasswordEntry.IsPassword = !_passwordVisible;
-        EyeIcon.Text = _passwordVisible ? "\uf070" : "\uf06e"; // fa-eye-slash / fa-eye
+        EyeIcon.Text = _passwordVisible ? "\uf070" : "\uf06e"; 
     }
 
     private async void OnLoginTapped(object sender, EventArgs e)
     {
-        // lógica de autenticación
+        
         await Shell.Current.GoToAsync("//HomePage");
     }
 
     private async void OnForgotPassword(object sender, EventArgs e)
     {
-        await DisplayAlertAsync("Recuperar contraseña", "Se enviará un enlace a tu correo.", "OK");
+        await DisplayAlert("Recuperar contraseña", "Se enviará un enlace a tu correo.", "OK");
     }
 
     private async void OnGoogleLogin(object sender, EventArgs e)
     {
-        await DisplayAlertAsync("Google", "Login con Google no implementado aún.", "OK");
+        await DisplayAlert("Google", "Login con Google no implementado aún.", "OK");
     }
 
     private async void OnCedulaLogin(object sender, EventArgs e)
     {
-        await DisplayAlertAsync("Cédula", "Login con cédula no implementado aún.", "OK");
+        await DisplayAlert("Cédula", "Login con cédula no implementado aún.", "OK");
     }
 
     private async void OnRegisterTapped(object sender, EventArgs e)

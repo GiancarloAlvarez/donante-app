@@ -9,9 +9,7 @@
 
     <Grid RowDefinitions="Auto,*,Auto">
 
-        <!-- ═══════════════════════════════════════════ -->
-        <!--  HEADER — logo + marca  -->
-        <!-- ═══════════════════════════════════════════ -->
+      
         <Grid Grid.Row="0"
               BackgroundColor="#DC143C"
               Padding="24,56,24,48">
@@ -19,14 +17,13 @@
                 <Shadow Brush="#30000000" Offset="0,4" Radius="12" Opacity="1"/>
             </Grid.Shadow>
 
-            <!-- Clip redondeado inferior -->
+           
             <Grid.Clip>
                 <RoundRectangleGeometry Rect="0,0,500,300" CornerRadius="0,0,36,36"/>
             </Grid.Clip>
 
             <VerticalStackLayout HorizontalOptions="Center" Spacing="8">
 
-                <!-- Ícono gota -->
                 <Border WidthRequest="80" HeightRequest="80"
                         BackgroundColor="#26FFFFFF"
                         StrokeThickness="3"
@@ -43,7 +40,7 @@
                            VerticalOptions="Center"/>
                 </Border>
 
-                <!-- Nombre app -->
+               
                 <Label Text="DonanT"
                        TextColor="White"
                        FontSize="28"
@@ -51,7 +48,6 @@
                        HorizontalOptions="Center"
                        CharacterSpacing="-0.5"/>
 
-                <!-- Slogan -->
                 <Label Text="Tu gota puede salvar una vida"
                        TextColor="#D9FFFFFF"
                        FontSize="13"
@@ -60,9 +56,7 @@
             </VerticalStackLayout>
         </Grid>
 
-        <!-- ═══════════════════════════════════════════ -->
-        <!--  MAIN — formulario  -->
-        <!-- ═══════════════════════════════════════════ -->
+     
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Padding="24,28,24,16" Spacing="0">
 
@@ -76,7 +70,6 @@
                        TextColor="#6B7280"
                        Margin="0,4,0,24"/>
 
-                <!-- ── Campo: Usuario ── -->
                 <Label Text="USUARIO"
                        FontSize="11"
                        FontFamily="InterSemiBold"
@@ -114,7 +107,6 @@
                     </Grid>
                 </Border>
 
-                <!-- ── Campo: Contraseña ── -->
                 <Label Text="CONTRASEÑA"
                        FontSize="11"
                        FontFamily="InterSemiBold"
@@ -164,7 +156,6 @@
                     </Grid>
                 </Border>
 
-                <!-- ── Recuérdame + ¿Olvidaste? ── -->
                 <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,20">
                     <HorizontalStackLayout Grid.Column="0" Spacing="8" VerticalOptions="Center">
                         <CheckBox x:Name="RememberMe"
@@ -218,7 +209,6 @@
                     </Grid>
                 </Border>
 
-                <!-- ── Separador "o continúa con" ── -->
                 <Grid ColumnDefinitions="*,Auto,*" ColumnSpacing="12" Margin="0,0,0,16">
                     <BoxView Grid.Column="0"
                              HeightRequest="1"
@@ -236,7 +226,6 @@
                              VerticalOptions="Center"/>
                 </Grid>
 
-                <!-- ── Botones sociales ── -->
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
 
                     <!-- Google -->
@@ -306,9 +295,7 @@
             </VerticalStackLayout>
         </ScrollView>
 
-        <!-- ═══════════════════════════════════════════ -->
-        <!--  FOOTER — registro  -->
-        <!-- ═══════════════════════════════════════════ -->
+       
         <VerticalStackLayout Grid.Row="2"
                              Padding="24,16,24,36"
                              HorizontalOptions="Center">

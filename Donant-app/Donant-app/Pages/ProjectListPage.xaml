@@ -6,16 +6,13 @@
     Shell.NavBarIsVisible="False"
     BackgroundColor="#F8F7F9">
 
-    <!-- FAB flotante sobre el contenido -->
     <AbsoluteLayout>
 
         <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1"
                     AbsoluteLayout.LayoutFlags="All">
             <Grid RowDefinitions="Auto,*">
 
-                <!-- ═══════════════════════════════════════════ -->
-                <!--  HEADER  -->
-                <!-- ═══════════════════════════════════════════ -->
+           
                 <Grid Grid.Row="0"
                       BackgroundColor="#DC143C"
                       Padding="20,52,20,20">
@@ -24,7 +21,6 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Título + filtro -->
                     <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
                         <Label Grid.Column="0"
                                Text="Recursos"
@@ -50,7 +46,6 @@
                         </Border>
                     </Grid>
 
-                    <!-- Buscador -->
                     <Border Grid.Row="1"
                             Margin="0,16,0,0"
                             BackgroundColor="White"
@@ -82,9 +77,7 @@
                     </Border>
                 </Grid>
 
-                <!-- ═══════════════════════════════════════════ -->
-                <!--  CONTENIDO PRINCIPAL  -->
-                <!-- ═══════════════════════════════════════════ -->
+              
                 <VerticalStackLayout Grid.Row="1" Padding="20,20,20,100" Spacing="0">
 
                     <!-- ── Pestañas de filtro ── -->
@@ -159,7 +152,6 @@
                                VerticalOptions="Center"/>
                     </Grid>
 
-                    <!-- Donante 1 — Luis Ramírez -->
                     <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,10">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="16"/>
@@ -197,7 +189,6 @@
                         </Grid>
                     </Border>
 
-                    <!-- Donante 2 — Sofía Morales -->
                     <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,0">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="16"/>
@@ -235,7 +226,6 @@
                         </Grid>
                     </Border>
 
-                    <!-- ── Sección: Citas y solicitudes ── -->
                     <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,24,0,10" ColumnSpacing="6">
                         <Label Grid.Column="0"
                                Text="&#xf274;"
@@ -258,7 +248,6 @@
                                VerticalOptions="Center"/>
                     </Grid>
 
-                    <!-- Cita 1 -->
                     <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,10">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="16"/>
@@ -289,7 +278,6 @@
                         </Grid>
                     </Border>
 
-                    <!-- Cita 2 -->
                     <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,0">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="16"/>
@@ -320,7 +308,6 @@
                         </Grid>
                     </Border>
 
-                    <!-- ── Sección: Historial ── -->
                     <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,24,0,10" ColumnSpacing="6">
                         <Label Grid.Column="0"
                                Text="&#xf1da;"
@@ -343,7 +330,6 @@
                                VerticalOptions="Center"/>
                     </Grid>
 
-                    <!-- Historial 1 -->
                     <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,10">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="16"/>
@@ -366,7 +352,6 @@
                         </Grid>
                     </Border>
 
-                    <!-- Historial 2 -->
                     <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,0">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="16"/>
@@ -393,7 +378,6 @@
             </Grid>
         </ScrollView>
 
-        <!-- ── FAB flotante ── -->
         <Border AbsoluteLayout.LayoutBounds="1,1,56,56"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 Margin="0,0,20,90"

@@ -9,9 +9,6 @@
     <ScrollView>
         <Grid RowDefinitions="Auto,*">
 
-            <!-- ═══════════════════════════════════════════ -->
-            <!--  HEADER  -->
-            <!-- ═══════════════════════════════════════════ -->
             <Grid Grid.Row="0"
                   BackgroundColor="#DC143C"
                   Padding="20,52,20,28">
@@ -20,10 +17,8 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- Saludo + campana -->
                 <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
 
-                    <!-- Avatar iniciales -->
                     <Border Grid.Column="0"
                             WidthRequest="44" HeightRequest="44"
                             BackgroundColor="#33FFFFFF"
@@ -39,7 +34,6 @@
                                VerticalOptions="Center"/>
                     </Border>
 
-                    <!-- Nombre -->
                     <VerticalStackLayout Grid.Column="1"
                                          Margin="12,0,0,0"
                                          VerticalOptions="Center">
@@ -53,7 +47,6 @@
                                FontFamily="InterSemiBold"/>
                     </VerticalStackLayout>
 
-                    <!-- Botón campana -->
                     <Border Grid.Column="2"
                             WidthRequest="40" HeightRequest="40"
                             BackgroundColor="#26FFFFFF"
@@ -78,7 +71,6 @@
                     </Border>
                 </Grid>
 
-                <!-- Tarjeta tipo de sangre -->
                 <Border Grid.Row="1"
                         Margin="0,20,0,0"
                         BackgroundColor="#26FFFFFF"
@@ -106,7 +98,6 @@
                                    Margin="0,2,0,0"/>
                         </VerticalStackLayout>
 
-                        <!-- Ícono gota -->
                         <Border Grid.Column="1"
                                 WidthRequest="56" HeightRequest="56"
                                 BackgroundColor="White"
@@ -126,9 +117,7 @@
                 </Border>
             </Grid>
 
-            <!-- ═══════════════════════════════════════════ -->
-            <!--  CONTENIDO PRINCIPAL  -->
-            <!-- ═══════════════════════════════════════════ -->
+         
             <VerticalStackLayout Grid.Row="1" Padding="20,24,20,100" Spacing="0">
 
                 <!-- ── Estadísticas ── -->
@@ -177,7 +166,6 @@
                     </Border>
                 </Grid>
 
-                <!-- ── Accesos rápidos ── -->
                 <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="12" Margin="0,24,0,0">
 
                     <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="6">
@@ -233,9 +221,7 @@
                     </VerticalStackLayout>
                 </Grid>
 
-                <!-- ── Campaña urgente ── -->
                 <Grid Margin="0,24,0,0">
-                    <!-- Accent bar izquierda -->
                     <BoxView Color="#DC143C"
                              WidthRequest="4"
                              HorizontalOptions="Start"
@@ -287,13 +273,11 @@
                     </Border>
                 </Grid>
 
-                <!-- ── Donantes destacados ── -->
                 <Grid ColumnDefinitions="*,Auto" Margin="0,24,0,12">
                     <Label Grid.Column="0" Text="Donantes destacados" FontSize="15" FontFamily="InterSemiBold" TextColor="#1F2937" VerticalOptions="Center"/>
                     <Label Grid.Column="1" Text="Ver todos" FontSize="12" FontFamily="InterMedium" TextColor="#DC143C" VerticalOptions="Center"/>
                 </Grid>
 
-                <!-- Donante 1 — Carlos López -->
                 <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,12">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16"/>
@@ -325,7 +309,6 @@
                     </Grid>
                 </Border>
 
-                <!-- Donante 2 — Ana Gómez -->
                 <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,12">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16"/>
@@ -353,7 +336,6 @@
                     </Grid>
                 </Border>
 
-                <!-- Donante 3 — Jorge Martínez -->
                 <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,0">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16"/>
