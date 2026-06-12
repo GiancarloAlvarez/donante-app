@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Donant_app.Pages.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="#F8F7F9"
+    Title="Login">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!--  HEADER — logo + marca  -->
+        <!-- ═══════════════════════════════════════════ -->
+        <Grid Grid.Row="0"
+              BackgroundColor="#DC143C"
+              Padding="24,56,24,48">
+            <Grid.Shadow>
+                <Shadow Brush="#30000000" Offset="0,4" Radius="12" Opacity="1"/>
+            </Grid.Shadow>
+
+            <!-- Clip redondeado inferior -->
+            <Grid.Clip>
+                <RoundRectangleGeometry Rect="0,0,500,300" CornerRadius="0,0,36,36"/>
+            </Grid.Clip>
+
+            <VerticalStackLayout HorizontalOptions="Center" Spacing="8">
+
+                <!-- Ícono gota -->
+                <Border WidthRequest="80" HeightRequest="80"
+                        BackgroundColor="#26FFFFFF"
+                        StrokeThickness="3"
+                        Stroke="#33FFFFFF"
+                        HorizontalOptions="Center">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="40"/>
+                    </Border.StrokeShape>
+                    <Label Text="&#xf043;"
+                           FontFamily="FontAwesomeSolid"
+                           FontSize="34"
+                           TextColor="White"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Border>
+
+                <!-- Nombre app -->
+                <Label Text="DonanT"
+                       TextColor="White"
+                       FontSize="28"
+                       FontFamily="InterBold"
+                       HorizontalOptions="Center"
+                       CharacterSpacing="-0.5"/>
+
+                <!-- Slogan -->
+                <Label Text="Tu gota puede salvar una vida"
+                       TextColor="#D9FFFFFF"
+                       FontSize="13"
+                       FontFamily="InterRegular"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Grid>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!--  MAIN — formulario  -->
+        <!-- ═══════════════════════════════════════════ -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,28,24,16" Spacing="0">
+
+                <Label Text="Iniciar sesión"
+                       FontSize="20"
+                       FontFamily="InterSemiBold"
+                       TextColor="#1F2937"/>
+                <Label Text="Bienvenido de nuevo, donante."
+                       FontSize="13"
+                       FontFamily="InterRegular"
+                       TextColor="#6B7280"
+                       Margin="0,4,0,24"/>
+
+                <!-- ── Campo: Usuario ── -->
+                <Label Text="USUARIO"
+                       FontSize="11"
+                       FontFamily="InterSemiBold"
+                       TextColor="#9CA3AF"
+                       CharacterSpacing="1"
+                       Margin="0,0,0,6"/>
+                <Border BackgroundColor="White"
+                        Stroke="#E5E7EB"
+                        StrokeThickness="1"
+                        Padding="0"
+                        Margin="0,0,0,16">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="#10000000" Offset="0,2" Radius="6" Opacity="1"/>
+                    </Border.Shadow>
+                    <Grid ColumnDefinitions="Auto,*" Padding="16,0,16,0">
+                        <Label Grid.Column="0"
+                               Text="&#xf007;"
+                               FontFamily="FontAwesomeSolid"
+                               FontSize="13"
+                               TextColor="#9CA3AF"
+                               VerticalOptions="Center"
+                               Margin="0,0,10,0"/>
+                        <Entry Grid.Column="1"
+                               x:Name="UsernameEntry"
+                               Placeholder="tu.usuario"
+                               PlaceholderColor="#9CA3AF"
+                               TextColor="#1F2937"
+                               FontSize="14"
+                               FontFamily="InterRegular"
+                               BackgroundColor="Transparent"
+                               HeightRequest="50"/>
+                    </Grid>
+                </Border>
+
+                <!-- ── Campo: Contraseña ── -->
+                <Label Text="CONTRASEÑA"
+                       FontSize="11"
+                       FontFamily="InterSemiBold"
+                       TextColor="#9CA3AF"
+                       CharacterSpacing="1"
+                       Margin="0,0,0,6"/>
+                <Border BackgroundColor="White"
+                        Stroke="#E5E7EB"
+                        StrokeThickness="1"
+                        Padding="0"
+                        Margin="0,0,0,16">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="#10000000" Offset="0,2" Radius="6" Opacity="1"/>
+                    </Border.Shadow>
+                    <Grid ColumnDefinitions="Auto,*,Auto" Padding="16,0,16,0">
+                        <Label Grid.Column="0"
+                               Text="&#xf023;"
+                               FontFamily="FontAwesomeSolid"
+                               FontSize="13"
+                               TextColor="#9CA3AF"
+                               VerticalOptions="Center"
+                               Margin="0,0,10,0"/>
+                        <Entry Grid.Column="1"
+                               x:Name="PasswordEntry"
+                               IsPassword="True"
+                               Text="123456"
+                               TextColor="#1F2937"
+                               FontSize="14"
+                               FontFamily="InterRegular"
+                               BackgroundColor="Transparent"
+                               HeightRequest="50"/>
+                        <!-- Ojo: toggle visibilidad -->
+                        <Label Grid.Column="2"
+                               x:Name="EyeIcon"
+                               Text="&#xf06e;"
+                               FontFamily="FontAwesomeRegular"
+                               FontSize="13"
+                               TextColor="#9CA3AF"
+                               VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnTogglePassword"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Border>
+
+                <!-- ── Recuérdame + ¿Olvidaste? ── -->
+                <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,20">
+                    <HorizontalStackLayout Grid.Column="0" Spacing="8" VerticalOptions="Center">
+                        <CheckBox x:Name="RememberMe"
+                                  Color="#DC143C"
+                                  VerticalOptions="Center"/>
+                        <Label Text="Recuérdame"
+                               FontSize="13"
+                               FontFamily="InterRegular"
+                               TextColor="#4B5563"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                    <Label Grid.Column="1"
+                           Text="¿Olvidaste tu contraseña?"
+                           FontSize="13"
+                           FontFamily="InterMedium"
+                           TextColor="#DC143C"
+                           VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnForgotPassword"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+
+                <!-- ── Botón Iniciar sesión ── -->
+                <Border BackgroundColor="#DC143C"
+                        StrokeThickness="0"
+                        Padding="0"
+                        Margin="0,0,0,24">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="#40DC143C" Offset="0,4" Radius="12" Opacity="1"/>
+                    </Border.Shadow>
+                    <Grid HeightRequest="54">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLoginTapped"/>
+                        </Grid.GestureRecognizers>
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                            <Label Text="&#xf2f6;"
+                                   FontFamily="FontAwesomeSolid"
+                                   FontSize="14"
+                                   TextColor="White"
+                                   VerticalOptions="Center"/>
+                            <Label Text="Iniciar sesión"
+                                   FontFamily="InterSemiBold"
+                                   FontSize="14"
+                                   TextColor="White"
+                                   VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- ── Separador "o continúa con" ── -->
+                <Grid ColumnDefinitions="*,Auto,*" ColumnSpacing="12" Margin="0,0,0,16">
+                    <BoxView Grid.Column="0"
+                             HeightRequest="1"
+                             BackgroundColor="#E5E7EB"
+                             VerticalOptions="Center"/>
+                    <Label Grid.Column="1"
+                           Text="o continúa con"
+                           FontSize="12"
+                           FontFamily="InterRegular"
+                           TextColor="#9CA3AF"
+                           VerticalOptions="Center"/>
+                    <BoxView Grid.Column="2"
+                             HeightRequest="1"
+                             BackgroundColor="#E5E7EB"
+                             VerticalOptions="Center"/>
+                </Grid>
+
+                <!-- ── Botones sociales ── -->
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+
+                    <!-- Google -->
+                    <Border Grid.Column="0"
+                            BackgroundColor="White"
+                            Stroke="#E5E7EB"
+                            StrokeThickness="1"
+                            Padding="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Border.Shadow>
+                            <Shadow Brush="#10000000" Offset="0,2" Radius="6" Opacity="1"/>
+                        </Border.Shadow>
+                        <Grid HeightRequest="48">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnGoogleLogin"/>
+                            </Grid.GestureRecognizers>
+                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="8">
+                                <Label Text="&#xf1a0;"
+                                       FontFamily="FontAwesomeBrands"
+                                       FontSize="15"
+                                       TextColor="#DC143C"
+                                       VerticalOptions="Center"/>
+                                <Label Text="Google"
+                                       FontFamily="InterMedium"
+                                       FontSize="13"
+                                       TextColor="#374151"
+                                       VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Border>
+
+                    <!-- Cédula -->
+                    <Border Grid.Column="1"
+                            BackgroundColor="White"
+                            Stroke="#E5E7EB"
+                            StrokeThickness="1"
+                            Padding="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Border.Shadow>
+                            <Shadow Brush="#10000000" Offset="0,2" Radius="6" Opacity="1"/>
+                        </Border.Shadow>
+                        <Grid HeightRequest="48">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCedulaLogin"/>
+                            </Grid.GestureRecognizers>
+                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="8">
+                                <Label Text="&#xf2c2;"
+                                       FontFamily="FontAwesomeRegular"
+                                       FontSize="15"
+                                       TextColor="#DC143C"
+                                       VerticalOptions="Center"/>
+                                <Label Text="Cédula"
+                                       FontFamily="InterMedium"
+                                       FontSize="13"
+                                       TextColor="#374151"
+                                       VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Border>
+
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!--  FOOTER — registro  -->
+        <!-- ═══════════════════════════════════════════ -->
+        <VerticalStackLayout Grid.Row="2"
+                             Padding="24,16,24,36"
+                             HorizontalOptions="Center">
+            <HorizontalStackLayout Spacing="4" HorizontalOptions="Center">
+                <Label Text="¿Aún no eres donante?"
+                       FontSize="13"
+                       FontFamily="InterRegular"
+                       TextColor="#4B5563"/>
+                <Label Text="Regístrate aquí"
+                       FontSize="13"
+                       FontFamily="InterSemiBold"
+                       TextColor="#DC143C">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnRegisterTapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+    </Grid>
+</ContentPage>

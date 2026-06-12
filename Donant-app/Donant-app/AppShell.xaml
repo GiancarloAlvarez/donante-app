@@ -22,16 +22,22 @@
         Route="main" />
 
         <ShellContent
-        Title="Projects"
+        Title="Donantes"
         Icon="{StaticResource IconProjects}"
         ContentTemplate="{DataTemplate pages:ProjectListPage}"
         Route="projects" />
 
         <ShellContent
-        Title="Manage Meta"
+        Title="Form"
         Icon="{StaticResource IconMeta}"
-        ContentTemplate="{DataTemplate pages:ManageMetaPage}"
-        Route="manage" />
+        ContentTemplate="{DataTemplate pages:NewDonorPage}"
+        Route="donantes" />
+
+        <ShellContent
+            Title="Login"
+            Icon="{StaticResource IconMeta}"
+            ContentTemplate="{DataTemplate pages:LoginPage}"
+            Route="login" />
 
     </TabBar>
     
