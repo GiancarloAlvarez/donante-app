@@ -5,7 +5,8 @@ public partial class LoginPage : ContentPage
     private bool _passwordVisible = false;
     public LoginPage()
 	{
-		
+        //revisar por que InitializeComponent() no da error 
+
         InitializeComponent();
 	}
     private void OnTogglePassword(object sender, EventArgs e)
