@@ -12,8 +12,19 @@
     Shell.TabBarUnselectedColor="#9CA3AF"
     Title="Donant_app">
 
-    <TabBar>
 
+    <ShellContent
+    Title="Login"
+    Icon="{StaticResource IconMeta}"
+    ContentTemplate="{DataTemplate pages:LoginPage}"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="False"
+    Route="login" />
+
+
+
+
+    <TabBar>
 
         <ShellContent
         Title="Inicio"
@@ -34,10 +45,12 @@
         Route="donantes" />
 
         <ShellContent
-            Title="Login"
-            Icon="{StaticResource IconMeta}"
-            ContentTemplate="{DataTemplate pages:LoginPage}"
-            Route="login" />
+        Title="Salir"
+        Icon="{StaticResource IconLogout}"
+        ContentTemplate="{DataTemplate pages:LogoutPage}"
+        Route="logout" />
+
+
 
     </TabBar>
     

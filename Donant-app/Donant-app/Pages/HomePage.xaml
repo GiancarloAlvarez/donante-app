@@ -9,6 +9,10 @@
     <ScrollView>
         <Grid RowDefinitions="Auto,*">
 
+<<<<<<< Updated upstream
+=======
+           
+>>>>>>> Stashed changes
             <Grid Grid.Row="0"
                   BackgroundColor="#DC143C"
                   Padding="20,52,20,28">
@@ -17,8 +21,15 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
+<<<<<<< Updated upstream
                 <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
 
+=======
+                
+                <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
+
+                  
+>>>>>>> Stashed changes
                     <Border Grid.Column="0"
                             WidthRequest="44" HeightRequest="44"
                             BackgroundColor="#33FFFFFF"
@@ -34,6 +45,10 @@
                                VerticalOptions="Center"/>
                     </Border>
 
+<<<<<<< Updated upstream
+=======
+                 
+>>>>>>> Stashed changes
                     <VerticalStackLayout Grid.Column="1"
                                          Margin="12,0,0,0"
                                          VerticalOptions="Center">
@@ -47,6 +62,10 @@
                                FontFamily="InterSemiBold"/>
                     </VerticalStackLayout>
 
+<<<<<<< Updated upstream
+=======
+          
+>>>>>>> Stashed changes
                     <Border Grid.Column="2"
                             WidthRequest="40" HeightRequest="40"
                             BackgroundColor="#26FFFFFF"
@@ -71,6 +90,10 @@
                     </Border>
                 </Grid>
 
+<<<<<<< Updated upstream
+=======
+               
+>>>>>>> Stashed changes
                 <Border Grid.Row="1"
                         Margin="0,20,0,0"
                         BackgroundColor="#26FFFFFF"
@@ -98,6 +121,10 @@
                                    Margin="0,2,0,0"/>
                         </VerticalStackLayout>
 
+<<<<<<< Updated upstream
+=======
+                       
+>>>>>>> Stashed changes
                         <Border Grid.Column="1"
                                 WidthRequest="56" HeightRequest="56"
                                 BackgroundColor="White"
@@ -117,10 +144,14 @@
                 </Border>
             </Grid>
 
+<<<<<<< Updated upstream
          
+=======
+          
+>>>>>>> Stashed changes
             <VerticalStackLayout Grid.Row="1" Padding="20,24,20,100" Spacing="0">
 
-                <!-- ── Estadísticas ── -->
+               
                 <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12">
 
                     <Border Grid.Column="0" BackgroundColor="White" StrokeThickness="0" Padding="12">
@@ -166,6 +197,10 @@
                     </Border>
                 </Grid>
 
+<<<<<<< Updated upstream
+=======
+               
+>>>>>>> Stashed changes
                 <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="12" Margin="0,24,0,0">
 
                     <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="6">
@@ -221,7 +256,13 @@
                     </VerticalStackLayout>
                 </Grid>
 
+<<<<<<< Updated upstream
                 <Grid Margin="0,24,0,0">
+=======
+                
+                <Grid Margin="0,24,0,0">
+                   
+>>>>>>> Stashed changes
                     <BoxView Color="#DC143C"
                              WidthRequest="4"
                              HorizontalOptions="Start"
@@ -273,11 +314,19 @@
                     </Border>
                 </Grid>
 
+<<<<<<< Updated upstream
+=======
+                
+>>>>>>> Stashed changes
                 <Grid ColumnDefinitions="*,Auto" Margin="0,24,0,12">
                     <Label Grid.Column="0" Text="Donantes destacados" FontSize="15" FontFamily="InterSemiBold" TextColor="#1F2937" VerticalOptions="Center"/>
                     <Label Grid.Column="1" Text="Ver todos" FontSize="12" FontFamily="InterMedium" TextColor="#DC143C" VerticalOptions="Center"/>
                 </Grid>
 
+<<<<<<< Updated upstream
+=======
+               
+>>>>>>> Stashed changes
                 <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,12">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16"/>
@@ -309,6 +358,10 @@
                     </Grid>
                 </Border>
 
+<<<<<<< Updated upstream
+=======
+                
+>>>>>>> Stashed changes
                 <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,12">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16"/>
@@ -336,6 +389,10 @@
                     </Grid>
                 </Border>
 
+<<<<<<< Updated upstream
+=======
+               
+>>>>>>> Stashed changes
                 <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,0">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16"/>

@@ -41,6 +41,14 @@ namespace Donant_app
             await toast.Show(cts.Token);
         }
 
-        // SfSegmentedControl_SelectionChanged eliminado — movido a PerfilPage
+        public static async Task LogoutAsync()
+        {
+            Services.InMemoryDataService.Instance.Logout();
+            Preferences.Remove("remember_me");
+            Preferences.Remove("saved_username");
+
+            // Regresa al login y limpia el stack
+            await Shell.Current.GoToAsync("//LoginPage");
+        }
     }
 }

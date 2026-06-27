@@ -43,18 +43,24 @@ namespace Donant_app
     		builder.Services.AddLogging(configure => configure.AddDebug());
 #endif
 
-            builder.Services.AddSingleton<ProjectRepository>();
-            builder.Services.AddSingleton<TaskRepository>();
-            builder.Services.AddSingleton<CategoryRepository>();
-            builder.Services.AddSingleton<TagRepository>();
-            builder.Services.AddSingleton<SeedDataService>();
-            builder.Services.AddSingleton<ModalErrorHandler>();
-            builder.Services.AddSingleton<MainPageModel>();
-            builder.Services.AddSingleton<ProjectListPageModel>();
-            builder.Services.AddSingleton<ManageMetaPageModel>();
+            //builder.Services.AddSingleton<ProjectRepository>();
+            //builder.Services.AddSingleton<TaskRepository>();
+            //builder.Services.AddSingleton<CategoryRepository>();
+            //builder.Services.AddSingleton<TagRepository>();
+            //builder.Services.AddSingleton<SeedDataService>();
+            //builder.Services.AddSingleton<ModalErrorHandler>();
+            //builder.Services.AddSingleton<MainPageModel>();
+            //builder.Services.AddSingleton<ProjectListPageModel>();
+            //builder.Services.AddSingleton<ManageMetaPageModel>();
 
-            builder.Services.AddTransientWithShellRoute<ProjectDetailPage, ProjectDetailPageModel>("project");
-            builder.Services.AddTransientWithShellRoute<TaskDetailPage, TaskDetailPageModel>("task");
+            builder.Services.AddTransient<Pages.LoginPage>();
+            builder.Services.AddTransient<Pages.HomePage>();
+            builder.Services.AddTransient<Pages.ProjectListPage>();
+            builder.Services.AddTransient<Pages.NewDonorPage>();
+            
+
+            //builder.Services.AddTransientWithShellRoute<ProjectDetailPage, ProjectDetailPageModel>("project");
+            //builder.Services.AddTransientWithShellRoute<TaskDetailPage, TaskDetailPageModel>("task");
 
             return builder.Build();
         }

@@ -9,7 +9,11 @@
 
     <Grid RowDefinitions="Auto,*,Auto">
 
+<<<<<<< Updated upstream
       
+=======
+    
+>>>>>>> Stashed changes
         <Grid Grid.Row="0"
               BackgroundColor="#DC143C"
               Padding="24,56,24,48">
@@ -24,6 +28,10 @@
 
             <VerticalStackLayout HorizontalOptions="Center" Spacing="8">
 
+<<<<<<< Updated upstream
+=======
+               
+>>>>>>> Stashed changes
                 <Border WidthRequest="80" HeightRequest="80"
                         BackgroundColor="#26FFFFFF"
                         StrokeThickness="3"
@@ -40,7 +48,10 @@
                            VerticalOptions="Center"/>
                 </Border>
 
+<<<<<<< Updated upstream
                
+=======
+>>>>>>> Stashed changes
                 <Label Text="DonanT"
                        TextColor="White"
                        FontSize="28"
@@ -48,6 +59,10 @@
                        HorizontalOptions="Center"
                        CharacterSpacing="-0.5"/>
 
+<<<<<<< Updated upstream
+=======
+                
+>>>>>>> Stashed changes
                 <Label Text="Tu gota puede salvar una vida"
                        TextColor="#D9FFFFFF"
                        FontSize="13"
@@ -56,7 +71,11 @@
             </VerticalStackLayout>
         </Grid>
 
+<<<<<<< Updated upstream
      
+=======
+       
+>>>>>>> Stashed changes
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Padding="24,28,24,16" Spacing="0">
 
@@ -70,6 +89,10 @@
                        TextColor="#6B7280"
                        Margin="0,4,0,24"/>
 
+<<<<<<< Updated upstream
+=======
+                
+>>>>>>> Stashed changes
                 <Label Text="USUARIO"
                        FontSize="11"
                        FontFamily="InterSemiBold"
@@ -107,6 +130,10 @@
                     </Grid>
                 </Border>
 
+<<<<<<< Updated upstream
+=======
+               
+>>>>>>> Stashed changes
                 <Label Text="CONTRASEÑA"
                        FontSize="11"
                        FontFamily="InterSemiBold"
@@ -141,7 +168,7 @@
                                FontFamily="InterRegular"
                                BackgroundColor="Transparent"
                                HeightRequest="50"/>
-                        <!-- Ojo: toggle visibilidad -->
+                       
                         <Label Grid.Column="2"
                                x:Name="EyeIcon"
                                Text="&#xf06e;"
@@ -156,6 +183,10 @@
                     </Grid>
                 </Border>
 
+<<<<<<< Updated upstream
+=======
+               
+>>>>>>> Stashed changes
                 <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,20">
                     <HorizontalStackLayout Grid.Column="0" Spacing="8" VerticalOptions="Center">
                         <CheckBox x:Name="RememberMe"
@@ -179,7 +210,7 @@
                     </Label>
                 </Grid>
 
-                <!-- ── Botón Iniciar sesión ── -->
+               
                 <Border BackgroundColor="#DC143C"
                         StrokeThickness="0"
                         Padding="0"
@@ -209,6 +240,10 @@
                     </Grid>
                 </Border>
 
+<<<<<<< Updated upstream
+=======
+               
+>>>>>>> Stashed changes
                 <Grid ColumnDefinitions="*,Auto,*" ColumnSpacing="12" Margin="0,0,0,16">
                     <BoxView Grid.Column="0"
                              HeightRequest="1"
@@ -226,9 +261,13 @@
                              VerticalOptions="Center"/>
                 </Grid>
 
+<<<<<<< Updated upstream
+=======
+                
+>>>>>>> Stashed changes
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
 
-                    <!-- Google -->
+                   
                     <Border Grid.Column="0"
                             BackgroundColor="White"
                             Stroke="#E5E7EB"
@@ -259,7 +298,7 @@
                         </Grid>
                     </Border>
 
-                    <!-- Cédula -->
+                   
                     <Border Grid.Column="1"
                             BackgroundColor="White"
                             Stroke="#E5E7EB"
@@ -295,7 +334,11 @@
             </VerticalStackLayout>
         </ScrollView>
 
+<<<<<<< Updated upstream
        
+=======
+        
+>>>>>>> Stashed changes
         <VerticalStackLayout Grid.Row="2"
                              Padding="24,16,24,36"
                              HorizontalOptions="Center">
