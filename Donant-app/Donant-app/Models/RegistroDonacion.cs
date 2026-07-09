@@ -9,7 +9,7 @@ namespace Donant_app.Models
         public int Id { get; set; }
         public int DonanteId { get; set; }
         public string NombreDonante { get; set; } = string.Empty;
-        public DateTime FechaEnQueDonanteDonó { get; set; } = DateTime.Now;
+        public DateTime FechaDonacion { get; set; } = DateTime.Now;
         public string CentroDonacion { get; set; } = string.Empty;
         public double VolumenMl { get; set; } = 450;
 
