@@ -18,10 +18,18 @@ public partial class ProjectListPage : ContentPage
 
     private void CargarDonantes(List<Donante> lista)
     {
-        DonorsCollectionView.ItemsSource = null; // fuerza refresco
+        DonorsCollectionView.ItemsSource = null; 
         DonorsCollectionView.ItemsSource = lista;
-        ContadorDonantes.Text = $"({lista.Count})";
-        EmptyLabel.IsVisible = lista.Count == 0;
+        var contador = this.FindByName<Microsoft.Maui.Controls.Label>("ContadorDonantes");
+        if (contador != null)
+        {
+            contador.Text = $"({lista.Count})";
+        }
+        var emptyLabel = this.FindByName<Microsoft.Maui.Controls.Label>("EmptyLabel");
+        if (emptyLabel != null)
+        {
+            emptyLabel.IsVisible = lista.Count == 0;
+        }
     }
 
     private void OnBuscar(object sender, TextChangedEventArgs e)

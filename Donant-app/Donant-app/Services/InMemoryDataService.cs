@@ -72,11 +72,11 @@ namespace Donant_app.Services
                 new RegistroDonacion { Id = _recordIdSeq++, DonanteId = 1,
                     NombreDonante = "María López", CentroDonacion = "Banco de Sangre Nacional",
                     Ciudad = "Santo Domingo", VolumenMl = 450,
-                    FechaEnQueDonanteDonó = DateTime.Now.AddMonths(-4) },
+                    FechaDonacion = DateTime.Now.AddMonths(-4) },
                 new RegistroDonacion { Id = _recordIdSeq++, DonanteId = 2,
                     NombreDonante = "Carlos Pérez", CentroDonacion = "Cruz Roja Santiago",
                     Ciudad = "Santiago", VolumenMl = 450,
-                    FechaEnQueDonanteDonó = DateTime.Now.AddMonths(-1) }
+                    FechaDonacion = DateTime.Now.AddMonths(-1) }
             });
             }
 

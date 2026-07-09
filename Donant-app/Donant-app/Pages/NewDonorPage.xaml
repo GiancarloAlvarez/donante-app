@@ -9,10 +9,7 @@
     <ScrollView>
         <Grid RowDefinitions="Auto,*">
 
-<<<<<<< Updated upstream
-           
-=======
->>>>>>> Stashed changes
+
             <Grid Grid.Row="0"
                   BackgroundColor="#DC143C"
                   Padding="20,52,20,24">
@@ -20,11 +17,7 @@
                     <Shadow Brush="#30000000" Offset="0,4" Radius="12" Opacity="1"/>
                 </Grid.Shadow>
                 <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
-<<<<<<< Updated upstream
 
-                   
-=======
->>>>>>> Stashed changes
                     <Border Grid.Column="0"
                             WidthRequest="40" HeightRequest="40"
                             BackgroundColor="#26FFFFFF"
@@ -44,11 +37,7 @@
                             </Label.GestureRecognizers>
                         </Label>
                     </Border>
-<<<<<<< Updated upstream
 
-                   
-=======
->>>>>>> Stashed changes
                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
                         <Label Text="Nuevo donante"
                                TextColor="White"
@@ -63,16 +52,15 @@
                 </Grid>
             </Grid>
 
-<<<<<<< Updated upstream
+
            
-            <VerticalStackLayout Grid.Row="1" Padding="20,20,20,40" Spacing="20">
+            
 
               
-=======
+
             <VerticalStackLayout Grid.Row="1" Padding="20,20,20,40" Spacing="20">
 
-                <!-- Avatar -->
->>>>>>> Stashed changes
+
                 <VerticalStackLayout HorizontalOptions="Center" Spacing="8">
                     <Grid WidthRequest="80" HeightRequest="80" HorizontalOptions="Center">
                         <Grid.GestureRecognizers>
@@ -90,10 +78,7 @@
                                    IsVisible="False"
                                    Aspect="AspectFill"/>
                         </Border>
-<<<<<<< Updated upstream
 
-                      
-=======
                         <Label x:Name="LblIconoFoto"
                                Text="&#xf007;"
                                FontFamily="FontAwesomeSolid"
@@ -101,7 +86,7 @@
                                TextColor="#DC143C"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"/>
->>>>>>> Stashed changes
+
                         <Border WidthRequest="28" HeightRequest="28"
                                 BackgroundColor="#DC143C"
                                 StrokeThickness="2"
@@ -126,11 +111,7 @@
                            HorizontalOptions="Center"/>
                 </VerticalStackLayout>
 
-<<<<<<< Updated upstream
-                
-=======
-                <!-- DATOS PERSONALES -->
->>>>>>> Stashed changes
+
                 <Border BackgroundColor="White" StrokeThickness="0" Padding="16">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16"/>
@@ -145,10 +126,6 @@
                                TextColor="#9CA3AF"
                                CharacterSpacing="1"/>
 
-<<<<<<< Updated upstream
-                       
-=======
->>>>>>> Stashed changes
                         <VerticalStackLayout Spacing="6">
                             <Label Text="Nombre completo"
                                    FontSize="12"
@@ -173,14 +150,14 @@
                             </Border>
                         </VerticalStackLayout>
 
-<<<<<<< Updated upstream
+
                         
-                        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                        
 
                            
-=======
+
                         <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
->>>>>>> Stashed changes
+
                             <VerticalStackLayout Grid.Column="0" Spacing="6">
                                 <Label Text="Tipo de sangre"
                                        FontSize="12"
@@ -223,10 +200,7 @@
                                 </Border>
                             </VerticalStackLayout>
 
-<<<<<<< Updated upstream
-                            
-=======
->>>>>>> Stashed changes
+
                             <VerticalStackLayout Grid.Column="1" Spacing="6">
                                 <Label Text="Edad"
                                        FontSize="12"
@@ -255,11 +229,7 @@
                     </VerticalStackLayout>
                 </Border>
 
-<<<<<<< Updated upstream
-               
-=======
-                <!-- CONTACTO -->
->>>>>>> Stashed changes
+
                 <Border BackgroundColor="White" StrokeThickness="0" Padding="16">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16"/>
@@ -308,10 +278,7 @@
                             </Border>
                         </VerticalStackLayout>
 
-<<<<<<< Updated upstream
-                   
-=======
->>>>>>> Stashed changes
+
                         <VerticalStackLayout Spacing="6">
                             <Label Text="Dirección"
                                    FontSize="12"
@@ -347,11 +314,7 @@
                     </VerticalStackLayout>
                 </Border>
 
-<<<<<<< Updated upstream
-             
-=======
-                <!-- INFORMACIÓN DE DONACIÓN -->
->>>>>>> Stashed changes
+
                 <Border BackgroundColor="White" StrokeThickness="0" Padding="16">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16"/>
@@ -423,10 +386,7 @@
                             </Border>
                         </VerticalStackLayout>
 
-<<<<<<< Updated upstream
-                       
-=======
->>>>>>> Stashed changes
+
                         <Grid ColumnDefinitions="*,Auto" Padding="0,4,0,0">
                             <VerticalStackLayout Grid.Column="0" Spacing="2" VerticalOptions="Center">
                                 <Label Text="Donante disponible"
@@ -448,15 +408,9 @@
                     </VerticalStackLayout>
                 </Border>
 
-<<<<<<< Updated upstream
-                
-                <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,4,0,0">
 
-
-=======
                 <!-- BOTONES -->
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,4,0,0">
->>>>>>> Stashed changes
                     <Border Grid.Column="0"
                             BackgroundColor="White"
                             Stroke="#E5E7EB"
@@ -475,10 +429,7 @@
                                 Clicked="OnCancelarClicked"/>
                     </Border>
 
-<<<<<<< Updated upstream
-                   
-=======
->>>>>>> Stashed changes
+
                     <Border Grid.Column="1"
                             BackgroundColor="#DC143C"
                             StrokeThickness="0"

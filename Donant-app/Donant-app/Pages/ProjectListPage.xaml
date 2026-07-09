@@ -13,11 +13,7 @@
                     AbsoluteLayout.LayoutFlags="All">
             <Grid RowDefinitions="Auto,*">
 
-<<<<<<< Updated upstream
-           
-=======
                 <!-- HEADER -->
->>>>>>> Stashed changes
                 <Grid Grid.Row="0"
                       BackgroundColor="#DC143C"
                       Padding="20,52,20,20"
@@ -77,11 +73,7 @@
                     </Border>
                 </Grid>
 
-<<<<<<< Updated upstream
-              
-=======
                 <!-- CONTENIDO -->
->>>>>>> Stashed changes
                 <VerticalStackLayout Grid.Row="1" Padding="20,20,20,100" Spacing="0">
 
                     <!-- Tabs -->
@@ -133,47 +125,18 @@
                                FontSize="11" FontFamily="InterRegular" TextColor="#9CA3AF" VerticalOptions="Center"/>
                     </Grid>
 
-<<<<<<< Updated upstream
-                    <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,10">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="16"/>
-                        </Border.StrokeShape>
-                        <Border.Shadow>
-                            <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
-                        </Border.Shadow>
-                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                            <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#FF6B6B" StrokeThickness="0">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="22"/>
-                                </Border.StrokeShape>
-                                <Label Text="LR" TextColor="White" FontFamily="InterBold" FontSize="13" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                <Label Text="Luis Ramírez" FontSize="14" FontFamily="InterSemiBold" TextColor="#1F2937"/>
-                                <Label FontSize="12" FontFamily="InterRegular" TextColor="#6B7280">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="&#xf095; " FontFamily="FontAwesomeSolid" FontSize="10" TextColor="#6B7280"/>
-                                            <Span Text="+57 311 245 8890" FontFamily="InterRegular"/>
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                            </VerticalStackLayout>
-                            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" Spacing="4">
-                                <Border BackgroundColor="#26FF6B6B" StrokeThickness="0" Padding="10,4" HorizontalOptions="End">
-=======
+                    <!-- Label vacío -->
                     <Label x:Name="EmptyLabel"
                            Text="No hay donantes registrados aún."
                            FontSize="14" FontFamily="InterRegular" TextColor="#9CA3AF"
                            HorizontalOptions="Center" Margin="0,20,0,0" IsVisible="False"/>
 
-                    <!-- CollectionView con propiedades reales de Donante -->
+                    <!-- Lista dinámica de donantes -->
                     <CollectionView x:Name="DonorsCollectionView">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="models:Donante">
                                 <Border BackgroundColor="White" StrokeThickness="0"
                                         Margin="0,0,0,12" Padding="16">
->>>>>>> Stashed changes
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="16"/>
                                     </Border.StrokeShape>
@@ -182,7 +145,6 @@
                                     </Border.Shadow>
                                     <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
 
-                                        <!-- Badge tipo de sangre -->
                                         <Border Grid.Column="0"
                                                 WidthRequest="48" HeightRequest="48"
                                                 BackgroundColor="#FFF0F3" StrokeThickness="0">
@@ -196,7 +158,6 @@
                                                    VerticalOptions="Center"/>
                                         </Border>
 
-                                        <!-- Info -->
                                         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
                                             <Label Text="{Binding NombreDonante}"
                                                    FontFamily="InterSemiBold" FontSize="15" TextColor="#1F2937"/>
@@ -206,9 +167,7 @@
                                                    FontFamily="InterRegular" FontSize="12" TextColor="#9CA3AF"/>
                                         </VerticalStackLayout>
 
-                                        <!-- Badge disponibilidad (sin converter) -->
                                         <Border Grid.Column="2"
-                                                x:Name="BadgeDisponible"
                                                 Padding="8,4" StrokeThickness="0"
                                                 VerticalOptions="Center"
                                                 BackgroundColor="#22C55E">
@@ -225,47 +184,7 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
 
-<<<<<<< Updated upstream
-                    <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="16"/>
-                        </Border.StrokeShape>
-                        <Border.Shadow>
-                            <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
-                        </Border.Shadow>
-                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                            <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#DC143C" StrokeThickness="0">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="22"/>
-                                </Border.StrokeShape>
-                                <Label Text="SM" TextColor="White" FontFamily="InterBold" FontSize="13" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                <Label Text="Sofía Morales" FontSize="14" FontFamily="InterSemiBold" TextColor="#1F2937"/>
-                                <Label FontSize="12" FontFamily="InterRegular" TextColor="#6B7280">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="&#xf095; " FontFamily="FontAwesomeSolid" FontSize="10" TextColor="#6B7280"/>
-                                            <Span Text="+57 320 778 1023" FontFamily="InterRegular"/>
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                            </VerticalStackLayout>
-                            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" Spacing="4">
-                                <Border BackgroundColor="#26FF6B6B" StrokeThickness="0" Padding="10,4" HorizontalOptions="End">
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="8"/>
-                                    </Border.StrokeShape>
-                                    <Label Text="O−" FontSize="12" FontFamily="InterBold" TextColor="#DC143C"/>
-                                </Border>
-                                <Label Text="En espera" FontSize="10" FontFamily="InterRegular" TextColor="#F59E0B" HorizontalOptions="End"/>
-                            </VerticalStackLayout>
-                        </Grid>
-                    </Border>
-
-=======
                     <!-- Sección Citas -->
->>>>>>> Stashed changes
                     <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,24,0,10" ColumnSpacing="6">
                         <Label Grid.Column="0" Text="&#xf274;" FontFamily="FontAwesomeRegular"
                                FontSize="13" TextColor="#DC143C" VerticalOptions="Center"/>
@@ -274,72 +193,70 @@
                         <Label Grid.Column="2" x:Name="ContadorSolicitudes" Text="(0)"
                                FontSize="11" FontFamily="InterRegular" TextColor="#9CA3AF" VerticalOptions="Center"/>
                     </Grid>
-                    <VerticalStackLayout x:Name="ListaSolicitudes" Spacing="0"/>
 
-<<<<<<< Updated upstream
-                    <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,10">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="16"/>
-                        </Border.StrokeShape>
-                        <Border.Shadow>
-                            <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
-                        </Border.Shadow>
-                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                            <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#26FF6B6B" StrokeThickness="0">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="12"/>
-                                </Border.StrokeShape>
-                                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="0">
-                                    <Label Text="JUN" FontSize="10" FontFamily="InterMedium" TextColor="#DC143C" HorizontalOptions="Center"/>
-                                    <Label Text="12" FontSize="16" FontFamily="InterBold" TextColor="#DC143C" HorizontalOptions="Center"/>
+                    <VerticalStackLayout x:Name="ListaSolicitudes" Spacing="0">
+                        <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,10">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="16"/>
+                            </Border.StrokeShape>
+                            <Border.Shadow>
+                                <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
+                            </Border.Shadow>
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#26FF6B6B" StrokeThickness="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12"/>
+                                    </Border.StrokeShape>
+                                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="0">
+                                        <Label Text="JUN" FontSize="10" FontFamily="InterMedium" TextColor="#DC143C" HorizontalOptions="Center"/>
+                                        <Label Text="12" FontSize="16" FontFamily="InterBold" TextColor="#DC143C" HorizontalOptions="Center"/>
+                                    </VerticalStackLayout>
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                    <Label Text="Donación programada" FontSize="14" FontFamily="InterSemiBold" TextColor="#1F2937"/>
+                                    <Label Text="Hospital Central · 09:30 a.m." FontSize="12" FontFamily="InterRegular" TextColor="#6B7280"/>
                                 </VerticalStackLayout>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                <Label Text="Donación programada" FontSize="14" FontFamily="InterSemiBold" TextColor="#1F2937"/>
-                                <Label Text="Hospital Central · 09:30 a.m." FontSize="12" FontFamily="InterRegular" TextColor="#6B7280"/>
-                            </VerticalStackLayout>
-                            <Border Grid.Column="2" BackgroundColor="#F0FDF4" StrokeThickness="0" Padding="8,4" VerticalOptions="Center">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="9999"/>
-                                </Border.StrokeShape>
-                                <Label Text="Confirmada" FontSize="10" FontFamily="InterSemiBold" TextColor="#16A34A"/>
-                            </Border>
-                        </Grid>
-                    </Border>
+                                <Border Grid.Column="2" BackgroundColor="#F0FDF4" StrokeThickness="0" Padding="8,4" VerticalOptions="Center">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="9999"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="Confirmada" FontSize="10" FontFamily="InterSemiBold" TextColor="#16A34A"/>
+                                </Border>
+                            </Grid>
+                        </Border>
 
-                    <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="16"/>
-                        </Border.StrokeShape>
-                        <Border.Shadow>
-                            <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
-                        </Border.Shadow>
-                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                            <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#26FF6B6B" StrokeThickness="0">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="12"/>
-                                </Border.StrokeShape>
-                                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="0">
-                                    <Label Text="JUN" FontSize="10" FontFamily="InterMedium" TextColor="#DC143C" HorizontalOptions="Center"/>
-                                    <Label Text="18" FontSize="16" FontFamily="InterBold" TextColor="#DC143C" HorizontalOptions="Center"/>
+                        <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="16"/>
+                            </Border.StrokeShape>
+                            <Border.Shadow>
+                                <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
+                            </Border.Shadow>
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#26FF6B6B" StrokeThickness="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12"/>
+                                    </Border.StrokeShape>
+                                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="0">
+                                        <Label Text="JUN" FontSize="10" FontFamily="InterMedium" TextColor="#DC143C" HorizontalOptions="Center"/>
+                                        <Label Text="18" FontSize="16" FontFamily="InterBold" TextColor="#DC143C" HorizontalOptions="Center"/>
+                                    </VerticalStackLayout>
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                    <Label Text="Solicitud de plaquetas" FontSize="14" FontFamily="InterSemiBold" TextColor="#1F2937"/>
+                                    <Label Text="Clínica del Norte · Tipo AB+" FontSize="12" FontFamily="InterRegular" TextColor="#6B7280"/>
                                 </VerticalStackLayout>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                <Label Text="Solicitud de plaquetas" FontSize="14" FontFamily="InterSemiBold" TextColor="#1F2937"/>
-                                <Label Text="Clínica del Norte · Tipo AB+" FontSize="12" FontFamily="InterRegular" TextColor="#6B7280"/>
-                            </VerticalStackLayout>
-                            <Border Grid.Column="2" BackgroundColor="#FFFBEB" StrokeThickness="0" Padding="8,4" VerticalOptions="Center">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="9999"/>
-                                </Border.StrokeShape>
-                                <Label Text="Pendiente" FontSize="10" FontFamily="InterSemiBold" TextColor="#D97706"/>
-                            </Border>
-                        </Grid>
-                    </Border>
+                                <Border Grid.Column="2" BackgroundColor="#FFFBEB" StrokeThickness="0" Padding="8,4" VerticalOptions="Center">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="9999"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="Pendiente" FontSize="10" FontFamily="InterSemiBold" TextColor="#D97706"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
 
-=======
                     <!-- Sección Historial -->
->>>>>>> Stashed changes
                     <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,24,0,10" ColumnSpacing="6">
                         <Label Grid.Column="0" Text="&#xf1da;" FontFamily="FontAwesomeSolid"
                                FontSize="13" TextColor="#DC143C" VerticalOptions="Center"/>
@@ -348,63 +265,58 @@
                         <Label Grid.Column="2" x:Name="ContadorHistorial" Text="(0)"
                                FontSize="11" FontFamily="InterRegular" TextColor="#9CA3AF" VerticalOptions="Center"/>
                     </Grid>
-<<<<<<< Updated upstream
 
-                    <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,10">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="16"/>
-                        </Border.StrokeShape>
-                        <Border.Shadow>
-                            <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
-                        </Border.Shadow>
-                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                            <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#F0FDF4" StrokeThickness="0">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="22"/>
-                                </Border.StrokeShape>
-                                <Label Text="&#xf00c;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#16A34A" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                <Label Text="Donación de sangre completa" FontSize="14" FontFamily="InterSemiBold" TextColor="#1F2937"/>
-                                <Label Text="15 mar 2026 · 450 ml · Banco Regional" FontSize="12" FontFamily="InterRegular" TextColor="#6B7280"/>
-                            </VerticalStackLayout>
-                            <Label Grid.Column="2" Text="&#xf054;" FontFamily="FontAwesomeSolid" FontSize="11" TextColor="#D1D5DB" VerticalOptions="Center"/>
-                        </Grid>
-                    </Border>
+                    <VerticalStackLayout x:Name="ListaHistorial" Spacing="0">
+                        <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,10">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="16"/>
+                            </Border.StrokeShape>
+                            <Border.Shadow>
+                                <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
+                            </Border.Shadow>
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#F0FDF4" StrokeThickness="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="22"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="&#xf00c;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#16A34A" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                    <Label Text="Donación de sangre completa" FontSize="14" FontFamily="InterSemiBold" TextColor="#1F2937"/>
+                                    <Label Text="15 mar 2026 · 450 ml · Banco Regional" FontSize="12" FontFamily="InterRegular" TextColor="#6B7280"/>
+                                </VerticalStackLayout>
+                                <Label Grid.Column="2" Text="&#xf054;" FontFamily="FontAwesomeSolid" FontSize="11" TextColor="#D1D5DB" VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
 
-                    <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="16"/>
-                        </Border.StrokeShape>
-                        <Border.Shadow>
-                            <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
-                        </Border.Shadow>
-                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                            <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#F0FDF4" StrokeThickness="0">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="22"/>
-                                </Border.StrokeShape>
-                                <Label Text="&#xf00c;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#16A34A" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                <Label Text="Donación de plaquetas" FontSize="14" FontFamily="InterSemiBold" TextColor="#1F2937"/>
-                                <Label Text="02 dic 2025 · Hospital Central" FontSize="12" FontFamily="InterRegular" TextColor="#6B7280"/>
-                            </VerticalStackLayout>
-                            <Label Grid.Column="2" Text="&#xf054;" FontFamily="FontAwesomeSolid" FontSize="11" TextColor="#D1D5DB" VerticalOptions="Center"/>
-                        </Grid>
-                    </Border>
-=======
-                    <VerticalStackLayout x:Name="ListaHistorial" Spacing="0"/>
->>>>>>> Stashed changes
+                        <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="16"/>
+                            </Border.StrokeShape>
+                            <Border.Shadow>
+                                <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
+                            </Border.Shadow>
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#F0FDF4" StrokeThickness="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="22"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="&#xf00c;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#16A34A" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                    <Label Text="Donación de plaquetas" FontSize="14" FontFamily="InterSemiBold" TextColor="#1F2937"/>
+                                    <Label Text="02 dic 2025 · Hospital Central" FontSize="12" FontFamily="InterRegular" TextColor="#6B7280"/>
+                                </VerticalStackLayout>
+                                <Label Grid.Column="2" Text="&#xf054;" FontFamily="FontAwesomeSolid" FontSize="11" TextColor="#D1D5DB" VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
 
                 </VerticalStackLayout>
             </Grid>
         </ScrollView>
 
-<<<<<<< Updated upstream
-=======
         <!-- FAB -->
->>>>>>> Stashed changes
         <Border AbsoluteLayout.LayoutBounds="1,1,56,56"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 Margin="0,0,20,90"
