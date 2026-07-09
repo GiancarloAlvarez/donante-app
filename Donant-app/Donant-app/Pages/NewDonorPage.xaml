@@ -4,7 +4,9 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Shell.NavBarIsVisible="False"
-    BackgroundColor="#F8F7F9">
+    BackgroundColor="#F8F7F9"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    >
 
     <ScrollView>
         <Grid RowDefinitions="Auto,*">
@@ -199,30 +201,50 @@
                                     </Grid>
                                 </Border>
                             </VerticalStackLayout>
-
-
                             <VerticalStackLayout Grid.Column="1" Spacing="6">
-                                <Label Text="Edad"
-                                       FontSize="12"
-                                       FontFamily="InterMedium"
-                                       TextColor="#4B5563"/>
+                                <Label Text="Fecha de nacimiento"
+                   FontSize="12"
+                   FontFamily="InterMedium"
+                   TextColor="#4B5563"/>
                                 <Border BackgroundColor="#F8F7F9"
-                                        Stroke="#F3F4F6"
-                                        StrokeThickness="1"
-                                        Padding="0">
+                    Stroke="#F3F4F6"
+                    StrokeThickness="1"
+                    Padding="0">        
                                     <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="12"/>
-                                    </Border.StrokeShape>
-                                    <Entry x:Name="EntryEdad"
-                                           Placeholder="28"
-                                           PlaceholderColor="#9CA3AF"
-                                           TextColor="#1F2937"
-                                           FontSize="14"
-                                           FontFamily="InterRegular"
-                                           Keyboard="Numeric"
-                                           BackgroundColor="Transparent"
-                                           Margin="16,0"
-                                           HeightRequest="48"/>
+                                            <RoundRectangle CornerRadius="12"/>
+                                        </Border.StrokeShape>
+                                        <Grid HeightRequest="48">
+
+                                            <!-- Texto de la fecha seleccionada -->
+                                            <Label x:Name="LabelFechaNacimiento"
+                       Text="DD/MM/AAAA"
+                       TextColor="#9CA3AF"
+                       FontSize="14"
+                       FontFamily="InterRegular"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"
+                       Margin="16,0"
+                       InputTransparent="True"/>
+
+                                            <!-- Ícono decorativo -->
+                                        <Label Text="&#xf073;"
+                       FontFamily="FontAwesomeSolid"
+                       FontSize="16"
+                       TextColor="#DC143C"
+                       VerticalOptions="Center"
+                       HorizontalOptions="End"
+                       Margin="0,0,14,0"
+                       InputTransparent="True"/>
+
+                                        <!-- DatePicker transparente que cubre todo el área -->
+                                        <DatePicker x:Name="DatePickerNacimiento"
+                        Opacity="0"
+                        HeightRequest="48"
+                        VerticalOptions="Fill"
+                        HorizontalOptions="Fill"
+                        MaximumDate="{x:Static sys:DateTime.Today}"
+                        DateSelected="OnFechaNacimientoSelected"/>
+                                    </Grid>
                                 </Border>
                             </VerticalStackLayout>
                         </Grid>
