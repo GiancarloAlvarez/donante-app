@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Donant_app.Pages.SolicitudSangrePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:Donant_app.ViewModels"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="#F8F7F9">
+
+    <ContentPage.BindingContext>
+        <vm:SolicitudSangreViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,52,20,40" Spacing="20">
+
+            <Label Text="Solicitud de Sangre"
+                   FontSize="22"
+                   FontFamily="InterBold"
+                   TextColor="#1F2937"/>
+
+            <!-- Nombre Paciente -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Nombre del Paciente" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
+                <Border BackgroundColor="#F8F7F9" Stroke="#F3F4F6" StrokeThickness="1" Padding="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Entry Text="{Binding NombrePaciente}" Placeholder="Ej. María López"
+                           PlaceholderColor="#9CA3AF" TextColor="#1F2937" FontSize="14"
+                           BackgroundColor="Transparent" Margin="16,0" HeightRequest="48"/>
+                </Border>
+                <Label Text="{Binding NombrePacienteError}" TextColor="#DC143C" FontSize="11" Margin="4,0,0,0"/>
+            </VerticalStackLayout>
+
+            <!-- Tipo de Sangre -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Tipo de Sangre Requerido" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
+                <Border BackgroundColor="#F8F7F9" Stroke="#F3F4F6" StrokeThickness="1" Padding="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Picker SelectedItem="{Binding TipoSangreNecesario}"
+                            Title="Seleccionar tipo de sangre"
+                            TextColor="#1F2937" FontSize="14"
+                            BackgroundColor="Transparent"
+                            Margin="16,0" HeightRequest="48">
+                        <Picker.Items>
+                            <x:String>O+</x:String>
+                            <x:String>O−</x:String>
+                            <x:String>A+</x:String>
+                            <x:String>A−</x:String>
+                            <x:String>B+</x:String>
+                            <x:String>B−</x:String>
+                            <x:String>AB+</x:String>
+                            <x:String>AB−</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </Border>
+                <Label Text="{Binding TipoSangreError}" TextColor="#DC143C" FontSize="11" Margin="4,0,0,0"/>
+            </VerticalStackLayout>
+
+            <!-- Hospital -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Hospital" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
+                <Border BackgroundColor="#F8F7F9" Stroke="#F3F4F6" StrokeThickness="1" Padding="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Entry Text="{Binding Hospital}" Placeholder="Ej. Hospital Central"
+                           PlaceholderColor="#9CA3AF" TextColor="#1F2937" FontSize="14"
+                           BackgroundColor="Transparent" Margin="16,0" HeightRequest="48"/>
+                </Border>
+                <Label Text="{Binding HospitalError}" TextColor="#DC143C" FontSize="11" Margin="4,0,0,0"/>
+            </VerticalStackLayout>
+
+            <!-- Número de Contacto -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Número de Contacto" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
+                <Border BackgroundColor="#F8F7F9" Stroke="#F3F4F6" StrokeThickness="1" Padding="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Entry Text="{Binding NumeroContacto}" Placeholder="+57 300 000 0000"
+                           Keyboard="Telephone" PlaceholderColor="#9CA3AF" TextColor="#1F2937"
+                           FontSize="14" BackgroundColor="Transparent" Margin="16,0" HeightRequest="48"/>
+                </Border>
+                <Label Text="{Binding ContactoError}" TextColor="#DC143C" FontSize="11" Margin="4,0,0,0"/>
+            </VerticalStackLayout>
+
+            <!-- Ciudad -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Ciudad" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
+                <Border BackgroundColor="#F8F7F9" Stroke="#F3F4F6" StrokeThickness="1" Padding="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Entry Text="{Binding Ciudad}" Placeholder="Ej. Bogotá"
+                           PlaceholderColor="#9CA3AF" TextColor="#1F2937" FontSize="14"
+                           BackgroundColor="Transparent" Margin="16,0" HeightRequest="48"/>
+                </Border>
+                <Label Text="{Binding CiudadError}" TextColor="#DC143C" FontSize="11" Margin="4,0,0,0"/>
+            </VerticalStackLayout>
+
+            <!-- Es Urgente -->
+            <Grid ColumnDefinitions="*,Auto" Padding="0,4,0,0">
+                <VerticalStackLayout Grid.Column="0" Spacing="2" VerticalOptions="Center">
+                    <Label Text="¿Es urgente?" FontSize="14" FontFamily="InterMedium" TextColor="#374151"/>
+                    <Label Text="Marcar si requiere atención inmediata"
+                           FontSize="12" FontFamily="InterRegular" TextColor="#9CA3AF"/>
+                </VerticalStackLayout>
+                <Switch Grid.Column="1"
+                        IsToggled="{Binding EsUrgente}"
+                        OnColor="#DC143C"
+                        ThumbColor="White"
+                        VerticalOptions="Center"/>
+            </Grid>
+
+            <!-- Fecha -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Fecha de Solicitud" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
+                <Border BackgroundColor="#F8F7F9" Stroke="#F3F4F6" StrokeThickness="1" Padding="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <DatePicker Date="{Binding FechaSolicitud}" Format="dd/MM/yyyy"
+                                TextColor="#374151" FontSize="14" BackgroundColor="Transparent"
+                                Margin="16,0" HeightRequest="48"/>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Botones -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,8,0,0">
+                <Border Grid.Column="0" BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" Padding="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Grid HeightRequest="52">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCancelarClicked"/>
+                        </Grid.GestureRecognizers>
+                        <Label Text="Cancelar" TextColor="#4B5563" FontFamily="InterSemiBold"
+                               FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="1" BackgroundColor="#DC143C" StrokeThickness="0" Padding="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Grid HeightRequest="52">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnGuardarTapped"/>
+                        </Grid.GestureRecognizers>
+                        <Label Text="Guardar" TextColor="White" FontFamily="InterSemiBold"
+                               FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

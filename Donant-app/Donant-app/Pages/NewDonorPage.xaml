@@ -3,14 +3,18 @@
     x:Class="Donant_app.Pages.NewDonorPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Shell.NavBarIsVisible="False"
-    BackgroundColor="#F8F7F9"
+    xmlns:vm="clr-namespace:Donant_app.ViewModels"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
-    >
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="#F8F7F9">
+
+    <ContentPage.BindingContext>
+        <vm:NewDonorViewModel/>
+    </ContentPage.BindingContext>
 
     <ScrollView>
         <Grid RowDefinitions="Auto,*">
-
 
             <Grid Grid.Row="0"
                   BackgroundColor="#DC143C"
@@ -19,7 +23,6 @@
                     <Shadow Brush="#30000000" Offset="0,4" Radius="12" Opacity="1"/>
                 </Grid.Shadow>
                 <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
-
                     <Border Grid.Column="0"
                             WidthRequest="40" HeightRequest="40"
                             BackgroundColor="#26FFFFFF"
@@ -39,7 +42,6 @@
                             </Label.GestureRecognizers>
                         </Label>
                     </Border>
-
                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
                         <Label Text="Nuevo donante"
                                TextColor="White"
@@ -54,15 +56,9 @@
                 </Grid>
             </Grid>
 
-
-           
-            
-
-              
-
             <VerticalStackLayout Grid.Row="1" Padding="20,20,20,40" Spacing="20">
 
-
+                <!-- FOTO -->
                 <VerticalStackLayout HorizontalOptions="Center" Spacing="8">
                     <Grid WidthRequest="80" HeightRequest="80" HorizontalOptions="Center">
                         <Grid.GestureRecognizers>
@@ -80,7 +76,6 @@
                                    IsVisible="False"
                                    Aspect="AspectFill"/>
                         </Border>
-
                         <Label x:Name="LblIconoFoto"
                                Text="&#xf007;"
                                FontFamily="FontAwesomeSolid"
@@ -88,7 +83,6 @@
                                TextColor="#DC143C"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"/>
-
                         <Border WidthRequest="28" HeightRequest="28"
                                 BackgroundColor="#DC143C"
                                 StrokeThickness="2"
@@ -113,7 +107,7 @@
                            HorizontalOptions="Center"/>
                 </VerticalStackLayout>
 
-
+                <!-- DATOS PERSONALES -->
                 <Border BackgroundColor="White" StrokeThickness="0" Padding="16">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16"/>
@@ -128,6 +122,7 @@
                                TextColor="#9CA3AF"
                                CharacterSpacing="1"/>
 
+                        <!-- Nombre -->
                         <VerticalStackLayout Spacing="6">
                             <Label Text="Nombre completo"
                                    FontSize="12"
@@ -140,7 +135,7 @@
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="12"/>
                                 </Border.StrokeShape>
-                                <Entry x:Name="EntryNombre"
+                                <Entry Text="{Binding NombreDonante}"
                                        Placeholder="Ej. Juan Pérez"
                                        PlaceholderColor="#9CA3AF"
                                        TextColor="#1F2937"
@@ -150,16 +145,15 @@
                                        Margin="16,0"
                                        HeightRequest="48"/>
                             </Border>
+                            <Label Text="{Binding NombreError}"
+                                   TextColor="#DC143C"
+                                   FontSize="11"
+                                   FontFamily="InterRegular"
+                                   Margin="4,0,0,0"/>
                         </VerticalStackLayout>
 
-
-                        
-                        
-
-                           
-
+                        <!-- Tipo de sangre y Fecha nacimiento -->
                         <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
-
                             <VerticalStackLayout Grid.Column="0" Spacing="6">
                                 <Label Text="Tipo de sangre"
                                        FontSize="12"
@@ -180,6 +174,7 @@
                                                 FontSize="14"
                                                 FontFamily="InterRegular"
                                                 BackgroundColor="Transparent"
+                                                SelectedItem="{Binding TipoSangre}"
                                                 HeightRequest="48">
                                             <Picker.Items>
                                                 <x:String>O+</x:String>
@@ -200,50 +195,50 @@
                                                VerticalOptions="Center"/>
                                     </Grid>
                                 </Border>
+                                <Label Text="{Binding TipoSangreError}"
+                                       TextColor="#DC143C"
+                                       FontSize="11"
+                                       FontFamily="InterRegular"
+                                       Margin="4,0,0,0"/>
                             </VerticalStackLayout>
+
                             <VerticalStackLayout Grid.Column="1" Spacing="6">
                                 <Label Text="Fecha de nacimiento"
-                   FontSize="12"
-                   FontFamily="InterMedium"
-                   TextColor="#4B5563"/>
+                                       FontSize="12"
+                                       FontFamily="InterMedium"
+                                       TextColor="#4B5563"/>
                                 <Border BackgroundColor="#F8F7F9"
-                    Stroke="#F3F4F6"
-                    StrokeThickness="1"
-                    Padding="0">        
+                                        Stroke="#F3F4F6"
+                                        StrokeThickness="1"
+                                        Padding="0">
                                     <Border.StrokeShape>
-                                            <RoundRectangle CornerRadius="12"/>
-                                        </Border.StrokeShape>
-                                        <Grid HeightRequest="48">
-
-                                            <!-- Texto de la fecha seleccionada -->
-                                            <Label x:Name="LabelFechaNacimiento"
-                       Text="DD/MM/AAAA"
-                       TextColor="#9CA3AF"
-                       FontSize="14"
-                       FontFamily="InterRegular"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Start"
-                       Margin="16,0"
-                       InputTransparent="True"/>
-
-                                            <!-- Ícono decorativo -->
+                                        <RoundRectangle CornerRadius="12"/>
+                                    </Border.StrokeShape>
+                                    <Grid HeightRequest="48">
+                                        <Label x:Name="LabelFechaNacimiento"
+                                               Text="DD/MM/AAAA"
+                                               TextColor="#9CA3AF"
+                                               FontSize="14"
+                                               FontFamily="InterRegular"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Start"
+                                               Margin="16,0"
+                                               InputTransparent="True"/>
                                         <Label Text="&#xf073;"
-                       FontFamily="FontAwesomeSolid"
-                       FontSize="16"
-                       TextColor="#DC143C"
-                       VerticalOptions="Center"
-                       HorizontalOptions="End"
-                       Margin="0,0,14,0"
-                       InputTransparent="True"/>
-
-                                        <!-- DatePicker transparente que cubre todo el área -->
+                                               FontFamily="FontAwesomeSolid"
+                                               FontSize="16"
+                                               TextColor="#DC143C"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="End"
+                                               Margin="0,0,14,0"
+                                               InputTransparent="True"/>
                                         <DatePicker x:Name="DatePickerNacimiento"
-                        Opacity="0"
-                        HeightRequest="48"
-                        VerticalOptions="Fill"
-                        HorizontalOptions="Fill"
-                        MaximumDate="{x:Static sys:DateTime.Today}"
-                        DateSelected="OnFechaNacimientoSelected"/>
+                                                    Opacity="0"
+                                                    HeightRequest="48"
+                                                    VerticalOptions="Fill"
+                                                    HorizontalOptions="Fill"
+                                                    MaximumDate="{x:Static sys:DateTime.Today}"
+                                                    DateSelected="OnFechaNacimientoSelected"/>
                                     </Grid>
                                 </Border>
                             </VerticalStackLayout>
@@ -251,7 +246,7 @@
                     </VerticalStackLayout>
                 </Border>
 
-
+                <!-- CONTACTO -->
                 <Border BackgroundColor="White" StrokeThickness="0" Padding="16">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16"/>
@@ -266,6 +261,7 @@
                                TextColor="#9CA3AF"
                                CharacterSpacing="1"/>
 
+                        <!-- Teléfono -->
                         <VerticalStackLayout Spacing="6">
                             <Label Text="Teléfono"
                                    FontSize="12"
@@ -286,7 +282,7 @@
                                            TextColor="#9CA3AF"
                                            VerticalOptions="Center"
                                            Margin="0,0,10,0"/>
-                                    <Entry x:Name="EntryTelefono"
+                                    <Entry Text="{Binding Telefono}"
                                            Grid.Column="1"
                                            Placeholder="+57 300 000 0000"
                                            PlaceholderColor="#9CA3AF"
@@ -298,9 +294,14 @@
                                            HeightRequest="48"/>
                                 </Grid>
                             </Border>
+                            <Label Text="{Binding TelefonoError}"
+                                   TextColor="#DC143C"
+                                   FontSize="11"
+                                   FontFamily="InterRegular"
+                                   Margin="4,0,0,0"/>
                         </VerticalStackLayout>
 
-
+                        <!-- Dirección -->
                         <VerticalStackLayout Spacing="6">
                             <Label Text="Dirección"
                                    FontSize="12"
@@ -321,9 +322,9 @@
                                            TextColor="#9CA3AF"
                                            VerticalOptions="Center"
                                            Margin="0,0,10,0"/>
-                                    <Entry x:Name="EntryDireccion"
+                                    <Entry Text="{Binding Direccion}"
                                            Grid.Column="1"
-                                           Placeholder="Calle 45 #12-30, Bogotá"
+                                           Placeholder="Calle 45 #12-30"
                                            PlaceholderColor="#9CA3AF"
                                            TextColor="#1F2937"
                                            FontSize="14"
@@ -332,11 +333,16 @@
                                            HeightRequest="48"/>
                                 </Grid>
                             </Border>
+                            <Label Text="{Binding DireccionError}"
+                                   TextColor="#DC143C"
+                                   FontSize="11"
+                                   FontFamily="InterRegular"
+                                   Margin="4,0,0,0"/>
                         </VerticalStackLayout>
                     </VerticalStackLayout>
                 </Border>
 
-
+                <!-- INFORMACIÓN DE DONACIÓN -->
                 <Border BackgroundColor="White" StrokeThickness="0" Padding="16">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16"/>
@@ -351,6 +357,7 @@
                                TextColor="#9CA3AF"
                                CharacterSpacing="1"/>
 
+                        <!-- Última donación -->
                         <VerticalStackLayout Spacing="6">
                             <Label Text="Última donación"
                                    FontSize="12"
@@ -383,6 +390,7 @@
                             </Border>
                         </VerticalStackLayout>
 
+                        <!-- Peso -->
                         <VerticalStackLayout Spacing="6">
                             <Label Text="Peso (kg)"
                                    FontSize="12"
@@ -395,7 +403,7 @@
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="12"/>
                                 </Border.StrokeShape>
-                                <Entry x:Name="EntryPeso"
+                                <Entry Text="{Binding Peso}"
                                        Placeholder="70"
                                        PlaceholderColor="#9CA3AF"
                                        TextColor="#1F2937"
@@ -406,9 +414,14 @@
                                        Margin="16,0"
                                        HeightRequest="48"/>
                             </Border>
+                            <Label Text="{Binding PesoError}"
+                                   TextColor="#DC143C"
+                                   FontSize="11"
+                                   FontFamily="InterRegular"
+                                   Margin="4,0,0,0"/>
                         </VerticalStackLayout>
 
-
+                        <!-- Disponibilidad -->
                         <Grid ColumnDefinitions="*,Auto" Padding="0,4,0,0">
                             <VerticalStackLayout Grid.Column="0" Spacing="2" VerticalOptions="Center">
                                 <Label Text="Donante disponible"
@@ -422,7 +435,7 @@
                             </VerticalStackLayout>
                             <Switch x:Name="SwitchDisponible"
                                     Grid.Column="1"
-                                    IsToggled="True"
+                                    IsToggled="{Binding IsAvailable}"
                                     OnColor="#DC143C"
                                     ThumbColor="White"
                                     VerticalOptions="Center"/>
@@ -430,28 +443,28 @@
                     </VerticalStackLayout>
                 </Border>
 
-
                 <!-- BOTONES -->
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,4,0,0">
                     <Border Grid.Column="0"
-                            BackgroundColor="White"
-                            Stroke="#E5E7EB"
-                            StrokeThickness="1"
-                            Padding="0">
+        BackgroundColor="White"
+        Stroke="#E5E7EB"
+        StrokeThickness="1"
+        Padding="0">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="12"/>
                         </Border.StrokeShape>
-                        <Button Text="Cancelar"
-                                BackgroundColor="Transparent"
-                                TextColor="#4B5563"
-                                FontFamily="InterSemiBold"
-                                FontSize="14"
-                                HeightRequest="52"
-                                BorderWidth="0"
-                                Clicked="OnCancelarClicked"/>
+                        <Grid HeightRequest="52">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCancelarClicked"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="Cancelar"
+               TextColor="#4B5563"
+               FontFamily="InterSemiBold"
+               FontSize="14"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+                        </Grid>
                     </Border>
-
-
                     <Border Grid.Column="1"
                             BackgroundColor="#DC143C"
                             StrokeThickness="0"

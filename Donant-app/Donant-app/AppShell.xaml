@@ -50,7 +50,17 @@
         ContentTemplate="{DataTemplate pages:LogoutPage}"
         Route="logout" />
 
+        <ShellContent
+    Title="Donación"
+    Icon="{StaticResource IconMeta}"
+    ContentTemplate="{DataTemplate pages:RegistroDonacionPage}"
+    Route="registro" />
 
+        <ShellContent
+    Title="Solicitud"
+    Icon="{StaticResource IconMeta}"
+    ContentTemplate="{DataTemplate pages:SolicitudSangrePage}"
+    Route="solicitud" />
 
     </TabBar>
     

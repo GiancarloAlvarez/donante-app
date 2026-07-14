@@ -19,10 +19,6 @@ public partial class NewDonorViewModel : ObservableObject
     private string _direccion = string.Empty;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(EdadError))]
-    private string _edad = string.Empty;
-
-    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(PesoError))]
     private string _peso = string.Empty;
 
@@ -31,18 +27,17 @@ public partial class NewDonorViewModel : ObservableObject
     private string _tipoSangre = string.Empty;
 
     [ObservableProperty]
-    private DateTime _fechaNacimiento = DateTime.Today.AddYears(-25); 
+    private DateTime _fechaNacimiento = DateTime.Today.AddYears(-25);
 
     [ObservableProperty]
-    private DateTime? _ultimaDonacion = null; 
+    private DateTime? _ultimaDonacion = null;
 
     [ObservableProperty]
-    private bool _isAvailable = true; 
+    private bool _isAvailable = true;
 
     public string NombreError => ValidarNombre();
     public string TelefonoError => ValidarTelefono();
     public string DireccionError => ValidarDireccion();
-    public string EdadError => ValidarEdad();
     public string PesoError => ValidarPeso();
     public string TipoSangreError => ValidarTipoSangre();
 
@@ -63,15 +58,6 @@ public partial class NewDonorViewModel : ObservableObject
         Direccion.Trim().Length < 5 ? "Ingresa una dirección más detallada." :
         string.Empty;
 
-    private string ValidarEdad()
-    {
-        if (string.IsNullOrWhiteSpace(Edad)) return "La edad es obligatoria.";
-        if (!int.TryParse(Edad, out int e)) return "Ingresa un número válido.";
-        if (e < 18) return "El donante debe ser mayor de 18 años.";
-        if (e > 65) return "El donante no debe superar los 65 años.";
-        return string.Empty;
-    }
-
     private string ValidarPeso()
     {
         if (string.IsNullOrWhiteSpace(Peso)) return "El peso es obligatorio.";
@@ -89,7 +75,6 @@ public partial class NewDonorViewModel : ObservableObject
         string.IsNullOrEmpty(NombreError) &&
         string.IsNullOrEmpty(TelefonoError) &&
         string.IsNullOrEmpty(DireccionError) &&
-        string.IsNullOrEmpty(EdadError) &&
         string.IsNullOrEmpty(PesoError) &&
         string.IsNullOrEmpty(TipoSangreError);
 
@@ -99,28 +84,30 @@ public partial class NewDonorViewModel : ObservableObject
         OnPropertyChanged(nameof(NombreError));
         OnPropertyChanged(nameof(TelefonoError));
         OnPropertyChanged(nameof(DireccionError));
-        OnPropertyChanged(nameof(EdadError));
         OnPropertyChanged(nameof(PesoError));
         OnPropertyChanged(nameof(TipoSangreError));
 
         if (!FormularioValido()) return;
+
+        var edad = DateTime.Today.Year - FechaNacimiento.Year;
+        if (FechaNacimiento.Date > DateTime.Today.AddYears(-edad)) edad--;
 
         DonanteStore.Donantes.Add(new Donante
         {
             Id = DonanteStore.Donantes.Count + 1,
             NombreDonante = NombreDonante.Trim(),
             TipoSangre = TipoSangre,
-            Edad = int.Parse(Edad),
-            FechaNacimiento = FechaNacimiento,   
+            Edad = edad,
+            FechaNacimiento = FechaNacimiento,
             Telefono = Telefono.Trim(),
             Direccion = Direccion.Trim(),
-            UltimaDonacion = UltimaDonacion,     
+            UltimaDonacion = UltimaDonacion,
             Peso = double.Parse(Peso),
             IsAvailable = IsAvailable,
             CreatedAt = DateTime.Now
         });
-
         LimpiarFormulario();
+        await Shell.Current.DisplayAlert("¡Éxito!", "Donante registrado correctamente.", "OK");
         await Shell.Current.GoToAsync("..");
     }
 
@@ -129,11 +116,16 @@ public partial class NewDonorViewModel : ObservableObject
         NombreDonante = string.Empty;
         Telefono = string.Empty;
         Direccion = string.Empty;
-        Edad = string.Empty;
         Peso = string.Empty;
         TipoSangre = string.Empty;
         FechaNacimiento = DateTime.Today.AddYears(-25);
         UltimaDonacion = null;
         IsAvailable = true;
+    }
+
+    [RelayCommand]
+    private void Cancelar()
+    {
+        LimpiarFormulario();
     }
 }

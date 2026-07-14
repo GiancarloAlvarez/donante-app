@@ -9,7 +9,8 @@ namespace Donant_app
         public AppShell()
         {
             InitializeComponent();
-            // Theme switcher movido a PerfilPage
+            Routing.RegisterRoute("registro", typeof(Pages.RegistroDonacionPage));
+            Routing.RegisterRoute("solicitud", typeof(Pages.SolicitudSangrePage));
         }
 
         public static async Task DisplaySnackbarAsync(string message)
