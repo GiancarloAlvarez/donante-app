@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Donant_app.Pages.EditDonorPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="#F8F7F9">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto,*">
+
+            <!-- HEADER -->
+            <Grid Grid.Row="0"
+                  BackgroundColor="#DC143C"
+                  Padding="20,52,20,24">
+                <Grid.Shadow>
+                    <Shadow Brush="#30000000" Offset="0,4" Radius="12" Opacity="1"/>
+                </Grid.Shadow>
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                    <Border Grid.Column="0"
+                            WidthRequest="40" HeightRequest="40"
+                            BackgroundColor="#26FFFFFF"
+                            StrokeThickness="0"
+                            VerticalOptions="Center">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20"/>
+                        </Border.StrokeShape>
+                        <Label Text="&#xf060;"
+                               FontFamily="FontAwesomeSolid"
+                               FontSize="15"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCancelarClicked"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Border>
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                        <Label Text="Editar donante"
+                               TextColor="White"
+                               FontSize="18"
+                               FontFamily="InterBold"
+                               LineHeight="1.2"/>
+                        <Label Text="Modifica los datos del donante"
+                               TextColor="#CCFFFFFF"
+                               FontSize="12"
+                               FontFamily="InterRegular"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Grid>
+
+            <VerticalStackLayout Grid.Row="1" Padding="20,20,20,40" Spacing="20">
+
+                <!-- FOTO -->
+                <VerticalStackLayout HorizontalOptions="Center" Spacing="8">
+                    <Grid WidthRequest="80" HeightRequest="80" HorizontalOptions="Center">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFotoTapped"/>
+                        </Grid.GestureRecognizers>
+                        <Border WidthRequest="80" HeightRequest="80"
+                                BackgroundColor="#26FF6B6B"
+                                StrokeThickness="0"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="40"/>
+                            </Border.StrokeShape>
+                            <Image x:Name="ImgFoto"
+                                   IsVisible="False"
+                                   Aspect="AspectFill"/>
+                        </Border>
+                        <Label x:Name="LblIconoFoto"
+                               Text="&#xf007;"
+                               FontFamily="FontAwesomeSolid"
+                               FontSize="28"
+                               TextColor="#DC143C"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        <Border WidthRequest="28" HeightRequest="28"
+                                BackgroundColor="#DC143C"
+                                StrokeThickness="2"
+                                Stroke="#F8F7F9"
+                                HorizontalOptions="End"
+                                VerticalOptions="End">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="14"/>
+                            </Border.StrokeShape>
+                            <Label Text="&#xf030;"
+                                   FontFamily="FontAwesomeSolid"
+                                   FontSize="11"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                        </Border>
+                    </Grid>
+                    <Label Text="Cambiar foto"
+                           FontSize="12"
+                           FontFamily="InterRegular"
+                           TextColor="#6B7280"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <!-- DATOS PERSONALES -->
+                <Border BackgroundColor="White" StrokeThickness="0" Padding="16">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="16"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="16">
+                        <Label Text="DATOS PERSONALES"
+                               FontSize="11"
+                               FontFamily="InterSemiBold"
+                               TextColor="#9CA3AF"
+                               CharacterSpacing="1"/>
+
+                        <!-- Nombre -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Nombre completo"
+                                   FontSize="12"
+                                   FontFamily="InterMedium"
+                                   TextColor="#4B5563"/>
+                            <Border BackgroundColor="#F8F7F9"
+                                    Stroke="#F3F4F6"
+                                    StrokeThickness="1"
+                                    Padding="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12"/>
+                                </Border.StrokeShape>
+                                <Entry x:Name="EntryNombre"
+                                       Placeholder="Ej. Juan Pérez"
+                                       PlaceholderColor="#9CA3AF"
+                                       TextColor="#1F2937"
+                                       FontSize="14"
+                                       FontFamily="InterRegular"
+                                       BackgroundColor="Transparent"
+                                       Margin="16,0"
+                                       HeightRequest="48"/>
+                            </Border>
+                            <Label x:Name="LblNombreError"
+                                   TextColor="#DC143C"
+                                   FontSize="11"
+                                   FontFamily="InterRegular"
+                                   Margin="4,0,0,0"
+                                   IsVisible="False"/>
+                        </VerticalStackLayout>
+
+                        <!-- Tipo de sangre y Fecha nacimiento -->
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                            <VerticalStackLayout Grid.Column="0" Spacing="6">
+                                <Label Text="Tipo de sangre"
+                                       FontSize="12"
+                                       FontFamily="InterMedium"
+                                       TextColor="#4B5563"/>
+                                <Border BackgroundColor="#F8F7F9"
+                                        Stroke="#F3F4F6"
+                                        StrokeThickness="1"
+                                        Padding="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12"/>
+                                    </Border.StrokeShape>
+                                    <Grid ColumnDefinitions="*,Auto" Padding="16,0,12,0">
+                                        <Picker x:Name="PickerSangre"
+                                                Grid.Column="0"
+                                                Title="Seleccionar"
+                                                TextColor="#1F2937"
+                                                FontSize="14"
+                                                FontFamily="InterRegular"
+                                                BackgroundColor="Transparent"
+                                                HeightRequest="48">
+                                            <Picker.Items>
+                                                <x:String>O+</x:String>
+                                                <x:String>O−</x:String>
+                                                <x:String>A+</x:String>
+                                                <x:String>A−</x:String>
+                                                <x:String>B+</x:String>
+                                                <x:String>B−</x:String>
+                                                <x:String>AB+</x:String>
+                                                <x:String>AB−</x:String>
+                                            </Picker.Items>
+                                        </Picker>
+                                        <Label Grid.Column="1"
+                                               Text="&#xf043;"
+                                               FontFamily="FontAwesomeSolid"
+                                               FontSize="11"
+                                               TextColor="#DC143C"
+                                               VerticalOptions="Center"/>
+                                    </Grid>
+                                </Border>
+                                <Label x:Name="LblSangreError"
+                                       TextColor="#DC143C"
+                                       FontSize="11"
+                                       FontFamily="InterRegular"
+                                       Margin="4,0,0,0"
+                                       IsVisible="False"/>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1" Spacing="6">
+                                <Label Text="Fecha de nacimiento"
+                                       FontSize="12"
+                                       FontFamily="InterMedium"
+                                       TextColor="#4B5563"/>
+                                <Border BackgroundColor="#F8F7F9"
+                                        Stroke="#F3F4F6"
+                                        StrokeThickness="1"
+                                        Padding="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12"/>
+                                    </Border.StrokeShape>
+                                    <Grid HeightRequest="48">
+                                        <Label x:Name="LabelFechaNacimiento"
+                                               Text="DD/MM/AAAA"
+                                               TextColor="#9CA3AF"
+                                               FontSize="13"
+                                               FontFamily="InterRegular"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Start"
+                                               Margin="16,0"
+                                               InputTransparent="True"/>
+                                        <Label Text="&#xf073;"
+                                               FontFamily="FontAwesomeSolid"
+                                               FontSize="16"
+                                               TextColor="#DC143C"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="End"
+                                               Margin="0,0,14,0"
+                                               InputTransparent="True"/>
+                                        <DatePicker x:Name="DatePickerNacimiento"
+                                                    Opacity="0"
+                                                    HeightRequest="48"
+                                                    VerticalOptions="Fill"
+                                                    HorizontalOptions="Fill"
+                                                    MaximumDate="{x:Static sys:DateTime.Today}"
+                                                    DateSelected="OnFechaNacimientoSelected"/>
+                                    </Grid>
+                                </Border>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- CONTACTO -->
+                <Border BackgroundColor="White" StrokeThickness="0" Padding="16">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="16"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="16">
+                        <Label Text="CONTACTO"
+                               FontSize="11"
+                               FontFamily="InterSemiBold"
+                               TextColor="#9CA3AF"
+                               CharacterSpacing="1"/>
+
+                        <!-- Teléfono -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Teléfono"
+                                   FontSize="12"
+                                   FontFamily="InterMedium"
+                                   TextColor="#4B5563"/>
+                            <Border BackgroundColor="#F8F7F9"
+                                    Stroke="#F3F4F6"
+                                    StrokeThickness="1"
+                                    Padding="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12"/>
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="Auto,*" Padding="16,0,16,0">
+                                    <Label Grid.Column="0"
+                                           Text="&#xf095;"
+                                           FontFamily="FontAwesomeSolid"
+                                           FontSize="13"
+                                           TextColor="#9CA3AF"
+                                           VerticalOptions="Center"
+                                           Margin="0,0,10,0"/>
+                                    <Entry x:Name="EntryTelefono"
+                                           Grid.Column="1"
+                                           Placeholder="+57 300 000 0000"
+                                           PlaceholderColor="#9CA3AF"
+                                           TextColor="#1F2937"
+                                           FontSize="14"
+                                           FontFamily="InterRegular"
+                                           Keyboard="Telephone"
+                                           BackgroundColor="Transparent"
+                                           HeightRequest="48"/>
+                                </Grid>
+                            </Border>
+                            <Label x:Name="LblTelefonoError"
+                                   TextColor="#DC143C"
+                                   FontSize="11"
+                                   FontFamily="InterRegular"
+                                   Margin="4,0,0,0"
+                                   IsVisible="False"/>
+                        </VerticalStackLayout>
+
+                        <!-- Dirección -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Dirección"
+                                   FontSize="12"
+                                   FontFamily="InterMedium"
+                                   TextColor="#4B5563"/>
+                            <Border BackgroundColor="#F8F7F9"
+                                    Stroke="#F3F4F6"
+                                    StrokeThickness="1"
+                                    Padding="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12"/>
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="Auto,*" Padding="16,0,16,0">
+                                    <Label Grid.Column="0"
+                                           Text="&#xf3c5;"
+                                           FontFamily="FontAwesomeSolid"
+                                           FontSize="13"
+                                           TextColor="#9CA3AF"
+                                           VerticalOptions="Center"
+                                           Margin="0,0,10,0"/>
+                                    <Entry x:Name="EntryDireccion"
+                                           Grid.Column="1"
+                                           Placeholder="Calle 45 #12-30"
+                                           PlaceholderColor="#9CA3AF"
+                                           TextColor="#1F2937"
+                                           FontSize="14"
+                                           FontFamily="InterRegular"
+                                           BackgroundColor="Transparent"
+                                           HeightRequest="48"/>
+                                </Grid>
+                            </Border>
+                            <Label x:Name="LblDireccionError"
+                                   TextColor="#DC143C"
+                                   FontSize="11"
+                                   FontFamily="InterRegular"
+                                   Margin="4,0,0,0"
+                                   IsVisible="False"/>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- INFORMACIÓN DE DONACIÓN -->
+                <Border BackgroundColor="White" StrokeThickness="0" Padding="16">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="16"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="16">
+                        <Label Text="INFORMACIÓN DE DONACIÓN"
+                               FontSize="11"
+                               FontFamily="InterSemiBold"
+                               TextColor="#9CA3AF"
+                               CharacterSpacing="1"/>
+
+                        <!-- Última donación -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Última donación"
+                                   FontSize="12"
+                                   FontFamily="InterMedium"
+                                   TextColor="#4B5563"/>
+                            <Border BackgroundColor="#F8F7F9"
+                                    Stroke="#F3F4F6"
+                                    StrokeThickness="1"
+                                    Padding="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12"/>
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="Auto,*" Padding="16,0,16,0">
+                                    <Label Grid.Column="0"
+                                           Text="&#xf133;"
+                                           FontFamily="FontAwesomeRegular"
+                                           FontSize="13"
+                                           TextColor="#9CA3AF"
+                                           VerticalOptions="Center"
+                                           Margin="0,0,10,0"/>
+                                    <DatePicker x:Name="DateUltimaDonacion"
+                                                Grid.Column="1"
+                                                Format="dd/MM/yyyy"
+                                                TextColor="#374151"
+                                                FontSize="14"
+                                                FontFamily="InterRegular"
+                                                BackgroundColor="Transparent"
+                                                HeightRequest="48"/>
+                                </Grid>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- Peso -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Peso (kg)"
+                                   FontSize="12"
+                                   FontFamily="InterMedium"
+                                   TextColor="#4B5563"/>
+                            <Border BackgroundColor="#F8F7F9"
+                                    Stroke="#F3F4F6"
+                                    StrokeThickness="1"
+                                    Padding="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12"/>
+                                </Border.StrokeShape>
+                                <Entry x:Name="EntryPeso"
+                                       Placeholder="70"
+                                       PlaceholderColor="#9CA3AF"
+                                       TextColor="#1F2937"
+                                       FontSize="14"
+                                       FontFamily="InterRegular"
+                                       Keyboard="Numeric"
+                                       BackgroundColor="Transparent"
+                                       Margin="16,0"
+                                       HeightRequest="48"/>
+                            </Border>
+                            <Label x:Name="LblPesoError"
+                                   TextColor="#DC143C"
+                                   FontSize="11"
+                                   FontFamily="InterRegular"
+                                   Margin="4,0,0,0"
+                                   IsVisible="False"/>
+                        </VerticalStackLayout>
+
+                        <!-- Disponibilidad -->
+                        <Grid ColumnDefinitions="*,Auto" Padding="0,4,0,0">
+                            <VerticalStackLayout Grid.Column="0" Spacing="2" VerticalOptions="Center">
+                                <Label Text="Donante disponible"
+                                       FontSize="14"
+                                       FontFamily="InterMedium"
+                                       TextColor="#374151"/>
+                                <Label Text="Apto para donar actualmente"
+                                       FontSize="12"
+                                       FontFamily="InterRegular"
+                                       TextColor="#9CA3AF"/>
+                            </VerticalStackLayout>
+                            <Switch x:Name="SwitchDisponible"
+                                    Grid.Column="1"
+                                    OnColor="#DC143C"
+                                    ThumbColor="White"
+                                    VerticalOptions="Center"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- BOTONES -->
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,4,0,0">
+                    <Border Grid.Column="0"
+                            BackgroundColor="White"
+                            Stroke="#E5E7EB"
+                            StrokeThickness="1"
+                            Padding="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Grid HeightRequest="52">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCancelarClicked"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="Cancelar"
+                                   TextColor="#4B5563"
+                                   FontFamily="InterSemiBold"
+                                   FontSize="14"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+                    <Border Grid.Column="1"
+                            BackgroundColor="#DC143C"
+                            StrokeThickness="0"
+                            Padding="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Border.Shadow>
+                            <Shadow Brush="#40DC143C" Offset="0,4" Radius="10" Opacity="1"/>
+                        </Border.Shadow>
+                        <Grid HeightRequest="52">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnGuardarTapped"/>
+                            </Grid.GestureRecognizers>
+                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="8">
+                                <Label Text="&#xf0c7;"
+                                       FontFamily="FontAwesomeSolid"
+                                       FontSize="14"
+                                       TextColor="White"
+                                       VerticalOptions="Center"/>
+                                <Label Text="Guardar cambios"
+                                       FontFamily="InterSemiBold"
+                                       FontSize="14"
+                                       TextColor="White"
+                                       VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>
