@@ -170,55 +170,80 @@
                 <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="12" Margin="0,24,0,0">
 
                     <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="6">
-                        <Border WidthRequest="56" HeightRequest="56" BackgroundColor="White" StrokeThickness="0" HorizontalOptions="Center">
+                        <Border WidthRequest="56" HeightRequest="56" BackgroundColor="White"
+                            StrokeThickness="0" HorizontalOptions="Center">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="16"/>
                             </Border.StrokeShape>
                             <Border.Shadow>
-                                <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
+                                <Shadow Brush="#150000" Offset="0,2" Radius="8" Opacity="1"/>
                             </Border.Shadow>
-                            <Label Text="&#xf271;" FontFamily="FontAwesomeSolid" FontSize="18" TextColor="#DC143C" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnAgendarCitaTapped"/>
+                            </Border.GestureRecognizers>
+                            <Label Text="&#xf271;" FontFamily="FontAwesomeSolid" FontSize="18"
+                                TextColor="#DC143C" HorizontalOptions="Center" VerticalOptions="Center"/>
                         </Border>
-                        <Label Text="Agendar cita" FontSize="11" FontFamily="InterRegular" TextColor="#4B5563" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                        <Label Text="Agendar cita" FontSize="11" FontFamily="InterRegular"
+               TextColor="#4B5563" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                     </VerticalStackLayout>
 
                     <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="6">
-                        <Border WidthRequest="56" HeightRequest="56" BackgroundColor="White" StrokeThickness="0" HorizontalOptions="Center">
+                       <Border WidthRequest="56" HeightRequest="56" BackgroundColor="White"
+                            StrokeThickness="0" HorizontalOptions="Center">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="16"/>
                             </Border.StrokeShape>
                             <Border.Shadow>
-                                <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
+                                <Shadow Brush="#150000" Offset="0,2" Radius="8" Opacity="1"/>
                             </Border.Shadow>
-                            <Label Text="&#xf4bc;" FontFamily="FontAwesomeSolid" FontSize="18" TextColor="#DC143C" HorizontalOptions="Center" VerticalOptions="Center"/>
-                        </Border>
-                        <Label Text="Solicitar" FontSize="11" FontFamily="InterRegular" TextColor="#4B5563" HorizontalOptions="Center"/>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSolicitarTapped"/>
+                            </Border.GestureRecognizers>
+                            <Label Text="&#xf4bc;" FontFamily="FontAwesomeSolid" FontSize="18"
+                             TextColor="#DC143C" HorizontalOptions="Center" VerticalOptions="Center"/>
+                       </Border>
+                        <Label Text="Solicitar" FontSize="11" FontFamily="InterRegular"
+                            TextColor="#4B5563" HorizontalOptions="Center"/>
                     </VerticalStackLayout>
 
+                    <!-- Registrar donación → RegistroDonacionPage -->
                     <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="6">
-                        <Border WidthRequest="56" HeightRequest="56" BackgroundColor="White" StrokeThickness="0" HorizontalOptions="Center">
+                        <Border WidthRequest="56" HeightRequest="56" BackgroundColor="White"
+                            StrokeThickness="0" HorizontalOptions="Center">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="16"/>
                             </Border.StrokeShape>
                             <Border.Shadow>
-                                <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
+                                <Shadow Brush="#150000" Offset="0,2" Radius="8" Opacity="1"/>
                             </Border.Shadow>
-                            <Label Text="&#xf3c5;" FontFamily="FontAwesomeSolid" FontSize="18" TextColor="#DC143C" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnRegistrarDonacionTapped"/>
+                            </Border.GestureRecognizers>
+                            <Label Text="&#xf3c5;" FontFamily="FontAwesomeSolid" FontSize="18"
+                                TextColor="#DC143C" HorizontalOptions="Center" VerticalOptions="Center"/>
                         </Border>
-                        <Label Text="Centros" FontSize="11" FontFamily="InterRegular" TextColor="#4B5563" HorizontalOptions="Center"/>
+                        <Label Text="Registrar" FontSize="11" FontFamily="InterRegular"
+                            TextColor="#4B5563" HorizontalOptions="Center"/>
                     </VerticalStackLayout>
 
                     <VerticalStackLayout Grid.Column="3" HorizontalOptions="Center" Spacing="6">
-                        <Border WidthRequest="56" HeightRequest="56" BackgroundColor="White" StrokeThickness="0" HorizontalOptions="Center">
+                        <Border WidthRequest="56" HeightRequest="56" BackgroundColor="White"
+                            StrokeThickness="0" HorizontalOptions="Center">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="16"/>
                             </Border.StrokeShape>
                             <Border.Shadow>
-                                <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
+                                <Shadow Brush="#150000" Offset="0,2" Radius="8" Opacity="1"/>
                             </Border.Shadow>
-                            <Label Text="&#xf1da;" FontFamily="FontAwesomeSolid" FontSize="18" TextColor="#DC143C" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnHistorialTapped"/>
+                            </Border.GestureRecognizers>
+                            <Label Text="&#xf1da;" FontFamily="FontAwesomeSolid" FontSize="18"
+                            TextColor="#DC143C" HorizontalOptions="Center" VerticalOptions="Center"/>
                         </Border>
-                        <Label Text="Historial" FontSize="11" FontFamily="InterRegular" TextColor="#4B5563" HorizontalOptions="Center"/>
+                        <Label Text="Historial" FontSize="11" FontFamily="InterRegular"
+                            TextColor="#4B5563" HorizontalOptions="Center"/>
                     </VerticalStackLayout>
                 </Grid>
 

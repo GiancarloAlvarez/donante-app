@@ -15,6 +15,8 @@ namespace Donant_app
             Routing.RegisterRoute(nameof(DonantePage), typeof(Pages.DonantePage));
             Routing.RegisterRoute(nameof(EditDonorPage), typeof(Pages.EditDonorPage));
             Routing.RegisterRoute(nameof(NewDonorPage), typeof(Pages.NewDonorPage));
+            Routing.RegisterRoute(nameof(SolicitudSangrePage), typeof(Pages.SolicitudSangrePage));
+            Routing.RegisterRoute(nameof(RegistroDonacionPage), typeof(Pages.RegistroDonacionPage));
         }
 
         public static async Task DisplaySnackbarAsync(string message)

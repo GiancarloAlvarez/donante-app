@@ -139,7 +139,7 @@
                         <Entry Grid.Column="1"
                                x:Name="PasswordEntry"
                                IsPassword="True"
-                               Text="123456"
+                               Text=""
                                TextColor="#1F2937"
                                FontSize="14"
                                FontFamily="InterRegular"
