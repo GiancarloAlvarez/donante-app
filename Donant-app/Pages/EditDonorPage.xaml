@@ -26,9 +26,9 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="20"/>
                         </Border.StrokeShape>
-                        <Label Text="&#xf060;"
-                               FontFamily="FontAwesomeSolid"
-                               FontSize="15"
+                        <Label Text="←"
+                               FontFamily="InterSemiBold"
+                               FontSize="20"
                                TextColor="White"
                                HorizontalOptions="Center"
                                VerticalOptions="Center">
@@ -87,9 +87,9 @@
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="14"/>
                             </Border.StrokeShape>
-                            <Label Text="&#xf030;"
-                                   FontFamily="FontAwesomeSolid"
-                                   FontSize="11"
+                            <Label Text="＋"
+                                   FontFamily="InterSemiBold"
+                                   FontSize="18"
                                    TextColor="White"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center"/>

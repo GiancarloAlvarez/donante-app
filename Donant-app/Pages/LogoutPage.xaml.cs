@@ -2,6 +2,8 @@ namespace Donant_app.Pages;
 
 public partial class LogoutPage : ContentPage
 {
+    private bool _promptVisible;
+
     public LogoutPage()
     {
         InitializeComponent();
@@ -10,24 +12,29 @@ public partial class LogoutPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
+        if (_promptVisible) return;
 
-        // ✅ Espera a que la página esté completamente renderizada
-        Dispatcher.Dispatch(async () =>
+        _promptVisible = true;
+        Dispatcher.Dispatch(PromptForLogoutAsync);
+    }
+
+    private async void PromptForLogoutAsync()
+    {
+        bool confirm = await DisplayAlertAsync(
+            "Cerrar sesión",
+            "¿Estás seguro que deseas salir?",
+            "Sí, salir",
+            "Cancelar");
+
+        if (confirm)
         {
-            bool confirmar = await DisplayAlert(
-                "Cerrar sesión",
-                "¿Estás seguro que deseas salir?",
-                "Sí, salir",
-                "Cancelar");
+            await AppShell.LogoutAsync();
+        }
+        else
+        {
+            await Shell.Current.GoToAsync("//main");
+        }
 
-            if (confirmar)
-            {
-                Application.Current!.MainPage = new NavigationPage(new LoginPage());
-            }
-            else
-            {
-                await Shell.Current.GoToAsync("//main");
-            }
-        });
+        _promptVisible = false;
     }
 }

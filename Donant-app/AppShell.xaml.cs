@@ -9,12 +9,27 @@ namespace Donant_app
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute("registro", typeof(Pages.RegistroDonacionPage));
-            Routing.RegisterRoute("solicitud", typeof(Pages.SolicitudSangrePage));
             Routing.RegisterRoute(nameof(NewDonorPage), typeof(Pages.NewDonorPage));
             Routing.RegisterRoute(nameof(DonantePage), typeof(Pages.DonantePage));
             Routing.RegisterRoute(nameof(EditDonorPage), typeof(Pages.EditDonorPage));
-            Routing.RegisterRoute(nameof(NewDonorPage), typeof(Pages.NewDonorPage));
+            Routing.RegisterRoute(nameof(SolicitudDetallePage), typeof(Pages.SolicitudDetallePage));
+            Routing.RegisterRoute(nameof(CentrosDonacionPage), typeof(Pages.CentrosDonacionPage));
+            Routing.RegisterRoute(nameof(HistorialDonantePage), typeof(Pages.HistorialDonantePage));
+        }
+
+        protected override void OnNavigating(ShellNavigatingEventArgs args)
+        {
+            base.OnNavigating(args);
+
+            string destination = args.Target.Location.OriginalString;
+            bool goingToLogin = destination.Contains("login", StringComparison.OrdinalIgnoreCase);
+            if (goingToLogin || Services.InMemoryDataService.Instance.IsLoggedIn)
+            {
+                return;
+            }
+
+            args.Cancel();
+            Dispatcher.Dispatch(async () => await GoToAsync("//login"));
         }
 
         public static async Task DisplaySnackbarAsync(string message)
@@ -52,8 +67,7 @@ namespace Donant_app
             Preferences.Remove("remember_me");
             Preferences.Remove("saved_username");
 
-            // Regresa al login y limpia el stack
-            await Shell.Current.GoToAsync("//LoginPage");
+            await Shell.Current.GoToAsync("//login");
         }
     }
 }

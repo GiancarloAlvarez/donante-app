@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Donant_app.Models;
 
@@ -6,70 +6,126 @@ namespace Donant_app.ViewModels;
 
 public partial class NewDonorViewModel : ObservableObject
 {
+    private bool _showValidation;
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(NombreError))]
-    private string _nombreDonante = string.Empty;
+    public partial string NombreDonante { get; set; } = string.Empty;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(TelefonoError))]
-    private string _telefono = string.Empty;
+    public partial string Telefono { get; set; } = string.Empty;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(DireccionError))]
-    private string _direccion = string.Empty;
+    public partial string Direccion { get; set; } = string.Empty;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(PesoError))]
-    private string _peso = string.Empty;
+    public partial string Peso { get; set; } = string.Empty;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(TipoSangreError))]
-    private string _tipoSangre = string.Empty;
+    public partial string TipoSangre { get; set; } = string.Empty;
 
     [ObservableProperty]
-    private DateTime _fechaNacimiento = DateTime.Today.AddYears(-25);
+    public partial DateTime FechaNacimiento { get; set; } = DateTime.Today.AddYears(-25);
 
     [ObservableProperty]
-    private DateTime? _ultimaDonacion = null;
+    public partial DateTime? UltimaDonacion { get; set; }
 
     [ObservableProperty]
-    private bool _isAvailable = true;
+    public partial bool IsAvailable { get; set; } = true;
 
-    public string NombreError => ValidarNombre();
-    public string TelefonoError => ValidarTelefono();
-    public string DireccionError => ValidarDireccion();
-    public string PesoError => ValidarPeso();
-    public string TipoSangreError => ValidarTipoSangre();
+    public string? PhotoPath { get; set; }
 
-    private string ValidarNombre() =>
+    public string NombreError =>
+        !_showValidation ? string.Empty :
         string.IsNullOrWhiteSpace(NombreDonante) ? "El nombre del donante es obligatorio." :
         NombreDonante.Trim().Length < 3 ? "El nombre debe tener al menos 3 caracteres." :
         string.Empty;
 
-    private string ValidarTelefono() =>
+    public string TelefonoError =>
+        !_showValidation ? string.Empty :
         string.IsNullOrWhiteSpace(Telefono) ? "El teléfono es obligatorio." :
-        Telefono.Length < 8 ? "El teléfono debe tener al menos 8 dígitos." :
-        !Telefono.All(c => char.IsDigit(c) || c == '+' || c == ' ' || c == '-')
+        Telefono.Count(char.IsDigit) < 7 ? "El teléfono debe tener al menos 7 dígitos." :
+        !Telefono.All(character => char.IsDigit(character) || character is '+' or ' ' or '-')
             ? "Solo se permiten números, +, espacios o guiones." :
         string.Empty;
 
-    private string ValidarDireccion() =>
+    public string DireccionError =>
+        !_showValidation ? string.Empty :
         string.IsNullOrWhiteSpace(Direccion) ? "La dirección es obligatoria." :
         Direccion.Trim().Length < 5 ? "Ingresa una dirección más detallada." :
         string.Empty;
 
-    private string ValidarPeso()
+    public string PesoError => _showValidation ? ValidateWeight() : string.Empty;
+
+    public string TipoSangreError =>
+        !_showValidation ? string.Empty :
+        string.IsNullOrWhiteSpace(TipoSangre) ? "Selecciona el tipo de sangre." : string.Empty;
+
+    [RelayCommand]
+    private async Task GuardarAsync()
     {
-        if (string.IsNullOrWhiteSpace(Peso)) return "El peso es obligatorio.";
-        if (!double.TryParse(Peso, out double p)) return "Ingresa un peso válido (ej: 70.5).";
-        if (p < 50) return "El donante debe pesar al menos 50 kg para donar.";
-        if (p > 200) return "Verifica el peso ingresado.";
-        return string.Empty;
+        NotifyValidation();
+        if (!FormularioValido()) return;
+
+        int edad = CalculateAge(FechaNacimiento);
+        if (edad is < 18 or > 100)
+        {
+            await Shell.Current.DisplayAlertAsync(
+                "Fecha no válida",
+                "El donante debe tener entre 18 y 100 años.",
+                "Entendido");
+            return;
+        }
+
+        var donante = new Donante
+        {
+            NombreDonante = NombreDonante.Trim(),
+            TipoSangre = DonanteValidator.NormalizeBloodType(TipoSangre),
+            Edad = edad,
+            FechaNacimiento = FechaNacimiento,
+            Telefono = Telefono.Trim(),
+            Direccion = Direccion.Trim(),
+            UltimaDonacion = UltimaDonacion,
+            Peso = double.Parse(Peso),
+            IsAvailable = IsAvailable,
+            PhotoUrl = PhotoPath
+        };
+
+        string? validationError = DonanteValidator.Validate(donante);
+        if (validationError is not null)
+        {
+            await Shell.Current.DisplayAlertAsync("Revisa los datos", validationError, "Entendido");
+            return;
+        }
+
+        try
+        {
+            await DonanteStore.AddAsync(donante);
+            LimpiarFormulario();
+            await Shell.Current.DisplayAlertAsync("¡Éxito!", "Donante registrado correctamente.", "OK");
+            await Shell.Current.GoToAsync("..");
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlertAsync("No se pudo guardar", ex.Message, "Entendido");
+        }
     }
 
-    private string ValidarTipoSangre() =>
-        string.IsNullOrWhiteSpace(_tipoSangre) ? "Selecciona el tipo de sangre." :
-        string.Empty;
+    [RelayCommand]
+    private void Cancelar() => LimpiarFormulario();
+
+    private string ValidateWeight()
+    {
+        if (string.IsNullOrWhiteSpace(Peso)) return "El peso es obligatorio.";
+        if (!double.TryParse(Peso, out double value)) return "Ingresa un peso válido (ej: 70.5).";
+        if (value < 50) return "El donante debe pesar al menos 50 kg para donar.";
+        if (value > 300) return "Verifica el peso ingresado.";
+        return string.Empty;
+    }
 
     private bool FormularioValido() =>
         string.IsNullOrEmpty(NombreError) &&
@@ -78,41 +134,19 @@ public partial class NewDonorViewModel : ObservableObject
         string.IsNullOrEmpty(PesoError) &&
         string.IsNullOrEmpty(TipoSangreError);
 
-    [RelayCommand]
-    private async Task GuardarAsync()
+    private void NotifyValidation()
     {
+        _showValidation = true;
         OnPropertyChanged(nameof(NombreError));
         OnPropertyChanged(nameof(TelefonoError));
         OnPropertyChanged(nameof(DireccionError));
         OnPropertyChanged(nameof(PesoError));
         OnPropertyChanged(nameof(TipoSangreError));
-
-        if (!FormularioValido()) return;
-
-        var edad = DateTime.Today.Year - FechaNacimiento.Year;
-        if (FechaNacimiento.Date > DateTime.Today.AddYears(-edad)) edad--;
-
-        DonanteStore.Donantes.Add(new Donante
-        {
-            Id = DonanteStore.Donantes.Count + 1,
-            NombreDonante = NombreDonante.Trim(),
-            TipoSangre = TipoSangre,
-            Edad = edad,
-            FechaNacimiento = FechaNacimiento,
-            Telefono = Telefono.Trim(),
-            Direccion = Direccion.Trim(),
-            UltimaDonacion = UltimaDonacion,
-            Peso = double.Parse(Peso),
-            IsAvailable = IsAvailable,
-            CreatedAt = DateTime.Now
-        });
-        LimpiarFormulario();
-        await Shell.Current.DisplayAlertAsync("¡Éxito!", "Donante registrado correctamente.", "OK");
-        await Shell.Current.GoToAsync("..");
     }
 
     private void LimpiarFormulario()
     {
+        _showValidation = false;
         NombreDonante = string.Empty;
         Telefono = string.Empty;
         Direccion = string.Empty;
@@ -121,11 +155,13 @@ public partial class NewDonorViewModel : ObservableObject
         FechaNacimiento = DateTime.Today.AddYears(-25);
         UltimaDonacion = null;
         IsAvailable = true;
+        PhotoPath = null;
     }
 
-    [RelayCommand]
-    private void Cancelar()
+    private static int CalculateAge(DateTime birthDate)
     {
-        LimpiarFormulario();
+        int age = DateTime.Today.Year - birthDate.Year;
+        if (birthDate.Date > DateTime.Today.AddYears(-age)) age--;
+        return age;
     }
 }

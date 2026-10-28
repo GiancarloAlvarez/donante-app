@@ -14,5 +14,6 @@ namespace Donant_app.Models
         public double VolumenMl { get; set; } = 450;
 
         public string Ciudad { get; set; } = string.Empty;
+        public string Resumen => $"{FechaDonacion:dd MMM yyyy} · {VolumenMl:0} ml · {CentroDonacion}";
     }
 }

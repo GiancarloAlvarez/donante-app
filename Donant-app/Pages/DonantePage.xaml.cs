@@ -2,6 +2,7 @@ using Donant_app.Models;
 
 namespace Donant_app.Pages;
 
+[QueryProperty(nameof(Donante), "Donante")]
 public partial class DonantePage : ContentPage
 {
     private Donante? _donante;
@@ -22,49 +23,140 @@ public partial class DonantePage : ContentPage
         InitializeComponent();
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
+        await App.DataReady;
         CargarDatosPerfil();
     }
 
     private void CargarDatosPerfil()
     {
-        // Si tienes un donante logueado en sesión, cárgalo aquí
-        // Por ahora usa el primero del store como demo
-        var donante = DonanteStore.Donantes.FirstOrDefault();
+        var donante = _donante ?? DonanteStore.Donantes.FirstOrDefault();
         if (donante == null) return;
+        _donante = donante;
 
-        var iniciales = string.Concat(
+        string iniciales = string.Concat(
             donante.NombreDonante.Split(' ')
                    .Where(p => !string.IsNullOrEmpty(p))
                    .Take(2)
                    .Select(p => p[0].ToString().ToUpper()));
 
-            LblIniciales.Text = iniciales;
-            LblNombre.Text = donante.NombreDonante;
-            LblTipoSangreHeader.Text = $"Tipo {donante.TipoSangre}";
-            LblTipoSangre.Text = donante.TipoSangre;
-            LblEdad.Text = donante.Edad.ToString();
-            LblPeso.Text = donante.Peso.ToString("0");
-            LblTelefono.Text = donante.Telefono;
-            LblDireccion.Text = donante.Direccion;
-            LblUltimaDonacion.Text = donante.UltimaDonacion.HasValue
-                                            ? donante.UltimaDonacion.Value.ToString("dd MMM")
-                                            : "—";
-        LblTotalDonaciones.Text = DonanteStore.Donantes.Count.ToString();
+        List<RegistroDonacion> history = RegistroDonacionStore.Registros
+            .Where(record => record.DonanteId == donante.Id)
+            .OrderByDescending(record => record.FechaDonacion)
+            .ToList();
+        int donationCount = history.Count;
+        DateTime? lastDonation = DonorInsights.GetLastDonation(donante, history);
+
+        LblIniciales.Text = iniciales;
+        LblNombre.Text = donante.NombreDonante;
+        LblTipoSangreHeader.Text = $"Tipo {donante.TipoSangre}";
+        LblTipoSangre.Text = donante.TipoSangre;
+        LblEdad.Text = donante.Edad.ToString();
+        LblPeso.Text = donante.Peso.ToString("0");
+        LblTelefono.Text = donante.Telefono;
+        LblDireccion.Text = donante.Direccion;
+        LblUltimaDonacion.Text = lastDonation?.ToString("dd MMM") ?? "—";
+        LblTotalDonaciones.Text = donationCount.ToString();
+        LblLivesSaved.Text = (donationCount * 3).ToString();
+        LblDonorLevel.Text = DonorInsights.GetLevel(donationCount);
+
+        bool hasPhoto = !string.IsNullOrWhiteSpace(donante.PhotoUrl) && File.Exists(donante.PhotoUrl);
+        ProfilePhoto.IsVisible = hasPhoto;
+        LblIniciales.IsVisible = !hasPhoto;
+        ProfilePhoto.Source = hasPhoto ? ImageSource.FromFile(donante.PhotoUrl) : null;
+
+        BindableLayout.SetItemsSource(RecentHistoryList, history.Take(3).ToList());
+        RefreshAvailability(donante, history);
+        RefreshAchievements(donationCount);
     }
 
-    private async void OnCamaraTapped(object sender, EventArgs e)
+    private void RefreshAvailability(Donante donor, IReadOnlyList<RegistroDonacion> history)
     {
-        var result = await MediaPicker.PickPhotoAsync();
-        // Aquí puedes actualizar la foto del perfil
+        bool eligible = DonorInsights.IsEligible(donor, history, DateTime.Today);
+        DateTime? nextEligibleDate = DonorInsights.GetNextEligibleDate(donor, history);
+
+        string accentColor;
+        string softColor;
+        string title;
+        string message;
+        string badge;
+        string icon;
+
+        if (!donor.IsAvailable)
+        {
+            accentColor = "#9CA3AF";
+            softColor = "#F3F4F6";
+            title = "No disponible para donar";
+            message = "La disponibilidad fue desactivada en el perfil";
+            badge = "Inactiva";
+            icon = "\uf057";
+        }
+        else if (eligible)
+        {
+            accentColor = "#10B981";
+            softColor = "#ECFDF5";
+            title = "Disponible para donar";
+            message = "Cumple el período de descanso de 56 días";
+            badge = "Disponible";
+            icon = "\uf058";
+        }
+        else
+        {
+            accentColor = "#F59E0B";
+            softColor = "#FFFBEB";
+            title = "En período de descanso";
+            message = $"Podrá donar desde el {nextEligibleDate:dd MMM yyyy}";
+            badge = "En espera";
+            icon = "\uf017";
+        }
+
+        Color accent = Color.FromArgb(accentColor);
+        Color soft = Color.FromArgb(softColor);
+        AvailabilityAccent.BackgroundColor = accent;
+        AvailabilityIconBorder.BackgroundColor = soft;
+        LblAvailabilityIcon.TextColor = accent;
+        LblAvailabilityIcon.Text = icon;
+        LblAvailabilityTitle.Text = title;
+        LblAvailabilityMessage.Text = message;
+        AvailabilityBadge.BackgroundColor = soft;
+        LblAvailabilityBadge.TextColor = accent;
+        LblAvailabilityBadge.Text = badge;
+    }
+
+    private void RefreshAchievements(int donationCount)
+    {
+        SetAchievement(AchievementFirstBorder, AchievementFirstIcon, AchievementFirstLabel, donationCount >= 1);
+        SetAchievement(AchievementFiveBorder, AchievementFiveIcon, AchievementFiveLabel, donationCount >= 5);
+        SetAchievement(AchievementTenBorder, AchievementTenIcon, AchievementTenLabel, donationCount >= 10);
+        SetAchievement(AchievementTwentyBorder, AchievementTwentyIcon, AchievementTwentyLabel, donationCount >= 20);
+    }
+
+    private static void SetAchievement(Border border, Label icon, Label label, bool unlocked)
+    {
+        border.BackgroundColor = Color.FromArgb(unlocked ? "#FFF0F3" : "#F8F7F9");
+        icon.TextColor = Color.FromArgb(unlocked ? "#DC143C" : "#D1D5DB");
+        label.TextColor = Color.FromArgb(unlocked ? "#4B5563" : "#9CA3AF");
+    }
+
+    private async void OnCamaraTapped(object? sender, EventArgs e)
+    {
+        if (_donante is null) return;
+
+        string? photoPath = await PhotoStorage.PickAndSavePhotoAsync("Selecciona una foto de perfil");
+        if (photoPath is null) return;
+
+        _donante.PhotoUrl = photoPath;
+        await DonanteStore.UpdateAsync(_donante);
+        CargarDatosPerfil();
+        await AppShell.DisplaySnackbarAsync("Foto de perfil actualizada.");
     }
 
     // ═══════════════════════════════════════
     // 1️⃣ EDITAR PERFIL → redirige a EditDonorPage
     // ═══════════════════════════════════════
-    private async void OnEditarPerfilTapped(object sender, EventArgs e)
+    private async void OnEditarPerfilTapped(object? sender, EventArgs e)
     {
         if (_donante == null)
         {
@@ -78,14 +170,20 @@ public partial class DonantePage : ContentPage
     }
 
     
-    private async void OnCerrarSesionTapped(object sender, EventArgs e)
+    private async void OnCerrarSesionTapped(object? sender, EventArgs e)
     {
-        
-        await Shell.Current.GoToAsync(nameof(ProjectListPage));
+        await AppShell.LogoutAsync();
     }
 
-    private async void OnVerTodoTapped(object sender, EventArgs e)
+    private async void OnVerTodoTapped(object? sender, EventArgs e)
     {
-        await AppShell.DisplaySnackbarAsync("Historial completo próximamente.");
+        if (_donante is null)
+        {
+            return;
+        }
+
+        await Shell.Current.GoToAsync(
+            nameof(HistorialDonantePage),
+            new Dictionary<string, object> { ["Donante"] = _donante });
     }
 }

@@ -9,7 +9,8 @@
 
     <AbsoluteLayout>
 
-        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1"
+        <ScrollView x:Name="MainScrollView"
+                    AbsoluteLayout.LayoutBounds="0,0,1,1"
                     AbsoluteLayout.LayoutFlags="All">
             <Grid RowDefinitions="Auto,*">
 
@@ -31,6 +32,9 @@
                                 BackgroundColor="#26FFFFFF"
                                 StrokeThickness="0"
                                 VerticalOptions="Center">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnFilterTapped"/>
+                            </Border.GestureRecognizers>
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="20"/>
                             </Border.StrokeShape>
@@ -74,49 +78,61 @@
                 </Grid>
 
                 <!-- CONTENIDO -->
-                <VerticalStackLayout Grid.Row="1" Padding="20,20,20,100" Spacing="0">
+                <VerticalStackLayout x:Name="ContentRoot" Grid.Row="1" Padding="20,20,20,100" Spacing="0">
 
                     <!-- Tabs -->
                     <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
                         <HorizontalStackLayout Spacing="8">
-                            <Border BackgroundColor="#DC143C" StrokeThickness="0" Padding="16,8">
+                            <Border x:Name="TabAll" BackgroundColor="#DC143C" StrokeThickness="0" Padding="16,8">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnAllTabTapped"/>
+                                </Border.GestureRecognizers>
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="20"/>
                                 </Border.StrokeShape>
-                                <Label Text="Todos" FontSize="12" FontFamily="InterSemiBold" TextColor="White"/>
+                                <Label x:Name="TabAllLabel" Text="Todos" FontSize="12" FontFamily="InterSemiBold" TextColor="White"/>
                             </Border>
-                            <Border BackgroundColor="White" StrokeThickness="0" Padding="16,8">
+                            <Border x:Name="TabDonors" BackgroundColor="White" StrokeThickness="0" Padding="16,8">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnDonorsTabTapped"/>
+                                </Border.GestureRecognizers>
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="20"/>
                                 </Border.StrokeShape>
                                 <Border.Shadow>
                                     <Shadow Brush="#15000000" Offset="0,2" Radius="6" Opacity="1"/>
                                 </Border.Shadow>
-                                <Label Text="Donantes" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
+                                <Label x:Name="TabDonorsLabel" Text="Donantes" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
                             </Border>
-                            <Border BackgroundColor="White" StrokeThickness="0" Padding="16,8">
+                            <Border x:Name="TabRequests" BackgroundColor="White" StrokeThickness="0" Padding="16,8">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnRequestsTabTapped"/>
+                                </Border.GestureRecognizers>
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="20"/>
                                 </Border.StrokeShape>
                                 <Border.Shadow>
                                     <Shadow Brush="#15000000" Offset="0,2" Radius="6" Opacity="1"/>
                                 </Border.Shadow>
-                                <Label Text="Citas" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
+                                <Label x:Name="TabRequestsLabel" Text="Citas" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
                             </Border>
-                            <Border BackgroundColor="White" StrokeThickness="0" Padding="16,8">
+                            <Border x:Name="TabHistory" BackgroundColor="White" StrokeThickness="0" Padding="16,8">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnHistoryTabTapped"/>
+                                </Border.GestureRecognizers>
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="20"/>
                                 </Border.StrokeShape>
                                 <Border.Shadow>
                                     <Shadow Brush="#15000000" Offset="0,2" Radius="6" Opacity="1"/>
                                 </Border.Shadow>
-                                <Label Text="Historial" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
+                                <Label x:Name="TabHistoryLabel" Text="Historial" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
                             </Border>
                         </HorizontalStackLayout>
                     </ScrollView>
 
                     <!-- Sección Donantes -->
-                    <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,20,0,10" ColumnSpacing="6">
+                    <Grid x:Name="DonorsSection" ColumnDefinitions="Auto,*,Auto" Margin="0,20,0,10" ColumnSpacing="6">
                         <Label Grid.Column="0" Text="&#xf043;" FontFamily="FontAwesomeSolid"
                                FontSize="13" TextColor="#DC143C" VerticalOptions="Center"/>
                         <Label Grid.Column="1" Text="DONANTES DE SANGRE" FontSize="11"
@@ -182,20 +198,19 @@
                                             BackgroundColor="#FFF0F3"
                                             StrokeThickness="0"
                                             VerticalOptions="Center">   
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnEditarDonanteTapped" CommandParameter="{Binding .}"/>
+                                            </Border.GestureRecognizers>
                                             <Border.StrokeShape>
                                                 <RoundRectangle CornerRadius="10"/>
                                             </Border.StrokeShape>
-                                            <Label Text="Editar"
+                                            <Label Text="&#xf304;"
                                                FontFamily="FontAwesomeSolid"
                                                FontSize="13"
                                                TextColor="#DC143C"
                                                HorizontalOptions="Center"
-                                               VerticalOptions="Center">
-                                                <Label.GestureRecognizers>
-                                                    <TapGestureRecognizer Tapped="OnEditarDonanteTapped"
-                                                      CommandParameter="{Binding .}"/>
-                                                </Label.GestureRecognizers>
-                                            </Label>
+                                                VerticalOptions="Center"
+                                                InputTransparent="True"/>
                                         </Border>
 
                                         <!-- Botón eliminar -->
@@ -204,21 +219,20 @@
                                             BackgroundColor="#FEF2F2"
                                             StrokeThickness="0"
                                             VerticalOptions="Center">
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnEliminarDonanteTapped" CommandParameter="{Binding .}"/>
+                                            </Border.GestureRecognizers>
                                             <Border.StrokeShape>
                                                 <RoundRectangle CornerRadius="10"/>
                                             </Border.StrokeShape>
-                                            <Label Text="Eliminar"
+                                            <Label Text="&#xf2ed;"
                                                FontFamily="FontAwesomeSolid"
                                                FontSize="13"
                                                TextColor="#EF4444"
                                                 
                                                HorizontalOptions="Center"
-                                               VerticalOptions="Center">
-                                                <Label.GestureRecognizers>
-                                                    <TapGestureRecognizer Tapped="OnEliminarDonanteTapped"
-                                                      CommandParameter="{Binding .}"/>
-                                                </Label.GestureRecognizers>
-                                            </Label>
+                                               VerticalOptions="Center"
+                                               InputTransparent="True"/>
                                         </Border>
 
                                     </Grid>
@@ -228,7 +242,7 @@
                     </CollectionView>
 
                     <!-- Sección Citas -->
-                    <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,24,0,10" ColumnSpacing="6">
+                    <Grid x:Name="RequestsSection" ColumnDefinitions="Auto,*,Auto" Margin="0,24,0,10" ColumnSpacing="6">
                         <Label Grid.Column="0" Text="&#xf274;" FontFamily="FontAwesomeRegular"
                                FontSize="13" TextColor="#DC143C" VerticalOptions="Center"/>
                         <Label Grid.Column="1" Text="CITAS Y SOLICITUDES" FontSize="11"
@@ -237,70 +251,51 @@
                                FontSize="11" FontFamily="InterRegular" TextColor="#9CA3AF" VerticalOptions="Center"/>
                     </Grid>
 
-                    <VerticalStackLayout x:Name="ListaSolicitudes" Spacing="0">
-                        <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,10">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="16"/>
-                            </Border.StrokeShape>
-                            <Border.Shadow>
-                                <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
-                            </Border.Shadow>
-                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                                <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#26FF6B6B" StrokeThickness="0">
+                    <VerticalStackLayout x:Name="ListaSolicitudes" Spacing="10">
+                        <BindableLayout.EmptyView>
+                            <Label Text="No hay solicitudes registradas."
+                                   FontSize="12" TextColor="#9CA3AF" Margin="4,2,0,4"/>
+                        </BindableLayout.EmptyView>
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="models:SolicitudSangre">
+                                <Border BackgroundColor="White" StrokeThickness="0" Padding="14">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnSolicitudTapped" CommandParameter="{Binding .}"/>
+                                    </Border.GestureRecognizers>
                                     <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="12"/>
+                                        <RoundRectangle CornerRadius="16"/>
                                     </Border.StrokeShape>
-                                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="0">
-                                        <Label Text="JUN" FontSize="10" FontFamily="InterMedium" TextColor="#DC143C" HorizontalOptions="Center"/>
-                                        <Label Text="12" FontSize="16" FontFamily="InterBold" TextColor="#DC143C" HorizontalOptions="Center"/>
-                                    </VerticalStackLayout>
+                                    <Border.Shadow>
+                                        <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
+                                    </Border.Shadow>
+                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                        <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#26FF6B6B" StrokeThickness="0">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="12"/>
+                                            </Border.StrokeShape>
+                                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="0">
+                                                <Label Text="{Binding FechaMes}" FontSize="10" FontFamily="InterMedium" TextColor="#DC143C" HorizontalOptions="Center"/>
+                                                <Label Text="{Binding FechaDia}" FontSize="16" FontFamily="InterBold" TextColor="#DC143C" HorizontalOptions="Center"/>
+                                            </VerticalStackLayout>
+                                        </Border>
+                                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                            <Label Text="{Binding NombrePaciente, StringFormat='Paciente: {0}'}" FontSize="14" FontFamily="InterSemiBold" TextColor="#1F2937"/>
+                                            <Label Text="{Binding Resumen}" FontSize="12" FontFamily="InterRegular" TextColor="#6B7280"/>
+                                        </VerticalStackLayout>
+                                        <Border Grid.Column="2" BackgroundColor="#FFFBEB" StrokeThickness="0" Padding="8,4" VerticalOptions="Center">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="9999"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="{Binding Estado}" FontSize="10" FontFamily="InterSemiBold" TextColor="#D97706"/>
+                                        </Border>
+                                    </Grid>
                                 </Border>
-                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                    <Label Text="Donación programada" FontSize="14" FontFamily="InterSemiBold" TextColor="#1F2937"/>
-                                    <Label Text="Hospital Central · 09:30 a.m." FontSize="12" FontFamily="InterRegular" TextColor="#6B7280"/>
-                                </VerticalStackLayout>
-                                <Border Grid.Column="2" BackgroundColor="#F0FDF4" StrokeThickness="0" Padding="8,4" VerticalOptions="Center">
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="9999"/>
-                                    </Border.StrokeShape>
-                                    <Label Text="Confirmada" FontSize="10" FontFamily="InterSemiBold" TextColor="#16A34A"/>
-                                </Border>
-                            </Grid>
-                        </Border>
-
-                        <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,0">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="16"/>
-                            </Border.StrokeShape>
-                            <Border.Shadow>
-                                <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
-                            </Border.Shadow>
-                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                                <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#26FF6B6B" StrokeThickness="0">
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="12"/>
-                                    </Border.StrokeShape>
-                                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="0">
-                                        <Label Text="JUN" FontSize="10" FontFamily="InterMedium" TextColor="#DC143C" HorizontalOptions="Center"/>
-                                        <Label Text="18" FontSize="16" FontFamily="InterBold" TextColor="#DC143C" HorizontalOptions="Center"/>
-                                    </VerticalStackLayout>
-                                </Border>
-                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                    <Label Text="Solicitud de plaquetas" FontSize="14" FontFamily="InterSemiBold" TextColor="#1F2937"/>
-                                    <Label Text="Clínica del Norte · Tipo AB+" FontSize="12" FontFamily="InterRegular" TextColor="#6B7280"/>
-                                </VerticalStackLayout>
-                                <Border Grid.Column="2" BackgroundColor="#FFFBEB" StrokeThickness="0" Padding="8,4" VerticalOptions="Center">
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="9999"/>
-                                    </Border.StrokeShape>
-                                    <Label Text="Pendiente" FontSize="10" FontFamily="InterSemiBold" TextColor="#D97706"/>
-                                </Border>
-                            </Grid>
-                        </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
                     </VerticalStackLayout>
 
                     <!-- Sección Historial -->
-                    <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,24,0,10" ColumnSpacing="6">
+                    <Grid x:Name="HistorySection" ColumnDefinitions="Auto,*,Auto" Margin="0,24,0,10" ColumnSpacing="6">
                         <Label Grid.Column="0" Text="&#xf1da;" FontFamily="FontAwesomeSolid"
                                FontSize="13" TextColor="#DC143C" VerticalOptions="Center"/>
                         <Label Grid.Column="1" Text="HISTORIAL DE DONACIONES" FontSize="11"
@@ -309,50 +304,35 @@
                                FontSize="11" FontFamily="InterRegular" TextColor="#9CA3AF" VerticalOptions="Center"/>
                     </Grid>
 
-                    <VerticalStackLayout x:Name="ListaHistorial" Spacing="0">
-                        <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,10">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="16"/>
-                            </Border.StrokeShape>
-                            <Border.Shadow>
-                                <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
-                            </Border.Shadow>
-                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                                <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#F0FDF4" StrokeThickness="0">
+                    <VerticalStackLayout x:Name="ListaHistorial" Spacing="10">
+                        <BindableLayout.EmptyView>
+                            <Label Text="No hay donaciones registradas."
+                                   FontSize="12" TextColor="#9CA3AF" Margin="4,2,0,4"/>
+                        </BindableLayout.EmptyView>
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="models:RegistroDonacion">
+                                <Border BackgroundColor="White" StrokeThickness="0" Padding="14">
                                     <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="22"/>
+                                        <RoundRectangle CornerRadius="16"/>
                                     </Border.StrokeShape>
-                                    <Label Text="&#xf00c;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#16A34A" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Border.Shadow>
+                                        <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
+                                    </Border.Shadow>
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                                        <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#F0FDF4" StrokeThickness="0">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="22"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="&#xf00c;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#16A34A" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        </Border>
+                                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                            <Label Text="{Binding NombreDonante}" FontSize="14" FontFamily="InterSemiBold" TextColor="#1F2937"/>
+                                            <Label Text="{Binding Resumen}" FontSize="12" FontFamily="InterRegular" TextColor="#6B7280"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
                                 </Border>
-                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                    <Label Text="Donación de sangre completa" FontSize="14" FontFamily="InterSemiBold" TextColor="#1F2937"/>
-                                    <Label Text="15 mar 2026 · 450 ml · Banco Regional" FontSize="12" FontFamily="InterRegular" TextColor="#6B7280"/>
-                                </VerticalStackLayout>
-                                <Label Grid.Column="2" Text="&#xf054;" FontFamily="FontAwesomeSolid" FontSize="11" TextColor="#D1D5DB" VerticalOptions="Center"/>
-                            </Grid>
-                        </Border>
-
-                        <Border BackgroundColor="White" StrokeThickness="0" Padding="14" Margin="0,0,0,0">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="16"/>
-                            </Border.StrokeShape>
-                            <Border.Shadow>
-                                <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
-                            </Border.Shadow>
-                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                                <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#F0FDF4" StrokeThickness="0">
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="22"/>
-                                    </Border.StrokeShape>
-                                    <Label Text="&#xf00c;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#16A34A" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                </Border>
-                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                    <Label Text="Donación de plaquetas" FontSize="14" FontFamily="InterSemiBold" TextColor="#1F2937"/>
-                                    <Label Text="02 dic 2025 · Hospital Central" FontSize="12" FontFamily="InterRegular" TextColor="#6B7280"/>
-                                </VerticalStackLayout>
-                                <Label Grid.Column="2" Text="&#xf054;" FontFamily="FontAwesomeSolid" FontSize="11" TextColor="#D1D5DB" VerticalOptions="Center"/>
-                            </Grid>
-                        </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
                     </VerticalStackLayout>
 
                 </VerticalStackLayout>
@@ -378,9 +358,6 @@
 
 
             <Grid>
-                <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnFabTapped"/>
-                </Grid.GestureRecognizers>
                 <Label Text="&#xf067;"
                    FontFamily="FontAwesomeSolid"
                    FontSize="20"

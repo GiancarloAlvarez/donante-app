@@ -7,7 +7,7 @@ namespace Donant_app.Pages;
 public partial class EditDonorPage : ContentPage
 {
     private Donante? _donante;
-    private string? _fotoPath = null;
+    private string? _fotoPath;
 
     public Donante? Donante
     {
@@ -72,19 +72,17 @@ public partial class EditDonorPage : ContentPage
     }
 
     // ── DatePicker de nacimiento ──
-    private void OnFechaNacimientoSelected(object sender, DateChangedEventArgs e)
+    private void OnFechaNacimientoSelected(object? sender, DateChangedEventArgs e)
     {
         LabelFechaNacimiento.Text = string.Format("{0:dd/MM/yyyy}", e.NewDate);
         LabelFechaNacimiento.TextColor = Color.FromArgb("#1F2937");
     }
 
     // ── Foto ──
-    private async void OnFotoTapped(object sender, EventArgs e)
+    private async void OnFotoTapped(object? sender, EventArgs e)
     {
-        var result = await MediaPicker.PickPhotoAsync();
-        if (result == null) return;
-
-        _fotoPath = result.FullPath;
+        _fotoPath = await PhotoStorage.PickAndSavePhotoAsync("Selecciona una foto del donante");
+        if (_fotoPath is null) return;
         ImgFoto.Source = ImageSource.FromFile(_fotoPath);
         ImgFoto.IsVisible = true;
         LblIconoFoto.IsVisible = false;
@@ -140,7 +138,7 @@ public partial class EditDonorPage : ContentPage
     }
 
     // ── Guardar cambios ──
-    private async void OnGuardarTapped(object sender, EventArgs e)
+    private async void OnGuardarTapped(object? sender, EventArgs e)
     {
         if (_donante == null) return;
         if (!Validar()) return;
@@ -166,12 +164,20 @@ public partial class EditDonorPage : ContentPage
         if (_fotoPath != null)
             _donante.PhotoUrl = _fotoPath;
 
+        string? validationError = DonanteValidator.Validate(_donante);
+        if (validationError is not null)
+        {
+            await DisplayAlertAsync("Revisa los datos", validationError, "Entendido");
+            return;
+        }
+
+        await DonanteStore.UpdateAsync(_donante);
         await AppShell.DisplaySnackbarAsync($"{_donante.NombreDonante} actualizado correctamente.");
         await Shell.Current.GoToAsync("..");
     }
 
     // ── Cancelar ──
-    private async void OnCancelarClicked(object sender, EventArgs e)
+    private async void OnCancelarClicked(object? sender, EventArgs e)
         => await Shell.Current.GoToAsync("..");
 
     // ── Utilidad ──

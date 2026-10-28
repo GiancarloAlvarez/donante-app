@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Donant_app.Pages.CentrosDonacionPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:Donant_app.Models"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="#F8F7F9">
+
+    <Grid RowDefinitions="Auto,*">
+        <Grid Grid.Row="0" BackgroundColor="#DC143C" Padding="20,52,20,20" ColumnDefinitions="Auto,*" ColumnSpacing="14">
+            <Border WidthRequest="40" HeightRequest="40" BackgroundColor="#26FFFFFF" StrokeThickness="0" VerticalOptions="Center">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackTapped"/>
+                </Border.GestureRecognizers>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+                <Label Text="←" FontFamily="InterSemiBold" FontSize="20" TextColor="White"
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Border>
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                <Label Text="Centros de donación" TextColor="White" FontSize="20" FontFamily="InterBold"/>
+                <Label x:Name="LblCenterCount" Text="Centros de tu historial" TextColor="#D9FFFFFF" FontSize="12" FontFamily="InterRegular"/>
+            </VerticalStackLayout>
+        </Grid>
+
+        <Grid Grid.Row="1" RowDefinitions="*,Auto" Padding="20,24,20,28" RowSpacing="16" MaximumWidthRequest="720" HorizontalOptions="Fill">
+            <CollectionView x:Name="CentersCollectionView" Grid.Row="0" SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout Padding="20,56" Spacing="10" HorizontalOptions="Center">
+                        <Label Text="&#xf3c5;" FontFamily="FontAwesomeSolid" FontSize="34" TextColor="#DC143C" HorizontalOptions="Center"/>
+                        <Label Text="Aún no hay centros registrados" FontSize="17" FontFamily="InterSemiBold" TextColor="#1F2937" HorizontalTextAlignment="Center"/>
+                        <Label Text="Los centros aparecerán aquí cuando registres una donación." FontSize="13" FontFamily="InterRegular" TextColor="#6B7280" HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:CentroDonacionItem">
+                        <Border BackgroundColor="White" StrokeThickness="0" Padding="16" Margin="0,0,0,12">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="16"/>
+                            </Border.StrokeShape>
+                            <Border.Shadow>
+                                <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
+                            </Border.Shadow>
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+                                <Border WidthRequest="48" HeightRequest="48" BackgroundColor="#FFF0F3" StrokeThickness="0" VerticalOptions="Center">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="14"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="&#xf3c5;" FontFamily="FontAwesomeSolid" FontSize="17" TextColor="#DC143C"
+                                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="3">
+                                    <Label Text="{Binding Nombre}" FontSize="15" FontFamily="InterSemiBold" TextColor="#1F2937"/>
+                                    <Label Text="{Binding Resumen}" FontSize="12" FontFamily="InterRegular" TextColor="#6B7280"/>
+                                    <Label Text="{Binding UltimaVisita}" FontSize="11" FontFamily="InterRegular" TextColor="#9CA3AF"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Border Grid.Row="1" BackgroundColor="#DC143C" StrokeThickness="0" Padding="16,14">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnRegisterDonationTapped"/>
+                </Border.GestureRecognizers>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <Label Text="Registrar una donación" FontSize="14" FontFamily="InterSemiBold" TextColor="White" HorizontalOptions="Center"/>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>
