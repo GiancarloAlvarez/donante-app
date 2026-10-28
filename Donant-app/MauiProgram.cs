@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
-using Syncfusion.Maui.Toolkit.Hosting;
 
 namespace Donant_app
 {
@@ -12,7 +11,6 @@ namespace Donant_app
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
-                .ConfigureSyncfusionToolkit()
                 .ConfigureMauiHandlers(handlers =>
                 {
 #if WINDOWS
@@ -38,7 +36,11 @@ namespace Donant_app
                     fonts.AddFont("FluentSystemIcons-Regular.ttf", FluentUI.FontFamily);
                     fonts.AddFont("fa-solid-900.ttf", "FontAwesomeSolid");
                     fonts.AddFont("fa-regular-400.ttf", "FontAwesomeRegular");
-                    fonts.AddFont("Inter-Regular.ttf", "InterRegular");
+                    fonts.AddFont("fa-brands-400.ttf", "FontAwesomeBrands");
+                    fonts.AddFont("OpenSans-Regular.ttf", "InterRegular");
+                    fonts.AddFont("OpenSans-Semibold.ttf", "InterMedium");
+                    fonts.AddFont("OpenSans-Semibold.ttf", "InterSemiBold");
+                    fonts.AddFont("OpenSans-Semibold.ttf", "InterBold");
                 });
 
 #if DEBUG
@@ -51,7 +53,6 @@ namespace Donant_app
             //builder.Services.AddSingleton<CategoryRepository>();
             //builder.Services.AddSingleton<TagRepository>();
             //builder.Services.AddSingleton<SeedDataService>();
-            //builder.Services.AddSingleton<ModalErrorHandler>();
             //builder.Services.AddSingleton<MainPageModel>();
             //builder.Services.AddSingleton<ProjectListPageModel>();
             //builder.Services.AddSingleton<ManageMetaPageModel>();
@@ -61,9 +62,6 @@ namespace Donant_app
             builder.Services.AddTransient<Pages.ProjectListPage>();
             builder.Services.AddTransient<Pages.NewDonorPage>();
             
-
-            //builder.Services.AddTransientWithShellRoute<ProjectDetailPage, ProjectDetailPageModel>("project");
-            //builder.Services.AddTransientWithShellRoute<TaskDetailPage, TaskDetailPageModel>("task");
 
             return builder.Build();
         }
