@@ -58,7 +58,7 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="20"/>
                         </Border.StrokeShape>
-                        <Grid>
+                        <Grid InputTransparent="True">
                             <Label Text="&#xf0f3;"
                                    FontFamily="FontAwesomeRegular"
                                    FontSize="16"
@@ -290,7 +290,7 @@
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="9999"/>
                                 </Border.StrokeShape>
-                                <Label Text="Ayudar" FontSize="12" FontFamily="InterSemiBold" TextColor="White"/>
+                                <Label Text="Ayudar" FontSize="12" FontFamily="InterSemiBold" TextColor="White" InputTransparent="True"/>
                             </Border>
                         </Grid>
                     </Border>
@@ -323,7 +323,7 @@
                                 <Border.Shadow>
                                     <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
                                 </Border.Shadow>
-                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12" InputTransparent="True">
                                     <Border WidthRequest="48" HeightRequest="48" BackgroundColor="#DC143C" StrokeThickness="0">
                                         <Border.StrokeShape>
                                             <RoundRectangle CornerRadius="24"/>

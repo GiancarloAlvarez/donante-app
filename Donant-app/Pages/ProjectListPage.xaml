@@ -43,7 +43,8 @@
                                    FontSize="15"
                                    TextColor="White"
                                    HorizontalOptions="Center"
-                                   VerticalOptions="Center"/>
+                                   VerticalOptions="Center"
+                                   InputTransparent="True"/>
                         </Border>
                     </Grid>
 
@@ -90,7 +91,7 @@
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="20"/>
                                 </Border.StrokeShape>
-                                <Label x:Name="TabAllLabel" Text="Todos" FontSize="12" FontFamily="InterSemiBold" TextColor="White"/>
+                                <Label x:Name="TabAllLabel" Text="Todos" FontSize="12" FontFamily="InterSemiBold" TextColor="White" InputTransparent="True"/>
                             </Border>
                             <Border x:Name="TabDonors" BackgroundColor="White" StrokeThickness="0" Padding="16,8">
                                 <Border.GestureRecognizers>
@@ -102,7 +103,7 @@
                                 <Border.Shadow>
                                     <Shadow Brush="#15000000" Offset="0,2" Radius="6" Opacity="1"/>
                                 </Border.Shadow>
-                                <Label x:Name="TabDonorsLabel" Text="Donantes" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
+                                <Label x:Name="TabDonorsLabel" Text="Donantes" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563" InputTransparent="True"/>
                             </Border>
                             <Border x:Name="TabRequests" BackgroundColor="White" StrokeThickness="0" Padding="16,8">
                                 <Border.GestureRecognizers>
@@ -114,7 +115,7 @@
                                 <Border.Shadow>
                                     <Shadow Brush="#15000000" Offset="0,2" Radius="6" Opacity="1"/>
                                 </Border.Shadow>
-                                <Label x:Name="TabRequestsLabel" Text="Citas" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
+                                <Label x:Name="TabRequestsLabel" Text="Citas" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563" InputTransparent="True"/>
                             </Border>
                             <Border x:Name="TabHistory" BackgroundColor="White" StrokeThickness="0" Padding="16,8">
                                 <Border.GestureRecognizers>
@@ -126,7 +127,7 @@
                                 <Border.Shadow>
                                     <Shadow Brush="#15000000" Offset="0,2" Radius="6" Opacity="1"/>
                                 </Border.Shadow>
-                                <Label x:Name="TabHistoryLabel" Text="Historial" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
+                                <Label x:Name="TabHistoryLabel" Text="Historial" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563" InputTransparent="True"/>
                             </Border>
                         </HorizontalStackLayout>
                     </ScrollView>
@@ -268,7 +269,7 @@
                                     <Border.Shadow>
                                         <Shadow Brush="#15000000" Offset="0,2" Radius="8" Opacity="1"/>
                                     </Border.Shadow>
-                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12" InputTransparent="True">
                                         <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" BackgroundColor="#26FF6B6B" StrokeThickness="0">
                                             <Border.StrokeShape>
                                                 <RoundRectangle CornerRadius="12"/>
@@ -379,7 +380,7 @@
             </Border.GestureRecognizers>
 
 
-            <Grid>
+            <Grid InputTransparent="True">
                 <Label Text="&#xf067;"
                    FontFamily="FontAwesomeSolid"
                    FontSize="20"

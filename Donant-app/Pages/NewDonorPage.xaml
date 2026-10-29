@@ -68,7 +68,8 @@
                                 BackgroundColor="#26FF6B6B"
                                 StrokeThickness="0"
                                 HorizontalOptions="Center"
-                                VerticalOptions="Center">
+                                VerticalOptions="Center"
+                                InputTransparent="True">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="40"/>
                             </Border.StrokeShape>
@@ -82,13 +83,15 @@
                                FontSize="28"
                                TextColor="#DC143C"
                                HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
+                               VerticalOptions="Center"
+                               InputTransparent="True"/>
                         <Border WidthRequest="28" HeightRequest="28"
                                 BackgroundColor="#DC143C"
                                 StrokeThickness="2"
                                 Stroke="#F8F7F9"
                                 HorizontalOptions="End"
-                                VerticalOptions="End">
+                                VerticalOptions="End"
+                                InputTransparent="True">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="14"/>
                             </Border.StrokeShape>

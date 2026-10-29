@@ -199,6 +199,17 @@ public partial class DonantePage : ContentPage
     
     private async void OnCerrarSesionTapped(object? sender, EventArgs e)
     {
+        bool confirm = await DisplayAlertAsync(
+            "Cerrar sesión",
+            "¿Estás seguro que deseas salir?",
+            "Sí, salir",
+            "Cancelar");
+
+        if (!confirm)
+        {
+            return;
+        }
+
         await AppShell.LogoutAsync();
     }
 
