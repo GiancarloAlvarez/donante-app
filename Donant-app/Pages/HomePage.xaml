@@ -65,7 +65,8 @@
                                    TextColor="White"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center"/>
-                            <Ellipse Fill="White"
+                            <Ellipse x:Name="NotificationIndicator"
+                                     Fill="White"
                                      WidthRequest="8" HeightRequest="8"
                                      HorizontalOptions="End"
                                      VerticalOptions="Start"

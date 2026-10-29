@@ -17,7 +17,7 @@
                     <RoundRectangle CornerRadius="20"/>
                 </Border.StrokeShape>
                 <Label Text="←" FontFamily="InterSemiBold" FontSize="20" TextColor="White"
-                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                       HorizontalOptions="Center" VerticalOptions="Center" InputTransparent="True"/>
             </Border>
             <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
                 <Label Text="Centros de donación" TextColor="White" FontSize="20" FontFamily="InterBold"/>
@@ -69,7 +69,8 @@
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="12"/>
                 </Border.StrokeShape>
-                <Label Text="Registrar una donación" FontSize="14" FontFamily="InterSemiBold" TextColor="White" HorizontalOptions="Center"/>
+                <Label Text="Registrar una donación" FontSize="14" FontFamily="InterSemiBold" TextColor="White"
+                       HorizontalOptions="Center" InputTransparent="True"/>
             </Border>
         </Grid>
     </Grid>

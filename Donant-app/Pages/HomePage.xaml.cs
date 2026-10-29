@@ -52,6 +52,7 @@ public partial class HomePage : ContentPage
             .OrderByDescending(request => request.FechaSolicitud)
             .FirstOrDefault();
 
+        NotificationIndicator.IsVisible = _urgentRequest is not null;
         UrgentCard.IsVisible = _urgentRequest is not null;
         if (_urgentRequest is not null)
         {

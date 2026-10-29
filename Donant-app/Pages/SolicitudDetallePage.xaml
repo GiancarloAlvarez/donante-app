@@ -16,7 +16,7 @@
                     <RoundRectangle CornerRadius="20"/>
                 </Border.StrokeShape>
                 <Label Text="←" FontFamily="InterSemiBold" FontSize="20" TextColor="White"
-                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                       HorizontalOptions="Center" VerticalOptions="Center" InputTransparent="True"/>
             </Border>
             <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
                 <Label Text="Solicitud de sangre" TextColor="White" FontSize="20" FontFamily="InterBold"/>
@@ -79,7 +79,7 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="12"/>
                         </Border.StrokeShape>
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="8" InputTransparent="True">
                             <Label Text="&#xf095;" FontFamily="FontAwesomeSolid" TextColor="White"/>
                             <Label Text="Llamar" FontFamily="InterSemiBold" FontSize="14" TextColor="White"/>
                         </HorizontalStackLayout>
@@ -91,7 +91,7 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="12"/>
                         </Border.StrokeShape>
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="8" InputTransparent="True">
                             <Label Text="&#xf0c5;" FontFamily="FontAwesomeRegular" TextColor="#DC143C"/>
                             <Label Text="Copiar" FontFamily="InterSemiBold" FontSize="14" TextColor="#DC143C"/>
                         </HorizontalStackLayout>
@@ -105,7 +105,7 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="12"/>
                     </Border.StrokeShape>
-                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="8" InputTransparent="True">
                         <Label Text="&#xf00c;" FontFamily="FontAwesomeSolid" TextColor="#059669"/>
                         <Label Text="Marcar como atendida" FontFamily="InterSemiBold" FontSize="14" TextColor="#059669"/>
                     </HorizontalStackLayout>
