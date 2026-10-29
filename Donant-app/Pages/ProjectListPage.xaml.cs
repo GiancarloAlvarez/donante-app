@@ -23,7 +23,12 @@ public partial class ProjectListPage : ContentPage
         base.OnAppearing();
         await App.DataReady;
         CargarDonantes(DonanteStore.Donantes);
-        BindableLayout.SetItemsSource(ListaSolicitudes, SolicitudSangreStore.Solicitudes);
+        BindableLayout.SetItemsSource(
+            ListaSolicitudes,
+            SolicitudSangreStore.Solicitudes
+                .OrderBy(request => request.EstaAtendida)
+                .ThenByDescending(request => request.FechaSolicitud)
+                .ToList());
         BindableLayout.SetItemsSource(ListaHistorial, RegistroDonacionStore.Registros);
         ContadorSolicitudes.Text = $"({SolicitudSangreStore.Solicitudes.Count})";
         ContadorHistorial.Text = $"({RegistroDonacionStore.Registros.Count})";
@@ -173,13 +178,20 @@ public partial class ProjectListPage : ContentPage
 
         if (!confirmar) return;
 
-        await DonanteStore.DeleteAsync(donante.Id);
-        RefrescarLista();
-        await AppShell.DisplaySnackbarAsync($"{donante.NombreDonante} eliminado.");
+        try
+        {
+            await DonanteStore.DeleteAsync(donante.Id);
+            RefrescarLista();
+            await AppShell.DisplaySnackbarAsync($"{donante.NombreDonante} eliminado.");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("No se pudo eliminar", ex.Message, "Entendido");
+        }
     }
 
     private void RefrescarLista()
     {
-        CargarDonantes(DonanteStore.Donantes);
+        CargarDonantes(DonanteStore.Search(EntryBuscar.Text));
     }
 }

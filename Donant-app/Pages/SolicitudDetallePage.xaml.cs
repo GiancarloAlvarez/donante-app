@@ -6,6 +6,7 @@ namespace Donant_app.Pages;
 public partial class SolicitudDetallePage : ContentPage
 {
     private SolicitudSangre? _solicitud;
+    private bool _isUpdating;
 
     public SolicitudSangre? Solicitud
     {
@@ -36,8 +37,11 @@ public partial class SolicitudDetallePage : ContentPage
         LblCity.Text = string.IsNullOrWhiteSpace(_solicitud.Ciudad) ? "Ciudad no indicada" : _solicitud.Ciudad;
         LblDate.Text = _solicitud.FechaSolicitud.ToString("dd MMMM yyyy");
         LblContact.Text = _solicitud.NumeroContacto;
-        UrgentBadge.BackgroundColor = Color.FromArgb(_solicitud.EsUrgente ? "#FFF0F3" : "#FFFBEB");
-        LblStatus.TextColor = Color.FromArgb(_solicitud.EsUrgente ? "#DC143C" : "#D97706");
+        UrgentBadge.BackgroundColor = Color.FromArgb(
+            _solicitud.EstaAtendida ? "#ECFDF5" : _solicitud.EsUrgente ? "#FFF0F3" : "#FFFBEB");
+        LblStatus.TextColor = Color.FromArgb(
+            _solicitud.EstaAtendida ? "#059669" : _solicitud.EsUrgente ? "#DC143C" : "#D97706");
+        AttendedButton.IsVisible = !_solicitud.EstaAtendida;
     }
 
     private async void OnBackTapped(object? sender, TappedEventArgs e) =>
@@ -77,5 +81,41 @@ public partial class SolicitudDetallePage : ContentPage
 
         await Clipboard.Default.SetTextAsync(_solicitud.NumeroContacto);
         await AppShell.DisplaySnackbarAsync("Número de contacto copiado.");
+    }
+
+    private async void OnMarkAsAttendedTapped(object? sender, TappedEventArgs e)
+    {
+        if (_solicitud is null || _solicitud.EstaAtendida || _isUpdating)
+        {
+            return;
+        }
+
+        bool confirmed = await DisplayAlertAsync(
+            "Completar solicitud",
+            $"¿Confirmas que la solicitud de {_solicitud.NombrePaciente} ya fue atendida?",
+            "Sí, completar",
+            "Cancelar");
+        if (!confirmed)
+        {
+            return;
+        }
+
+        _isUpdating = true;
+        AttendedButton.IsEnabled = false;
+        try
+        {
+            await SolicitudSangreStore.MarkAsAttendedAsync(_solicitud.Id);
+            RefreshDetails();
+            await AppShell.DisplaySnackbarAsync("Solicitud marcada como atendida.");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("No se pudo actualizar", ex.Message, "Entendido");
+        }
+        finally
+        {
+            _isUpdating = false;
+            AttendedButton.IsEnabled = true;
+        }
     }
 }

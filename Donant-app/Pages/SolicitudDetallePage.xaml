@@ -97,6 +97,19 @@
                         </HorizontalStackLayout>
                     </Border>
                 </Grid>
+
+                <Border x:Name="AttendedButton" BackgroundColor="#ECFDF5" Stroke="#10B981" StrokeThickness="1" Padding="16,14">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMarkAsAttendedTapped"/>
+                    </Border.GestureRecognizers>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
+                        <Label Text="&#xf00c;" FontFamily="FontAwesomeSolid" TextColor="#059669"/>
+                        <Label Text="Marcar como atendida" FontFamily="InterSemiBold" FontSize="14" TextColor="#059669"/>
+                    </HorizontalStackLayout>
+                </Border>
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

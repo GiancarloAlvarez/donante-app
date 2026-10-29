@@ -12,6 +12,7 @@ namespace Donant_app.Models
             public string TipoSangreNecesario { get; set; } = string.Empty;
             public string Hospital { get; set; } = string.Empty;
             public bool EsUrgente { get; set; }
+            public bool EstaAtendida { get; set; }
             public string NumeroContacto { get; set; } = string.Empty;
             public DateTime FechaSolicitud { get; set; } = DateTime.Now;
 
@@ -20,6 +21,6 @@ namespace Donant_app.Models
             public string FechaMes => FechaSolicitud.ToString("MMM").ToUpperInvariant();
             public string FechaDia => FechaSolicitud.ToString("dd");
             public string Resumen => $"{Hospital} · Tipo {TipoSangreNecesario}";
-            public string Estado => EsUrgente ? "Urgente" : "Pendiente";
+            public string Estado => EstaAtendida ? "Atendida" : EsUrgente ? "Urgente" : "Pendiente";
     }
     }

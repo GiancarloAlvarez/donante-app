@@ -34,6 +34,12 @@ namespace Donant_app
 
         public static async Task DisplaySnackbarAsync(string message)
         {
+            if (OperatingSystem.IsWindows())
+            {
+                await Shell.Current.DisplayAlertAsync("Dona T", message, "Entendido");
+                return;
+            }
+
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
             var snackbarOptions = new SnackbarOptions
@@ -68,6 +74,12 @@ namespace Donant_app
             Preferences.Remove("saved_username");
 
             await Shell.Current.GoToAsync("//login");
+        }
+
+        public static Task NavigateBackOrHomeAsync()
+        {
+            bool hasPageToPop = Shell.Current.Navigation.NavigationStack.Count > 1;
+            return Shell.Current.GoToAsync(hasPageToPop ? ".." : "//main");
         }
     }
 }

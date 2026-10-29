@@ -283,10 +283,27 @@
                                             <Label Text="{Binding Resumen}" FontSize="12" FontFamily="InterRegular" TextColor="#6B7280"/>
                                         </VerticalStackLayout>
                                         <Border Grid.Column="2" BackgroundColor="#FFFBEB" StrokeThickness="0" Padding="8,4" VerticalOptions="Center">
+                                            <Border.Triggers>
+                                                <DataTrigger TargetType="Border" Binding="{Binding EsUrgente}" Value="True">
+                                                    <Setter Property="BackgroundColor" Value="#FFF0F3"/>
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Border" Binding="{Binding EstaAtendida}" Value="True">
+                                                    <Setter Property="BackgroundColor" Value="#ECFDF5"/>
+                                                </DataTrigger>
+                                            </Border.Triggers>
                                             <Border.StrokeShape>
                                                 <RoundRectangle CornerRadius="9999"/>
                                             </Border.StrokeShape>
-                                            <Label Text="{Binding Estado}" FontSize="10" FontFamily="InterSemiBold" TextColor="#D97706"/>
+                                            <Label Text="{Binding Estado}" FontSize="10" FontFamily="InterSemiBold" TextColor="#D97706">
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding EsUrgente}" Value="True">
+                                                        <Setter Property="TextColor" Value="#DC143C"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding EstaAtendida}" Value="True">
+                                                        <Setter Property="TextColor" Value="#059669"/>
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
                                         </Border>
                                     </Grid>
                                 </Border>

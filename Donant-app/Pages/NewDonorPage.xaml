@@ -233,6 +233,7 @@
                                                Margin="0,0,14,0"
                                                InputTransparent="True"/>
                                         <DatePicker x:Name="DatePickerNacimiento"
+                                                    Date="{Binding FechaNacimiento}"
                                                     Opacity="0"
                                                     HeightRequest="48"
                                                     VerticalOptions="Fill"
@@ -380,7 +381,9 @@
                                            Margin="0,0,10,0"/>
                                     <DatePicker x:Name="DateUltimaDonacion"
                                                 Grid.Column="1"
+                                                Date="{Binding UltimaDonacion}"
                                                 Format="dd/MM/yyyy"
+                                                MaximumDate="{x:Static sys:DateTime.Today}"
                                                 TextColor="#374151"
                                                 FontSize="14"
                                                 FontFamily="InterRegular"

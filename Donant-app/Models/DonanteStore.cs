@@ -87,8 +87,25 @@ public static class DonanteStore
                 throw new InvalidOperationException("El donante ya no existe.");
             }
 
+            if (Items.Any(existing =>
+                existing.Id != donante.Id &&
+                string.Equals(existing.NombreDonante, donante.NombreDonante, StringComparison.CurrentCultureIgnoreCase) &&
+                NormalizePhone(existing.Telefono) == NormalizePhone(donante.Telefono)))
+            {
+                throw new InvalidOperationException("Ya existe otro donante con el mismo nombre y teléfono.");
+            }
+
+            Donante previous = Items[index];
             Items[index] = donante;
-            await SaveUnsafeAsync();
+            try
+            {
+                await SaveUnsafeAsync();
+            }
+            catch
+            {
+                Items[index] = previous;
+                throw;
+            }
         }
         finally
         {
@@ -102,20 +119,21 @@ public static class DonanteStore
         await Gate.WaitAsync();
         try
         {
-            Donante? item = Items.FirstOrDefault(donante => donante.Id == id);
-            if (item is null)
+            int index = Items.FindIndex(donante => donante.Id == id);
+            if (index < 0)
             {
                 return;
             }
 
-            Items.Remove(item);
+            Donante item = Items[index];
+            Items.RemoveAt(index);
             try
             {
                 await SaveUnsafeAsync();
             }
             catch
             {
-                Items.Add(item);
+                Items.Insert(index, item);
                 throw;
             }
         }

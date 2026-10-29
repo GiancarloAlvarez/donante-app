@@ -22,6 +22,7 @@
     <Compile Include="..\Donant-app\Models\DonorInsights.cs" Link="Source\DonorInsights.cs" />
     <Compile Include="..\Donant-app\Models\JsonFileStore.cs" Link="Source\JsonFileStore.cs" />
     <Compile Include="..\Donant-app\Models\RegistroDonacion.cs" Link="Source\RegistroDonacion.cs" />
+    <Compile Include="..\Donant-app\Models\SolicitudSangre.cs" Link="Source\SolicitudSangre.cs" />
     <Compile Include="..\Donant-app\Models\Usuario.cs" Link="Source\Usuario.cs" />
     <Compile Include="..\Donant-app\Services\InMemoryDataService.cs" Link="Source\InMemoryDataService.cs" />
   </ItemGroup>

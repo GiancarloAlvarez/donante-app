@@ -8,6 +8,7 @@ public partial class EditDonorPage : ContentPage
 {
     private Donante? _donante;
     private string? _fotoPath;
+    private bool _isSaving;
 
     public Donante? Donante
     {
@@ -81,11 +82,18 @@ public partial class EditDonorPage : ContentPage
     // ── Foto ──
     private async void OnFotoTapped(object? sender, EventArgs e)
     {
-        _fotoPath = await PhotoStorage.PickAndSavePhotoAsync("Selecciona una foto del donante");
-        if (_fotoPath is null) return;
-        ImgFoto.Source = ImageSource.FromFile(_fotoPath);
-        ImgFoto.IsVisible = true;
-        LblIconoFoto.IsVisible = false;
+        try
+        {
+            _fotoPath = await PhotoStorage.PickAndSavePhotoAsync("Selecciona una foto del donante");
+            if (_fotoPath is null) return;
+            ImgFoto.Source = ImageSource.FromFile(_fotoPath);
+            ImgFoto.IsVisible = true;
+            LblIconoFoto.IsVisible = false;
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("No se pudo cargar la foto", ex.Message, "Entendido");
+        }
     }
 
     // ── Validación ──
@@ -140,40 +148,54 @@ public partial class EditDonorPage : ContentPage
     // ── Guardar cambios ──
     private async void OnGuardarTapped(object? sender, EventArgs e)
     {
-        if (_donante == null) return;
+        if (_donante == null || _isSaving) return;
         if (!Validar()) return;
 
-        // Actualizar propiedades — DonanteStore ya tiene la referencia por objeto
-        _donante.NombreDonante = EntryNombre.Text!.Trim();
-        _donante.TipoSangre = PickerSangre.SelectedItem!.ToString()!;
-        _donante.Telefono = EntryTelefono.Text!.Trim();
-        _donante.Direccion = EntryDireccion.Text!.Trim();
-        _donante.IsAvailable = SwitchDisponible.IsToggled;
-        _donante.UltimaDonacion = DateUltimaDonacion.Date;
-
-        if (double.TryParse(EntryPeso.Text, out double peso))
-            _donante.Peso = peso;
-
+        DateTime fechaNacimiento = _donante.FechaNacimiento;
         if (LabelFechaNacimiento.Text != "DD/MM/AAAA")
         {
-            DateTime fecha = DatePickerNacimiento.Date.GetValueOrDefault();
-            _donante.FechaNacimiento = fecha;
-            _donante.Edad = CalcularEdad(fecha);
+            fechaNacimiento = DatePickerNacimiento.Date.GetValueOrDefault();
         }
 
-        if (_fotoPath != null)
-            _donante.PhotoUrl = _fotoPath;
+        var updatedDonor = new Donante
+        {
+            Id = _donante.Id,
+            NombreDonante = EntryNombre.Text!.Trim(),
+            TipoSangre = PickerSangre.SelectedItem!.ToString()!,
+            Edad = CalcularEdad(fechaNacimiento),
+            FechaNacimiento = fechaNacimiento,
+            Telefono = EntryTelefono.Text!.Trim(),
+            Direccion = EntryDireccion.Text!.Trim(),
+            UltimaDonacion = DateUltimaDonacion.Date,
+            Peso = double.Parse(EntryPeso.Text!),
+            IsAvailable = SwitchDisponible.IsToggled,
+            PhotoUrl = _fotoPath ?? _donante.PhotoUrl,
+            CreatedAt = _donante.CreatedAt
+        };
 
-        string? validationError = DonanteValidator.Validate(_donante);
+        string? validationError = DonanteValidator.Validate(updatedDonor);
         if (validationError is not null)
         {
             await DisplayAlertAsync("Revisa los datos", validationError, "Entendido");
             return;
         }
 
-        await DonanteStore.UpdateAsync(_donante);
-        await AppShell.DisplaySnackbarAsync($"{_donante.NombreDonante} actualizado correctamente.");
-        await Shell.Current.GoToAsync("..");
+        _isSaving = true;
+        try
+        {
+            await DonanteStore.UpdateAsync(updatedDonor);
+            _donante = updatedDonor;
+            await AppShell.DisplaySnackbarAsync($"{updatedDonor.NombreDonante} actualizado correctamente.");
+            await Shell.Current.GoToAsync("..");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("No se pudo guardar", ex.Message, "Entendido");
+        }
+        finally
+        {
+            _isSaving = false;
+        }
     }
 
     // ── Cancelar ──

@@ -89,17 +89,50 @@ public partial class RegistroDonacionViewModel : ObservableObject
             Ciudad = Ciudad.Trim()
         };
 
-        await RegistroDonacionStore.AddAsync(registro);
-        if (donante.UltimaDonacion is null || FechaDonacion.Date > donante.UltimaDonacion.Value.Date)
+        try
         {
-            donante.UltimaDonacion = FechaDonacion.Date;
-            await DonanteStore.UpdateAsync(donante);
-        }
+            await RegistroDonacionStore.AddAsync(registro);
+            if (donante.UltimaDonacion is null || FechaDonacion.Date > donante.UltimaDonacion.Value.Date)
+            {
+                var updatedDonor = new Donante
+                {
+                    Id = donante.Id,
+                    NombreDonante = donante.NombreDonante,
+                    TipoSangre = donante.TipoSangre,
+                    Edad = donante.Edad,
+                    FechaNacimiento = donante.FechaNacimiento,
+                    Telefono = donante.Telefono,
+                    Direccion = donante.Direccion,
+                    UltimaDonacion = FechaDonacion.Date,
+                    Peso = donante.Peso,
+                    IsAvailable = donante.IsAvailable,
+                    PhotoUrl = donante.PhotoUrl,
+                    CreatedAt = donante.CreatedAt
+                };
 
-        LimpiarFormulario();
-        await Shell.Current.DisplayAlertAsync("Donación guardada", "El registro quedó guardado correctamente.", "OK");
-        await Shell.Current.GoToAsync("..");
+                try
+                {
+                    await DonanteStore.UpdateAsync(updatedDonor);
+                }
+                catch
+                {
+                    await RegistroDonacionStore.DeleteAsync(registro.Id);
+                    throw;
+                }
+            }
+
+            LimpiarFormulario();
+            await Shell.Current.DisplayAlertAsync("Donación guardada", "El registro quedó guardado correctamente.", "OK");
+            await AppShell.NavigateBackOrHomeAsync();
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlertAsync("No se pudo guardar", ex.Message, "Entendido");
+        }
     }
+
+    [RelayCommand]
+    private void Cancelar() => LimpiarFormulario();
 
     private string ValidateVolume()
     {

@@ -107,7 +107,7 @@ public partial class NewDonorViewModel : ObservableObject
             await DonanteStore.AddAsync(donante);
             LimpiarFormulario();
             await Shell.Current.DisplayAlertAsync("¡Éxito!", "Donante registrado correctamente.", "OK");
-            await Shell.Current.GoToAsync("..");
+            await AppShell.NavigateBackOrHomeAsync();
         }
         catch (Exception ex)
         {

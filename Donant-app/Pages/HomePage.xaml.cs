@@ -43,7 +43,7 @@ public partial class HomePage : ContentPage
         BindableLayout.SetItemsSource(FeaturedDonorsList, DonanteStore.Donantes.Take(3).ToList());
 
         _urgentRequest = SolicitudSangreStore.Solicitudes
-            .Where(request => request.EsUrgente)
+            .Where(request => request.EsUrgente && !request.EstaAtendida)
             .OrderByDescending(request => request.FechaSolicitud)
             .FirstOrDefault();
 
@@ -98,7 +98,7 @@ public partial class HomePage : ContentPage
     private async void OnNotificationsTapped(object? sender, TappedEventArgs e)
     {
         List<SolicitudSangre> urgentRequests = SolicitudSangreStore.Solicitudes
-            .Where(request => request.EsUrgente)
+            .Where(request => request.EsUrgente && !request.EstaAtendida)
             .OrderByDescending(request => request.FechaSolicitud)
             .ToList();
 

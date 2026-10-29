@@ -52,6 +52,40 @@ public static class SolicitudSangreStore
         }
     }
 
+    public static async Task MarkAsAttendedAsync(int id)
+    {
+        await InitializeAsync();
+        await Gate.WaitAsync();
+        try
+        {
+            SolicitudSangre? solicitud = Items.FirstOrDefault(item => item.Id == id);
+            if (solicitud is null)
+            {
+                throw new InvalidOperationException("La solicitud ya no existe.");
+            }
+
+            bool previousAttended = solicitud.EstaAtendida;
+            bool previousUrgent = solicitud.EsUrgente;
+            solicitud.EstaAtendida = true;
+            solicitud.EsUrgente = false;
+
+            try
+            {
+                await JsonFileStore.SaveAsync(GetDataFilePath(), Items);
+            }
+            catch
+            {
+                solicitud.EstaAtendida = previousAttended;
+                solicitud.EsUrgente = previousUrgent;
+                throw;
+            }
+        }
+        finally
+        {
+            Gate.Release();
+        }
+    }
+
     private static string GetDataFilePath() =>
         Path.Combine(FileSystem.AppDataDirectory, DataFileName);
 }

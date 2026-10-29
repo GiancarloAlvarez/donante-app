@@ -377,6 +377,7 @@
                                            VerticalOptions="Center"
                                            Margin="0,0,10,0"/>
                                     <DatePicker x:Name="DateUltimaDonacion"
+                                                MaximumDate="{x:Static sys:DateTime.Today}"
                                                 Grid.Column="1"
                                                 Format="dd/MM/yyyy"
                                                 TextColor="#374151"

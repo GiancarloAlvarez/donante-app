@@ -12,19 +12,35 @@ public partial class NewDonorPage : ContentPage
         InitializeComponent();
     }
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is NewDonorViewModel { PhotoPath: null })
+        {
+            ResetPhotoPreview();
+        }
+    }
+
     private async void OnFotoTapped(object? sender, EventArgs e)
     {
-        _fotoPath = await PhotoStorage.PickAndSavePhotoAsync("Selecciona una foto del donante");
-        if (_fotoPath is not null)
+        try
         {
-            ImgFoto.Source = ImageSource.FromFile(_fotoPath);
-            ImgFoto.IsVisible = true;
-            LblIconoFoto.IsVisible = false;
-
-            if (BindingContext is NewDonorViewModel vm)
+            _fotoPath = await PhotoStorage.PickAndSavePhotoAsync("Selecciona una foto del donante");
+            if (_fotoPath is not null)
             {
-                vm.PhotoPath = _fotoPath;
+                ImgFoto.Source = ImageSource.FromFile(_fotoPath);
+                ImgFoto.IsVisible = true;
+                LblIconoFoto.IsVisible = false;
+
+                if (BindingContext is NewDonorViewModel vm)
+                {
+                    vm.PhotoPath = _fotoPath;
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("No se pudo cargar la foto", ex.Message, "Entendido");
         }
     }
 
@@ -45,6 +61,15 @@ public partial class NewDonorPage : ContentPage
     {
         if (BindingContext is NewDonorViewModel vm)
             vm.CancelarCommand.Execute(null);
+        ResetPhotoPreview();
         await Shell.Current.GoToAsync("//main");
+    }
+
+    private void ResetPhotoPreview()
+    {
+        _fotoPath = null;
+        ImgFoto.Source = null;
+        ImgFoto.IsVisible = false;
+        LblIconoFoto.IsVisible = true;
     }
 }

@@ -26,6 +26,8 @@ public partial class RegistroDonacionPage : ContentPage
 
     private async void OnCancelarClicked(object? sender, EventArgs e)
     {
+        if (BindingContext is RegistroDonacionViewModel vm)
+            vm.CancelarCommand.Execute(null);
         await Shell.Current.GoToAsync("//main");
     }
 }

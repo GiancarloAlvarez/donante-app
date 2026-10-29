@@ -52,6 +52,36 @@ public static class RegistroDonacionStore
         }
     }
 
+    public static async Task DeleteAsync(int id)
+    {
+        await InitializeAsync();
+        await Gate.WaitAsync();
+        try
+        {
+            int index = Items.FindIndex(item => item.Id == id);
+            if (index < 0)
+            {
+                return;
+            }
+
+            RegistroDonacion registro = Items[index];
+            Items.RemoveAt(index);
+            try
+            {
+                await JsonFileStore.SaveAsync(GetDataFilePath(), Items);
+            }
+            catch
+            {
+                Items.Insert(index, registro);
+                throw;
+            }
+        }
+        finally
+        {
+            Gate.Release();
+        }
+    }
+
     private static string GetDataFilePath() =>
         Path.Combine(FileSystem.AppDataDirectory, DataFileName);
 }

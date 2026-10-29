@@ -32,6 +32,7 @@ public partial class SolicitudSangreViewModel : ObservableObject
     public partial bool EsUrgente { get; set; }
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(FechaSolicitudError))]
     public partial DateTime FechaSolicitud { get; set; } = DateTime.Today;
 
     public string NombrePacienteError =>
@@ -60,34 +61,50 @@ public partial class SolicitudSangreViewModel : ObservableObject
         string.IsNullOrWhiteSpace(Ciudad) ? "La ciudad es obligatoria." :
         Ciudad.Trim().Length < 2 ? "Ingresa una ciudad válida." : string.Empty;
 
+    public string FechaSolicitudError =>
+        !_showValidation ? string.Empty :
+        FechaSolicitud.Date > DateTime.Today ? "La fecha de solicitud no puede estar en el futuro." : string.Empty;
+
     [RelayCommand]
     private async Task GuardarAsync()
     {
+        await App.DataReady;
         NotifyValidation();
         if (!FormularioValido()) return;
 
-        await SolicitudSangreStore.AddAsync(new SolicitudSangre
+        try
         {
-            NombrePaciente = NombrePaciente.Trim(),
-            TipoSangreNecesario = DonanteValidator.NormalizeBloodType(TipoSangreNecesario),
-            Hospital = Hospital.Trim(),
-            EsUrgente = EsUrgente,
-            NumeroContacto = NumeroContacto.Trim(),
-            FechaSolicitud = FechaSolicitud,
-            Ciudad = Ciudad.Trim()
-        });
+            await SolicitudSangreStore.AddAsync(new SolicitudSangre
+            {
+                NombrePaciente = NombrePaciente.Trim(),
+                TipoSangreNecesario = DonanteValidator.NormalizeBloodType(TipoSangreNecesario),
+                Hospital = Hospital.Trim(),
+                EsUrgente = EsUrgente,
+                NumeroContacto = NumeroContacto.Trim(),
+                FechaSolicitud = FechaSolicitud,
+                Ciudad = Ciudad.Trim()
+            });
 
-        LimpiarFormulario();
-        await Shell.Current.DisplayAlertAsync("Solicitud guardada", "La solicitud de sangre quedó registrada.", "OK");
-        await Shell.Current.GoToAsync("..");
+            LimpiarFormulario();
+            await Shell.Current.DisplayAlertAsync("Solicitud guardada", "La solicitud de sangre quedó registrada.", "OK");
+            await AppShell.NavigateBackOrHomeAsync();
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlertAsync("No se pudo guardar", ex.Message, "Entendido");
+        }
     }
+
+    [RelayCommand]
+    private void Cancelar() => LimpiarFormulario();
 
     private bool FormularioValido() =>
         string.IsNullOrEmpty(NombrePacienteError) &&
         string.IsNullOrEmpty(TipoSangreError) &&
         string.IsNullOrEmpty(HospitalError) &&
         string.IsNullOrEmpty(ContactoError) &&
-        string.IsNullOrEmpty(CiudadError);
+        string.IsNullOrEmpty(CiudadError) &&
+        string.IsNullOrEmpty(FechaSolicitudError);
 
     private void NotifyValidation()
     {
@@ -97,6 +114,7 @@ public partial class SolicitudSangreViewModel : ObservableObject
         OnPropertyChanged(nameof(HospitalError));
         OnPropertyChanged(nameof(ContactoError));
         OnPropertyChanged(nameof(CiudadError));
+        OnPropertyChanged(nameof(FechaSolicitudError));
     }
 
     private void LimpiarFormulario()

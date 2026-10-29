@@ -27,6 +27,10 @@ public partial class DonantePage : ContentPage
     {
         base.OnAppearing();
         await App.DataReady;
+        if (_donante is not null)
+        {
+            _donante = DonanteStore.Donantes.FirstOrDefault(donor => donor.Id == _donante.Id) ?? _donante;
+        }
         CargarDatosPerfil();
     }
 
@@ -144,13 +148,36 @@ public partial class DonantePage : ContentPage
     {
         if (_donante is null) return;
 
-        string? photoPath = await PhotoStorage.PickAndSavePhotoAsync("Selecciona una foto de perfil");
-        if (photoPath is null) return;
+        try
+        {
+            string? photoPath = await PhotoStorage.PickAndSavePhotoAsync("Selecciona una foto de perfil");
+            if (photoPath is null) return;
 
-        _donante.PhotoUrl = photoPath;
-        await DonanteStore.UpdateAsync(_donante);
-        CargarDatosPerfil();
-        await AppShell.DisplaySnackbarAsync("Foto de perfil actualizada.");
+            var updatedDonor = new Donante
+            {
+                Id = _donante.Id,
+                NombreDonante = _donante.NombreDonante,
+                TipoSangre = _donante.TipoSangre,
+                Edad = _donante.Edad,
+                FechaNacimiento = _donante.FechaNacimiento,
+                Telefono = _donante.Telefono,
+                Direccion = _donante.Direccion,
+                UltimaDonacion = _donante.UltimaDonacion,
+                Peso = _donante.Peso,
+                IsAvailable = _donante.IsAvailable,
+                PhotoUrl = photoPath,
+                CreatedAt = _donante.CreatedAt
+            };
+
+            await DonanteStore.UpdateAsync(updatedDonor);
+            _donante = updatedDonor;
+            CargarDatosPerfil();
+            await AppShell.DisplaySnackbarAsync("Foto de perfil actualizada.");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("No se pudo actualizar la foto", ex.Message, "Entendido");
+        }
     }
 
     // ═══════════════════════════════════════

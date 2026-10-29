@@ -127,6 +127,7 @@
                                 TextColor="#374151" FontSize="14" BackgroundColor="Transparent"
                                 Margin="16,0" HeightRequest="48"/>
                 </Border>
+                <Label Text="{Binding FechaSolicitudError}" TextColor="#DC143C" FontSize="11" Margin="4,0,0,0"/>
             </VerticalStackLayout>
 
             <!-- Botones -->

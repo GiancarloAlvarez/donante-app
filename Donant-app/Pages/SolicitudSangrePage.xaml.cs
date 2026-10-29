@@ -17,6 +17,8 @@ public partial class SolicitudSangrePage : ContentPage
 
     private async void OnCancelarClicked(object? sender, EventArgs e)
     {
+        if (BindingContext is SolicitudSangreViewModel vm)
+            vm.CancelarCommand.Execute(null);
         await Shell.Current.GoToAsync("//main");
     }
 }
