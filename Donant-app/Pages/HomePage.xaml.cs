@@ -35,6 +35,11 @@ public partial class HomePage : ContentPage
                 ? "Disponible para donar ahora"
                 : $"Próxima donación disponible: {nextDonation:dd MMM}";
         }
+        else
+        {
+            LblBloodType.Text = "Sin donante asociado";
+            LblNextDonation.Text = "Registra un donante para comenzar";
+        }
 
         int donationCount = RegistroDonacionStore.Registros.Count;
         LblDonationCount.Text = donationCount.ToString();
