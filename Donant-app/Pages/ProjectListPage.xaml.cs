@@ -146,6 +146,25 @@ public partial class ProjectListPage : ContentPage
             new Dictionary<string, object> { ["Solicitud"] = solicitud });
     }
 
+    private async void OnHistoryRecordTapped(object? sender, TappedEventArgs e)
+    {
+        if (e.Parameter is not RegistroDonacion record)
+        {
+            return;
+        }
+
+        Donante? donor = DonanteStore.Donantes.FirstOrDefault(item => item.Id == record.DonanteId);
+        if (donor is null)
+        {
+            await AppShell.DisplaySnackbarAsync("El donante de este registro ya no está disponible.");
+            return;
+        }
+
+        await Shell.Current.GoToAsync(
+            nameof(HistorialDonantePage),
+            new Dictionary<string, object> { ["Donante"] = donor });
+    }
+
     // Ver perfil
     private async void OnDonanteTapped(object? sender, TappedEventArgs e)
     {

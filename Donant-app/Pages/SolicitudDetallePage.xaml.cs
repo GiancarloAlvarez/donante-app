@@ -59,7 +59,9 @@ public partial class SolicitudDetallePage : ContentPage
         {
             if (!PhoneDialer.Default.IsSupported)
             {
-                await AppShell.DisplaySnackbarAsync("Las llamadas no están disponibles en este dispositivo.");
+                await Clipboard.Default.SetTextAsync(_solicitud.NumeroContacto);
+                await AppShell.DisplaySnackbarAsync(
+                    "Las llamadas no están disponibles; el número fue copiado.");
                 return;
             }
 
@@ -67,7 +69,16 @@ public partial class SolicitudDetallePage : ContentPage
         }
         catch (Exception)
         {
-            await AppShell.DisplaySnackbarAsync("No fue posible abrir la aplicación de llamadas.");
+            try
+            {
+                await Clipboard.Default.SetTextAsync(_solicitud.NumeroContacto);
+                await AppShell.DisplaySnackbarAsync(
+                    "No fue posible abrir llamadas; el número fue copiado.");
+            }
+            catch (Exception)
+            {
+                await AppShell.DisplaySnackbarAsync("No fue posible abrir la aplicación de llamadas.");
+            }
         }
     }
 
