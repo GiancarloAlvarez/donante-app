@@ -23,6 +23,9 @@
                             BackgroundColor="#26FFFFFF"
                             StrokeThickness="0"
                             VerticalOptions="Center">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCancelarClicked"/>
+                        </Border.GestureRecognizers>
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="20"/>
                         </Border.StrokeShape>
@@ -31,11 +34,8 @@
                                FontSize="20"
                                TextColor="White"
                                HorizontalOptions="Center"
-                               VerticalOptions="Center">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnCancelarClicked"/>
-                            </Label.GestureRecognizers>
-                        </Label>
+                               VerticalOptions="Center"
+                               InputTransparent="True"/>
                     </Border>
                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
                         <Label Text="Editar donante"
@@ -449,13 +449,13 @@
                             Stroke="#E5E7EB"
                             StrokeThickness="1"
                             Padding="0">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCancelarClicked"/>
+                        </Border.GestureRecognizers>
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="12"/>
                         </Border.StrokeShape>
-                        <Grid HeightRequest="52">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnCancelarClicked"/>
-                            </Grid.GestureRecognizers>
+                        <Grid HeightRequest="52" InputTransparent="True">
                             <Label Text="Cancelar"
                                    TextColor="#4B5563"
                                    FontFamily="InterSemiBold"
@@ -468,16 +468,16 @@
                             BackgroundColor="#DC143C"
                             StrokeThickness="0"
                             Padding="0">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnGuardarTapped"/>
+                        </Border.GestureRecognizers>
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="12"/>
                         </Border.StrokeShape>
                         <Border.Shadow>
                             <Shadow Brush="#40DC143C" Offset="0,4" Radius="10" Opacity="1"/>
                         </Border.Shadow>
-                        <Grid HeightRequest="52">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnGuardarTapped"/>
-                            </Grid.GestureRecognizers>
+                        <Grid HeightRequest="52" InputTransparent="True">
                             <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="8">
                                 <Label Text="&#xf0c7;"
                                        FontFamily="FontAwesomeSolid"

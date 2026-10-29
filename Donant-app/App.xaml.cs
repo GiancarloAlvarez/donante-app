@@ -26,10 +26,10 @@ namespace Donant_app
             return new Window(new AppShell())
             {
                 Title = "Dona T",
-                Width = 480,
-                Height = 800,
-                MinimumWidth = 400,
-                MinimumHeight = 650
+                Width = 460,
+                Height = 620,
+                MinimumWidth = 360,
+                MinimumHeight = 480
             };
         }
     }
