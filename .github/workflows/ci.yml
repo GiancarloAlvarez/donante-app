@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - unidad5
+      - main
+  push:
+    branches:
+      - unidad5
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: Pruebas unitarias
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v7
+
+      - name: Instalar .NET SDK
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.403
+
+      - name: Restaurar dependencias
+        run: dotnet restore Donant-app.Tests/Donant-app.Tests.csproj
+
+      - name: Ejecutar pruebas
+        run: dotnet test Donant-app.Tests/Donant-app.Tests.csproj --configuration Release --no-restore --verbosity minimal
