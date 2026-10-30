@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Donant_app.Models;
 
@@ -6,100 +6,120 @@ namespace Donant_app.ViewModels;
 
 public partial class SolicitudSangreViewModel : ObservableObject
 {
+    private bool _showValidation;
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(NombrePacienteError))]
-    private string _nombrePaciente = string.Empty;
+    public partial string NombrePaciente { get; set; } = string.Empty;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(TipoSangreError))]
-    private string _tipoSangreNecesario = string.Empty;
+    public partial string TipoSangreNecesario { get; set; } = string.Empty;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HospitalError))]
-    private string _hospital = string.Empty;
+    public partial string Hospital { get; set; } = string.Empty;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ContactoError))]
-    private string _numeroContacto = string.Empty;
+    public partial string NumeroContacto { get; set; } = string.Empty;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CiudadError))]
-    private string _ciudad = string.Empty;
+    public partial string Ciudad { get; set; } = string.Empty;
 
     [ObservableProperty]
-    private bool _esUrgente;
+    public partial bool EsUrgente { get; set; }
 
     [ObservableProperty]
-    private DateTime _fechaSolicitud = DateTime.Today;
+    [NotifyPropertyChangedFor(nameof(FechaSolicitudError))]
+    public partial DateTime FechaSolicitud { get; set; } = DateTime.Today;
 
-    public string NombrePacienteError => ValidarNombrePaciente();
-    public string TipoSangreError => ValidarTipoSangre();
-    public string HospitalError => ValidarHospital();
-    public string ContactoError => ValidarContacto();
-    public string CiudadError => ValidarCiudad();
-
-    private string ValidarNombrePaciente() =>
+    public string NombrePacienteError =>
+        !_showValidation ? string.Empty :
         string.IsNullOrWhiteSpace(NombrePaciente) ? "El nombre del paciente es obligatorio." :
-        NombrePaciente.Trim().Length < 3 ? "El nombre debe tener al menos 3 caracteres." :
-        string.Empty;
+        NombrePaciente.Trim().Length < 3 ? "El nombre debe tener al menos 3 caracteres." : string.Empty;
 
-    private string ValidarTipoSangre() =>
-        string.IsNullOrWhiteSpace(TipoSangreNecesario) ? "Selecciona el tipo de sangre requerido." :
-        string.Empty;
+    public string TipoSangreError =>
+        !_showValidation ? string.Empty :
+        string.IsNullOrWhiteSpace(TipoSangreNecesario) ? "Selecciona el tipo de sangre requerido." : string.Empty;
 
-    private string ValidarHospital() =>
+    public string HospitalError =>
+        !_showValidation ? string.Empty :
         string.IsNullOrWhiteSpace(Hospital) ? "El nombre del hospital es obligatorio." :
-        Hospital.Trim().Length < 3 ? "Ingresa un nombre de hospital válido." :
-        string.Empty;
+        Hospital.Trim().Length < 3 ? "Ingresa un nombre de hospital válido." : string.Empty;
 
-    private string ValidarContacto() =>
+    public string ContactoError =>
+        !_showValidation ? string.Empty :
         string.IsNullOrWhiteSpace(NumeroContacto) ? "El número de contacto es obligatorio." :
-        NumeroContacto.Length < 8 ? "El número debe tener al menos 8 dígitos." :
-        !NumeroContacto.All(c => char.IsDigit(c) || c == '+' || c == ' ' || c == '-')
-            ? "Solo se permiten números, +, espacios o guiones." :
-        string.Empty;
+        NumeroContacto.Count(char.IsDigit) < 7 ? "El número debe tener al menos 7 dígitos." :
+        !NumeroContacto.All(character => char.IsDigit(character) || character is '+' or ' ' or '-')
+            ? "Solo se permiten números, +, espacios o guiones." : string.Empty;
 
-    private string ValidarCiudad() =>
+    public string CiudadError =>
+        !_showValidation ? string.Empty :
         string.IsNullOrWhiteSpace(Ciudad) ? "La ciudad es obligatoria." :
-        Ciudad.Trim().Length < 2 ? "Ingresa una ciudad válida." :
-        string.Empty;
+        Ciudad.Trim().Length < 2 ? "Ingresa una ciudad válida." : string.Empty;
+
+    public string FechaSolicitudError =>
+        !_showValidation ? string.Empty :
+        FechaSolicitud.Date > DateTime.Today ? "La fecha de solicitud no puede estar en el futuro." : string.Empty;
+
+    [RelayCommand]
+    private async Task GuardarAsync()
+    {
+        await App.DataReady;
+        NotifyValidation();
+        if (!FormularioValido()) return;
+
+        try
+        {
+            await SolicitudSangreStore.AddAsync(new SolicitudSangre
+            {
+                NombrePaciente = NombrePaciente.Trim(),
+                TipoSangreNecesario = DonanteValidator.NormalizeBloodType(TipoSangreNecesario),
+                Hospital = Hospital.Trim(),
+                EsUrgente = EsUrgente,
+                NumeroContacto = NumeroContacto.Trim(),
+                FechaSolicitud = FechaSolicitud,
+                Ciudad = Ciudad.Trim()
+            });
+
+            LimpiarFormulario();
+            await Shell.Current.DisplayAlertAsync("Solicitud guardada", "La solicitud de sangre quedó registrada.", "OK");
+            await AppShell.NavigateBackOrHomeAsync();
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlertAsync("No se pudo guardar", ex.Message, "Entendido");
+        }
+    }
+
+    [RelayCommand]
+    private void Cancelar() => LimpiarFormulario();
 
     private bool FormularioValido() =>
         string.IsNullOrEmpty(NombrePacienteError) &&
         string.IsNullOrEmpty(TipoSangreError) &&
         string.IsNullOrEmpty(HospitalError) &&
         string.IsNullOrEmpty(ContactoError) &&
-        string.IsNullOrEmpty(CiudadError);
+        string.IsNullOrEmpty(CiudadError) &&
+        string.IsNullOrEmpty(FechaSolicitudError);
 
-    [RelayCommand]
-    private async Task GuardarAsync()
+    private void NotifyValidation()
     {
+        _showValidation = true;
         OnPropertyChanged(nameof(NombrePacienteError));
         OnPropertyChanged(nameof(TipoSangreError));
         OnPropertyChanged(nameof(HospitalError));
         OnPropertyChanged(nameof(ContactoError));
         OnPropertyChanged(nameof(CiudadError));
-
-        if (!FormularioValido()) return;
-
-        SolicitudSangreStore.Solicitudes.Add(new SolicitudSangre
-        {
-            Id = SolicitudSangreStore.Solicitudes.Count + 1,
-            NombrePaciente = NombrePaciente.Trim(),
-            TipoSangreNecesario = TipoSangreNecesario,
-            Hospital = Hospital.Trim(),
-            EsUrgente = EsUrgente,
-            NumeroContacto = NumeroContacto.Trim(),
-            FechaSolicitud = FechaSolicitud,
-            Ciudad = Ciudad.Trim()
-        });
-
-        LimpiarFormulario();
-        await Shell.Current.GoToAsync("..");
+        OnPropertyChanged(nameof(FechaSolicitudError));
     }
 
     private void LimpiarFormulario()
     {
+        _showValidation = false;
         NombrePaciente = string.Empty;
         TipoSangreNecesario = string.Empty;
         Hospital = string.Empty;

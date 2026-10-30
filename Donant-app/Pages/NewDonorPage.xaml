@@ -6,6 +6,7 @@
     xmlns:vm="clr-namespace:Donant_app.ViewModels"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
+    x:DataType="vm:NewDonorViewModel"
     Shell.NavBarIsVisible="False"
     BackgroundColor="#F8F7F9">
 
@@ -28,19 +29,19 @@
                             BackgroundColor="#26FFFFFF"
                             StrokeThickness="0"
                             VerticalOptions="Center">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCancelarClicked"/>
+                        </Border.GestureRecognizers>
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="20"/>
                         </Border.StrokeShape>
-                        <Label Text="&#xf060;"
-                               FontFamily="FontAwesomeSolid"
-                               FontSize="15"
+                        <Label Text="←"
+                               FontFamily="InterSemiBold"
+                               FontSize="20"
                                TextColor="White"
                                HorizontalOptions="Center"
-                               VerticalOptions="Center">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnCancelarClicked"/>
-                            </Label.GestureRecognizers>
-                        </Label>
+                               VerticalOptions="Center"
+                               InputTransparent="True"/>
                     </Border>
                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
                         <Label Text="Nuevo donante"
@@ -68,7 +69,8 @@
                                 BackgroundColor="#26FF6B6B"
                                 StrokeThickness="0"
                                 HorizontalOptions="Center"
-                                VerticalOptions="Center">
+                                VerticalOptions="Center"
+                                InputTransparent="True">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="40"/>
                             </Border.StrokeShape>
@@ -82,19 +84,21 @@
                                FontSize="28"
                                TextColor="#DC143C"
                                HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
+                               VerticalOptions="Center"
+                               InputTransparent="True"/>
                         <Border WidthRequest="28" HeightRequest="28"
                                 BackgroundColor="#DC143C"
                                 StrokeThickness="2"
                                 Stroke="#F8F7F9"
                                 HorizontalOptions="End"
-                                VerticalOptions="End">
+                                VerticalOptions="End"
+                                InputTransparent="True">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="14"/>
                             </Border.StrokeShape>
-                            <Label Text="&#xf030;"
-                                   FontFamily="FontAwesomeSolid"
-                                   FontSize="11"
+                            <Label Text="＋"
+                                   FontFamily="InterSemiBold"
+                                   FontSize="18"
                                    TextColor="White"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center"/>
@@ -233,6 +237,7 @@
                                                Margin="0,0,14,0"
                                                InputTransparent="True"/>
                                         <DatePicker x:Name="DatePickerNacimiento"
+                                                    Date="{Binding FechaNacimiento}"
                                                     Opacity="0"
                                                     HeightRequest="48"
                                                     VerticalOptions="Fill"
@@ -380,7 +385,9 @@
                                            Margin="0,0,10,0"/>
                                     <DatePicker x:Name="DateUltimaDonacion"
                                                 Grid.Column="1"
+                                                Date="{Binding UltimaDonacion}"
                                                 Format="dd/MM/yyyy"
+                                                MaximumDate="{x:Static sys:DateTime.Today}"
                                                 TextColor="#374151"
                                                 FontSize="14"
                                                 FontFamily="InterRegular"
@@ -450,13 +457,13 @@
         Stroke="#E5E7EB"
         StrokeThickness="1"
         Padding="0">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCancelarClicked"/>
+                        </Border.GestureRecognizers>
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="12"/>
                         </Border.StrokeShape>
-                        <Grid HeightRequest="52">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnCancelarClicked"/>
-                            </Grid.GestureRecognizers>
+                        <Grid HeightRequest="52" InputTransparent="True">
                             <Label Text="Cancelar"
                TextColor="#4B5563"
                FontFamily="InterSemiBold"
@@ -469,16 +476,16 @@
                             BackgroundColor="#DC143C"
                             StrokeThickness="0"
                             Padding="0">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnGuardarTapped"/>
+                        </Border.GestureRecognizers>
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="12"/>
                         </Border.StrokeShape>
                         <Border.Shadow>
                             <Shadow Brush="#40DC143C" Offset="0,4" Radius="10" Opacity="1"/>
                         </Border.Shadow>
-                        <Grid HeightRequest="52">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnGuardarTapped"/>
-                            </Grid.GestureRecognizers>
+                        <Grid HeightRequest="52" InputTransparent="True">
                             <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="8">
                                 <Label Text="&#xf0c7;"
                                        FontFamily="FontAwesomeSolid"

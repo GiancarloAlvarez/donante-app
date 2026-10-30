@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Donant-app\Models\Donante.cs" Link="Source\Donante.cs" />
+    <Compile Include="..\Donant-app\Models\DonanteValidator.cs" Link="Source\DonanteValidator.cs" />
+    <Compile Include="..\Donant-app\Models\DonorInsights.cs" Link="Source\DonorInsights.cs" />
+    <Compile Include="..\Donant-app\Models\JsonFileStore.cs" Link="Source\JsonFileStore.cs" />
+    <Compile Include="..\Donant-app\Models\RegistroDonacion.cs" Link="Source\RegistroDonacion.cs" />
+    <Compile Include="..\Donant-app\Models\SolicitudSangre.cs" Link="Source\SolicitudSangre.cs" />
+    <Compile Include="..\Donant-app\Models\Usuario.cs" Link="Source\Usuario.cs" />
+    <Compile Include="..\Donant-app\Services\InMemoryDataService.cs" Link="Source\InMemoryDataService.cs" />
+  </ItemGroup>
+</Project>

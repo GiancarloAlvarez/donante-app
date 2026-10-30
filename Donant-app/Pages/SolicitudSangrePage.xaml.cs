@@ -9,14 +9,16 @@ public partial class SolicitudSangrePage : ContentPage
         InitializeComponent();
     }
 
-    private async void OnGuardarTapped(object sender, EventArgs e)
+    private async void OnGuardarTapped(object? sender, EventArgs e)
     {
         if (BindingContext is SolicitudSangreViewModel vm)
             await vm.GuardarCommand.ExecuteAsync(null);
     }
 
-    private async void OnCancelarClicked(object sender, EventArgs e)
+    private async void OnCancelarClicked(object? sender, EventArgs e)
     {
+        if (BindingContext is SolicitudSangreViewModel vm)
+            vm.CancelarCommand.Execute(null);
         await Shell.Current.GoToAsync("//main");
     }
 }

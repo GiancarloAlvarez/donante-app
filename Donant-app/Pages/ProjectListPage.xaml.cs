@@ -2,21 +2,40 @@ using Donant_app.Models;
 
 namespace Donant_app.Pages;
 
+[QueryProperty(nameof(Section), "section")]
 public partial class ProjectListPage : ContentPage
 {
+    private string _section = "all";
+
+    public string Section
+    {
+        get => _section;
+        set => _section = string.IsNullOrWhiteSpace(value) ? "all" : value.ToLowerInvariant();
+    }
+
     public ProjectListPage()
     {
         InitializeComponent();
-        CargarDonantes(DonanteStore.Donantes);
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
+        await App.DataReady;
         CargarDonantes(DonanteStore.Donantes);
+        BindableLayout.SetItemsSource(
+            ListaSolicitudes,
+            SolicitudSangreStore.Solicitudes
+                .OrderBy(request => request.EstaAtendida)
+                .ThenByDescending(request => request.FechaSolicitud)
+                .ToList());
+        BindableLayout.SetItemsSource(ListaHistorial, RegistroDonacionStore.Registros);
+        ContadorSolicitudes.Text = $"({SolicitudSangreStore.Solicitudes.Count})";
+        ContadorHistorial.Text = $"({RegistroDonacionStore.Registros.Count})";
+        await ScrollToSectionAsync(Section, false);
     }
 
-    private void CargarDonantes(List<Donante> lista)
+    private void CargarDonantes(IReadOnlyList<Donante> lista)
     {
         DonorsCollectionView.ItemsSource = null; 
         DonorsCollectionView.ItemsSource = lista;
@@ -32,26 +51,122 @@ public partial class ProjectListPage : ContentPage
         }
     }
 
-    private void OnBuscar(object sender, TextChangedEventArgs e)
+    private void OnBuscar(object? sender, TextChangedEventArgs e)
     {
-        var texto = e.NewTextValue?.ToLower() ?? string.Empty;
-
-        var filtrados = DonanteStore.Donantes
-            .Where(d => d.NombreDonante.ToLower().Contains(texto)
-                     || d.TipoSangre.ToLower().Contains(texto)
-                     || d.Direccion.ToLower().Contains(texto))
-            .ToList();
-
-        CargarDonantes(filtrados);
+        CargarDonantes(DonanteStore.Search(e.NewTextValue));
     }
 
-    private async void OnFabTapped(object sender, EventArgs e)
+    private async void OnFabTapped(object? sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(NewDonorPage));
     }
 
+    private async void OnAllTabTapped(object? sender, TappedEventArgs e) =>
+        await ScrollToSectionAsync("all");
+
+    private async void OnDonorsTabTapped(object? sender, TappedEventArgs e) =>
+        await ScrollToSectionAsync("donors");
+
+    private async void OnRequestsTabTapped(object? sender, TappedEventArgs e) =>
+        await ScrollToSectionAsync("requests");
+
+    private async void OnHistoryTabTapped(object? sender, TappedEventArgs e) =>
+        await ScrollToSectionAsync("history");
+
+    private async void OnFilterTapped(object? sender, TappedEventArgs e)
+    {
+        string? choice = await DisplayActionSheetAsync(
+            "Ir a una sección",
+            "Cancelar",
+            null,
+            "Todos",
+            "Donantes",
+            "Citas y solicitudes",
+            "Historial");
+
+        string? section = choice switch
+        {
+            "Todos" => "all",
+            "Donantes" => "donors",
+            "Citas y solicitudes" => "requests",
+            "Historial" => "history",
+            _ => null
+        };
+
+        if (section is not null)
+        {
+            await ScrollToSectionAsync(section);
+        }
+    }
+
+    private async Task ScrollToSectionAsync(string section, bool animate = true)
+    {
+        Section = section;
+        VisualElement target = Section switch
+        {
+            "donors" => DonorsSection,
+            "requests" => RequestsSection,
+            "history" => HistorySection,
+            _ => ContentRoot
+        };
+
+        SetActiveTab(Section);
+        await Task.Yield();
+        await MainScrollView.ScrollToAsync(target, ScrollToPosition.Start, animate);
+    }
+
+    private void SetActiveTab(string section)
+    {
+        (Border Border, Label Label, string Key)[] tabs =
+        [
+            (TabAll, TabAllLabel, "all"),
+            (TabDonors, TabDonorsLabel, "donors"),
+            (TabRequests, TabRequestsLabel, "requests"),
+            (TabHistory, TabHistoryLabel, "history")
+        ];
+
+        foreach ((Border border, Label label, string key) in tabs)
+        {
+            bool selected = key == section;
+            border.BackgroundColor = selected ? Color.FromArgb("#DC143C") : Colors.White;
+            label.TextColor = selected ? Colors.White : Color.FromArgb("#4B5563");
+            label.FontFamily = selected ? "InterSemiBold" : "InterMedium";
+        }
+    }
+
+    private async void OnSolicitudTapped(object? sender, TappedEventArgs e)
+    {
+        if (e.Parameter is not SolicitudSangre solicitud)
+        {
+            return;
+        }
+
+        await Shell.Current.GoToAsync(
+            nameof(SolicitudDetallePage),
+            new Dictionary<string, object> { ["Solicitud"] = solicitud });
+    }
+
+    private async void OnHistoryRecordTapped(object? sender, TappedEventArgs e)
+    {
+        if (e.Parameter is not RegistroDonacion record)
+        {
+            return;
+        }
+
+        Donante? donor = DonanteStore.Donantes.FirstOrDefault(item => item.Id == record.DonanteId);
+        if (donor is null)
+        {
+            await AppShell.DisplaySnackbarAsync("El donante de este registro ya no está disponible.");
+            return;
+        }
+
+        await Shell.Current.GoToAsync(
+            nameof(HistorialDonantePage),
+            new Dictionary<string, object> { ["Donante"] = donor });
+    }
+
     // Ver perfil
-    private async void OnDonanteTapped(object sender, TappedEventArgs e)
+    private async void OnDonanteTapped(object? sender, TappedEventArgs e)
     {
         if (e.Parameter is Donante donante)
         {
@@ -61,7 +176,7 @@ public partial class ProjectListPage : ContentPage
     }
 
     // Editar
-    private async void OnEditarDonanteTapped(object sender, TappedEventArgs e)
+    private async void OnEditarDonanteTapped(object? sender, TappedEventArgs e)
     {
         if (e.Parameter is Donante donante)
         {
@@ -71,7 +186,7 @@ public partial class ProjectListPage : ContentPage
     }
 
     // Eliminar
-    private async void OnEliminarDonanteTapped(object sender, TappedEventArgs e)
+    private async void OnEliminarDonanteTapped(object? sender, TappedEventArgs e)
     {
         if (e.Parameter is not Donante donante) return;
 
@@ -82,14 +197,20 @@ public partial class ProjectListPage : ContentPage
 
         if (!confirmar) return;
 
-        DonanteStore.Donantes.Remove(donante);
-        RefrescarLista();
-        await AppShell.DisplaySnackbarAsync($"{donante.NombreDonante} eliminado.");
+        try
+        {
+            await DonanteStore.DeleteAsync(donante.Id);
+            RefrescarLista();
+            await AppShell.DisplaySnackbarAsync($"{donante.NombreDonante} eliminado.");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("No se pudo eliminar", ex.Message, "Entendido");
+        }
     }
 
     private void RefrescarLista()
     {
-        DonorsCollectionView.ItemsSource = null;
-        DonorsCollectionView.ItemsSource = DonanteStore.Donantes;
+        CargarDonantes(DonanteStore.Search(EntryBuscar.Text));
     }
 }

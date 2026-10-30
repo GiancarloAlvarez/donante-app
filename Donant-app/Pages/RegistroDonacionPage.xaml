@@ -3,7 +3,9 @@
     x:Class="Donant_app.Pages.RegistroDonacionPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:Donant_app.Models"
     xmlns:vm="clr-namespace:Donant_app.ViewModels"
+    x:DataType="vm:RegistroDonacionViewModel"
     Shell.NavBarIsVisible="False"
     BackgroundColor="#F8F7F9">
 
@@ -19,32 +21,25 @@
                    FontFamily="InterBold"
                    TextColor="#1F2937"/>
 
-            <!-- ID Donante -->
+            <!-- Donante -->
             <VerticalStackLayout Spacing="6">
-                <Label Text="ID del Donante" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
+                <Label Text="Donante" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
                 <Border BackgroundColor="#F8F7F9" Stroke="#F3F4F6" StrokeThickness="1" Padding="0">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="12"/>
                     </Border.StrokeShape>
-                    <Entry Text="{Binding DonanteId}" Placeholder="Ej. 1" Keyboard="Numeric"
-                           PlaceholderColor="#9CA3AF" TextColor="#1F2937" FontSize="14"
-                           BackgroundColor="Transparent" Margin="16,0" HeightRequest="48"/>
+                    <Picker ItemsSource="{Binding Donantes}"
+                            SelectedItem="{Binding DonanteSeleccionado}"
+                            ItemDisplayBinding="{Binding NombreDonante, x:DataType=models:Donante}"
+                            Title="Selecciona un donante"
+                            TextColor="#1F2937"
+                            TitleColor="#9CA3AF"
+                            FontSize="14"
+                            BackgroundColor="Transparent"
+                            Margin="12,0"
+                            HeightRequest="48"/>
                 </Border>
-                <Label Text="{Binding DonanteIdError}" TextColor="#DC143C" FontSize="11" Margin="4,0,0,0"/>
-            </VerticalStackLayout>
-
-            <!-- Nombre Donante -->
-            <VerticalStackLayout Spacing="6">
-                <Label Text="Nombre del Donante" FontSize="12" FontFamily="InterMedium" TextColor="#4B5563"/>
-                <Border BackgroundColor="#F8F7F9" Stroke="#F3F4F6" StrokeThickness="1" Padding="0">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="12"/>
-                    </Border.StrokeShape>
-                    <Entry Text="{Binding NombreDonante}" Placeholder="Ej. Juan Pérez"
-                           PlaceholderColor="#9CA3AF" TextColor="#1F2937" FontSize="14"
-                           BackgroundColor="Transparent" Margin="16,0" HeightRequest="48"/>
-                </Border>
-                <Label Text="{Binding NombreDonanteError}" TextColor="#DC143C" FontSize="11" Margin="4,0,0,0"/>
+                <Label Text="{Binding DonanteSeleccionadoError}" TextColor="#DC143C" FontSize="11" Margin="4,0,0,0"/>
             </VerticalStackLayout>
 
             <!-- Centro de Donación -->
@@ -100,30 +95,31 @@
                                 TextColor="#374151" FontSize="14" BackgroundColor="Transparent"
                                 Margin="16,0" HeightRequest="48"/>
                 </Border>
+                <Label Text="{Binding FechaDonacionError}" TextColor="#DC143C" FontSize="11" Margin="4,0,0,0"/>
             </VerticalStackLayout>
 
             <!-- Botones -->
             <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,8,0,0">
                 <Border Grid.Column="0" BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" Padding="0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCancelarClicked"/>
+                    </Border.GestureRecognizers>
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="12"/>
                     </Border.StrokeShape>
-                    <Grid HeightRequest="52">
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnCancelarClicked"/>
-                        </Grid.GestureRecognizers>
+                    <Grid HeightRequest="52" InputTransparent="True">
                         <Label Text="Cancelar" TextColor="#4B5563" FontFamily="InterSemiBold"
                                FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
                     </Grid>
                 </Border>
                 <Border Grid.Column="1" BackgroundColor="#DC143C" StrokeThickness="0" Padding="0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnGuardarTapped"/>
+                    </Border.GestureRecognizers>
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="12"/>
                     </Border.StrokeShape>
-                    <Grid HeightRequest="52">
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnGuardarTapped"/>
-                        </Grid.GestureRecognizers>
+                    <Grid HeightRequest="52" InputTransparent="True">
                         <Label Text="Guardar" TextColor="White" FontFamily="InterSemiBold"
                                FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
                     </Grid>
